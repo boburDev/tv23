@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import Category from './category/category'
 import Header from './categoryHeader/header'
-import Navbar from './Navbar/Navbar'
+import Navbar from './categoryNavbar/navbar'
 
 export default function Categories() {
-    const [categories, setCategories] = useState([])
-    const [loading, setLoading] = useState(true)
+    const [categories] = useState([])
+    const [loading] = useState(true)
 
     return (
         <>

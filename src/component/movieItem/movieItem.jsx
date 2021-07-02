@@ -3,11 +3,11 @@ import './movieItem.css'
 
 import { Link } from 'react-router-dom'
 import { useTheme } from '../../context/theme'
-import { useApi } from '../../context/api'
+// import { useApi } from '../../context/api'
 
 export default function MovieItem({ movie = {} }) {
 
-    const [api] = useApi()
+    // const [api] = useApi()
     const [imageLoaded, setImageLoaded] = useState(false)
     const [dark] = useTheme()
 

@@ -1,7 +1,7 @@
+import './navbar.css'
 import { useEffect, useState } from 'react'
 import { useTheme } from '../../../context/theme'
-import st from './Navbar.module.css'
-import { useApi } from '../../../Contexts/api'
+import { useApi } from '../../../context/api'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 export default function Navbar() {
@@ -17,12 +17,13 @@ export default function Navbar() {
         ;(async()=>{
             const res = await axios.get(api + '/categories')
             setCategories(res.data.data)
+            console.log(res.data.data)
         })()
     },[api])
 
     return (
-        <div className={st.container}>
-            <div  className={st.items}>
+        <div className="container">
+            <div  className="items">
                 {
                     categories && categories.map((val, key) => <Link
                     to={`/categories/${val.category_name}`}
@@ -30,7 +31,7 @@ export default function Navbar() {
                     onClick={e => setActive(e.target.id)}
                     key={key}
                     style={itemStyle}
-                    className={`${st.nav_item} ${(val.category_id === active) ? st.active : ''}`}>
+                    className={`nav_item ${(val.category_id === active) ? 'active' : ''}`}>
                         {val.category_name}
                     </Link>)
                 }
