@@ -28,9 +28,7 @@ export default function TrailerCarousel({ movies = [] }) {
     const setSize = ()=>{
         
         var box = document.querySelector('#box')
-        // var item = document.querySelector('#wayRef')
         setItemWidth(window.innerWidth>761 ? box?.offsetWidth/2 :box?.offsetWidth )
-        // setItemHeight(item?.offsetHeight)
     };
     useEffect(()=>{
         setSize()

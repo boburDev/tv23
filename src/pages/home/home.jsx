@@ -10,6 +10,7 @@ import { useApi } from "../../context/api"
 function Home() {
 	const [api] = useApi()
 	const [categories, setCategories] = useState([])
+	const [recommendedTriller, setRecommendedTriller] = useState([])
 	const [loading, setLoading] = useState(false)
 	async function getMovies (api){
 		try {
@@ -20,16 +21,30 @@ function Home() {
 		} catch (error) {
 		}
 	}
+
+	async function recommendedTrillers(api) {
+		try {
+			setLoading(true)
+			const trillers = await axios.get(api + '/recommended-t')
+			setRecommendedTriller(trillers.data.data)
+			setLoading(false)
+		} catch (error) {
+			
+		}
+	}
 	
 	useEffect(()=>{
 		getMovies(api)
+		recommendedTrillers(api)
 	},[api])
 	
 	
 	return (
 		<>
 		<Navbar />
-		<Triller />
+		<Triller
+		data={recommendedTriller}
+		api={api} />
 		<CategoryMovie
 		data={categories}
 		loading={loading}

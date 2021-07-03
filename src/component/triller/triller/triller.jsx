@@ -4,14 +4,11 @@ import TrailerItem from '../trillerItem/trillerItem'
 import SliderCounterBasic from '../../sliderCounter/sliderCounterBasic'
 import SearchNotFound from '../../notFound/SearchNotFound/notFound'
 
-export default function Trailer({ api }) {
+export default function Trailer(props) {
 	const [current, setCurrent] = useState(0)
 	const [itemWidth, setItemWidth] = useState()
 
-	const [, setItemHeight] = useState()
-
-	const [movies] = useState([])
-	
+	console.log(props)
 	const carouselWayStyle = {
 		transform:`translateX(-${current*itemWidth}px)`,
 		transition:'transform 1s ease',
@@ -20,10 +17,8 @@ export default function Trailer({ api }) {
 	}
 	const settingSize =()=>{
 		var playerRefId = document.getElementById('playerRef')
-		var carouselWayId = document.getElementById('carouselWay')      
 		
 		setItemWidth(playerRefId.clientWidth || playerRefId.offsetWidth)
-		setItemHeight(carouselWayId.clientHeight || carouselWayId.offsetHeight)
 	}
 	useEffect(()=>{
 		settingSize()
@@ -40,15 +35,23 @@ export default function Trailer({ api }) {
 
 	return (
 		<div className={st.container}>
-			<div id="playerRef" style={{height:'93vh'}} className={st.player}>
+			<div id="playerRef" style={{height:'95vh'}} className={st.player}>
 				<div className={st.controls}>
-				<SliderCounterBasic current={current} setCurrent = {setCurrent} max={movies && movies.length} /> 
+				<SliderCounterBasic current={current} setCurrent = {setCurrent} max={props.data && props.data.length} /> 
 				</div>
 				<div style={carouselWayStyle} id="carouselWay"  className={st.carouselWay}>
-				{movies && movies.length>0 ? movies.map((item, key)=>{
+				{props.data && props.data.length>0 ? props.data.map((item, key)=>{
 					return (  
-						<div key={key} style={{width:itemWidth+'px',transform: current!==key ? 'scale(0.94, 0.8)' :  '', transition:'transform 1s ease', opacity: current-1===key || current+1===key ? 0.3:  current===key ? 1 : 0,}}  className={st.carouselItem}>
-						<TrailerItem listenIndex={current} isActive={key===current} data={item} api={api} />
+						<div
+						key={key}
+						style={{
+							width:itemWidth+'px',
+							transform: current!==key ? 'scale(0.94, 0.8)' :  '',
+							transition:'transform 1s ease',
+							opacity: current - 1 === key || current+1===key ? 0.3 :  current===key ? 1 : 0
+						}}
+						className={st.carouselItem}>
+						<TrailerItem listenIndex={current} isActive={key === current} data={item} api={props.api} />
 						</div>
 						)
 					}) : <div style={{display:'flex', height:'100vh', width:'100%'}}> <SearchNotFound /></div>  }

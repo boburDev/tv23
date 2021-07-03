@@ -7,9 +7,8 @@ export default function TrailerItem({isActive, data, api}) {
     return (
         <>
         {
-            <div className={st.container}
-                style={{background: `url(${api}/${data.movie_screen}})`}}
-            >
+            <div className={st.container}>
+                <img className={st.bg_image} src={`${api}/${data.movie_screen}`} alt="triller_img" />
                 <div className={st.box}>
                     <div className={st.info}>
                         <h1 className={st.name}>{data.triller_name}</h1>

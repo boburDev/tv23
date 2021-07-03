@@ -10,14 +10,12 @@
     position: relative;
     display: flex;
     composes:container from '../../../pages/app/app.css';
-    /* max-height: 100%; */
     height: 52vh;
 }
 .slideBox{
     height: 100%;
     width: 100%;
     position: relative;
-    /* overflow: hidden; */
 }
 
 .carouselWay{
