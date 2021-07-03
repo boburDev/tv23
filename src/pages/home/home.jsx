@@ -1,29 +1,43 @@
 import Footer from "../../component/footer/footer"
 import Ads from "../../component/ads/ads"
 import Navbar from "../../component/navbar/navbar"
-import MovieItem from '../../component/movieItem/movieItem'
+// import MovieItem from '../../component/movieItem/movieItem'
 import CategoryMovie from '../../component/categories/categories'
+import { useEffect, useState } from "react"
+import axios from "axios"
+import { useApi } from "../../context/api"
 function Home() {
-
-
-  const movie = {
-    category_id: '1234',
-    movie_id: "123rgfd",
-    movie_thumnail_path: "../../assets/image/ads_banner.svg",
-    movie_name: "Reklama",
-    movie_genre: "rek, ed, gsd, gfdvd, fvfd"
-  }
-
-
-  return (
-    <>
-      <Navbar />
-      <CategoryMovie />
-      <MovieItem movie={movie} />
-      <Ads />
-      <Footer />
-    </>
-  )
-}
-
-export default Home
+	const [api] = useApi()
+	const [categories, setCategories] = useState([])
+	const [loading, setLoading] = useState(false)
+	async function getMovies (api){
+		try {
+			setLoading(true)
+			const categories = await axios.get(api + '/category-with-movies')
+			setLoading(false)
+			setCategories(categories.data.data)
+		} catch (error) {
+		}
+	}
+	
+	useEffect(()=>{
+		getMovies(api)
+	},[api])
+	
+	
+	return (
+		<>
+		<Navbar />
+		<CategoryMovie
+		data={categories}
+		loading={loading}
+		what="category" />
+		{/* <MovieItem movie={movie} /> */}
+		<Ads />
+		<Footer />
+		</>
+		)
+	}
+	
+	export default Home
+	

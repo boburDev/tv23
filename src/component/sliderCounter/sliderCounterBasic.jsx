@@ -1,4 +1,4 @@
-import './sliderCounter.css'
+import './sliderCounter.module.css'
 export default function SliderCounterBasic({max=1, current, setCurrent,infinite=false }) {
     const next=()=>{
         setCurrent(x=>++x)

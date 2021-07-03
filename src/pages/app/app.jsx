@@ -6,8 +6,8 @@ function App() {
   return (
     <>
 		<Switch>
-			<Route path="/" component={Home} exact />
-		</Switch>		
+			<Route path="/:lang?" component={Home} exact />
+		</Switch>
     </>
   )
 }

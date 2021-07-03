@@ -1,3 +1,6 @@
+.container {
+    composes:container from '../../pages/app/app.css';
+}
 .footer * {
     font-family: 'Lato', sans-serif;
 }
@@ -6,7 +9,8 @@
     font-family: 'Lato', sans-serif;
 }
 
-.footer-main {
+
+.footer_main {
     background-color: #121213;
     padding: 30px;
 }
@@ -40,21 +44,14 @@
     padding: 10px;
 }
 
-.categories .category_item a {
-    color: #fff;
+.categories.dark .category_item a {
+    color: #000;
     text-decoration: none;
 }
 
-.categories .category_item a:hover {
-    color: #777;
-}
-
-.categories .category_item .live {
-    font-weight: 700;
-}
-
-.categories .category_item a.live:hover {
+.categories .category_item a {
     color: #fff;
+    text-decoration: none;
 }
 
 .info_liks {
@@ -66,16 +63,17 @@
     padding: 5px;
 }
 
-.info_liks .info_link__item {
-    padding: 5px;
-}
-
 .info_liks .info_link__item a {
     color: #fff;
     text-decoration: none;
 }
 
-.info_liks .info_link__item a:hover {
+.info_liks.dark .info_link__item a {
+    color: #000;
+    text-decoration: none;
+}
+
+.info_liks .info_link__item .disabled {
     color: #777;
 }
 
@@ -103,6 +101,11 @@
     text-decoration: none;
 }
 
+.support_links.dark .support_link__item a {
+    color: #000;
+    text-decoration: none;
+}
+
 
 .footer_footer {
     background: black;
@@ -127,10 +130,14 @@
 
 .author {
     display: flex;
+    font-family: LatoRegular;
     font-weight: 500;
     font-size: 24px;
     line-height: 29px;
     color: #ffffff;
+}
+.author.dark {
+    color: #000;
 }
 .app_downloading  .boxBottom{
     margin-top: 10px;
@@ -154,7 +161,7 @@
 @media only screen and (max-width: 1110px) {
 
     .container {
-        composes:container from "../../pages/app/App.css";
+        composes:container from "../../pages/app/app.css";
         max-width: 1024px;
         width: 100%;
     }
@@ -199,7 +206,7 @@
 @media only screen and (max-width: 970px) {
 
     .container {
-        composes:container from "../../pages/app/App.css";
+        composes:container from "../../pages/app/app.css";
         max-width: 900px;
         width: 100%;
     }
@@ -219,7 +226,7 @@
 
 @media only screen and (max-width: 768px) {
     .container {
-        composes:container from "../../pages/app/App.css";   
+        composes:container from "../../pages/app/app.css";   
         max-width: 760px;
         width: 100%;
     }
@@ -262,7 +269,7 @@
 
 @media only screen and (max-width: 760px) {
     .container {
-        composes:container from "../../pages/app/App.css";
+        composes:container from "../../pages/app/app.css";
         max-width: 650px;
         width: 100%;
     }

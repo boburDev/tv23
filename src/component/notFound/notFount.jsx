@@ -1,12 +1,12 @@
 import { useTheme } from '../../context/theme'
-import './notFound.css'
+import st from './notFound.module.css'
 
 export default function NoFoundVideos() {
     const [dark] = useTheme()
 
     return (
-        <div className="container">
-            <div className="text" style={{color:dark? ' ': 'black'}}>NO Found Videos</div>
+        <div className={st.container}>
+            <div className={st.text} style={{color:dark? ' ': 'black'}}>NO Found Videos</div>
         </div>
     )
 }

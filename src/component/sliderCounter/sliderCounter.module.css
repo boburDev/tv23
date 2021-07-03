@@ -5,7 +5,6 @@
     margin: auto 20px;
     padding: 5px;
     align-items: center;
-    background: rgba(255, 255, 255, 0.1);
     border-radius: 24px;
 }
 
@@ -15,12 +14,13 @@
     height: 10px;
     color: white;
     display: flex;
-    background-color: #111112;
+    /* background-color: #111112; */
     transition: all .3s ease;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
     user-select: none;
+    background-color: #9494952f;
 }
  .buttons .box:hover{
     cursor: pointer;
@@ -44,6 +44,7 @@
     bottom: 30px;
     transform: translate(-50%);
     z-index: 99;
+    /* justify-content: center; */
 }
 .next, .prev{
     user-select: none;
@@ -54,7 +55,10 @@
     justify-content: center;
     align-items: center;
     height: 40px;
+    /* background: rgba(255, 255, 255, 0.8); */
     background: #D7141D;
+    /* border-radius: 2px; */
+    /* transform: matrix(-1, 0, 0, 1, 0, 0); */
 }
  .next{
     margin-left: 2px;

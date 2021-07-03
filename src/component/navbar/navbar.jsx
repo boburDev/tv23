@@ -1,4 +1,4 @@
-import './navbar.css'
+import st from './navbar.module.css'
 import logo from '../../assets/logo/23tv_logo.svg'
 import xIcon from '../../assets/logo/close_icon.svg'
 import xIconDark from '../../assets/logo/close_icon_light.svg'
@@ -13,14 +13,15 @@ import menuOpenLight from '../../assets/logo/menu_icon_light.svg'
 import { Link } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react'
 import { useTheme } from '../../context/theme'
-
+import { useLang } from '../../context/lanuage'
 function Navbar({ login }) {
 	const [isOpenSearch, setIsOpenSearch] = useState(false)
 	const [isOpen, setIsOpen] = useState()
 	const componentRef = useRef()
 	const [dark, setDark] = useTheme()
+	const [lang, setLang] = useLang()
 	const [fontType, setFontType] = useState('MEDIUM')
-
+	const [reload, setReload] = useState(false)
 	//toggle dark or light mode  and write localstorage
 
 	const toggleDark = () => {
@@ -29,6 +30,13 @@ function Navbar({ login }) {
 			return !x
 		})
 	}
+
+	useEffect(()=>{
+		if (reload) {
+			window.location.reload()
+			setReload(false)
+		}
+	},[reload])
 
 	const miniMenuStyle = {
 		transition: ' all .3s ease',
@@ -59,7 +67,7 @@ function Navbar({ login }) {
 		height: isOpenSearch ? '100vh' : '',
 		width: isOpenSearch ? '100%' : '',
 		opacity: isOpenSearch ? '.9' : '',
-		background: dark ? '#000000' : '#FFFFFF',
+		background: dark ? '#0C0C0D' : '#F8F9FC',
 	}
 
 
@@ -88,28 +96,28 @@ function Navbar({ login }) {
 
 	return (
 		<section style={searchStyle}>
-			<div className="container">
-				<nav className="nav">
-					<Link className="logo_link" to="/"><img src={logo} alt="logo" /></Link>
-					<ul style={{ display: isOpenSearch ? 'none' : '' }} className="navbar">
-						<li className="navbar_link_item">
+			<div className={st.container}>
+				<nav className={st.nav}>
+					<Link className={st.logo_link} to="/"><img src={logo} alt="logo" /></Link>
+					<ul style={{ display: isOpenSearch ? 'none' : '' }} className={st.navbar}>
+						<li className={st.navbar_link_item}>
 							<Link to="/categories/films">Movie</Link>
 						</li>
-						<li className="navbar_link_item">
+						<li className={st.navbar_link_item}>
 							<Link to="/categories/serials">Сериалы</Link>
 						</li>
-						<li className="navbar_link_item">
+						<li className={st.navbar_link_item}>
 							<Link to="/categories">Все категории</Link>
 						</li>
-						<li className="navbar_link_item">
+						<li className={st.navbar_link_item}>
 							<Link style={{ color: "red" }} to="/live" >LIVE</Link>
 						</li>
-						<li className="navbar_link_item">
+						<li className={st.navbar_link_item}>
 							<Link to="/favourites">Избранные</Link>
 						</li>
 					</ul>
-					<div className="user_tools" style={{ width: isOpenSearch ? '100%' : '100%' }}  >
-						<div className="search_tool" htmlFor="search_tool" style={{
+					<div className={st.user_tools} style={{ width: isOpenSearch ? '100%' : '100%' }}  >
+						<div className={st.search_tool} htmlFor="search_tool" style={{
 							width: isOpenSearch ? ' 100%' : '',
 							marginLeft: 'auto',
 							backgroundColor: dark ? '' : '#F6F6F6'
@@ -125,7 +133,7 @@ function Navbar({ login }) {
 
 							<div
 								onClick={handleSearch}
-								className="search_icon"
+								className={st.search_icon}
 							>
 								<img src={isOpenSearch ? (dark ? xIcon : xIconDark) : (dark ? searchIcon : searchIconBlack)} alt="search-icon" />
 							</div>
@@ -133,53 +141,60 @@ function Navbar({ login }) {
 						</div>
 
 					</div>
-					<div className="language" style={{ color: !dark ? "black" : 'white' }}>
-						<div 
-                        // className={l.type === 'ru-RU' ?"active": ''}
-                        >RU</div>|<div
-                        // className={l.type === 'uz-UZ' ?"active": ''}
-                        >UZ</div>
+					<div className={`${st.language} ${dark ? st.dark : ''}`}>
+						<Link to="/ru" style={{fontWeight: lang === 'ru' ? 900 : 400}}
+						onClick={() => {
+							setLang('ru')
+							setReload(true)
+						}}>RU</Link>
+						<span style={{ color: !dark ? "black" : 'white' }}>|</span>
+						<Link to="/uz" style={{fontWeight: lang === 'uz' ? 900 : 400}}
+						onClick={() => {
+							setLang('uz')
+							setReload(true)
+						}}>UZ</Link>
 					</div>
 
 					{/* Mini menu for mobile devices */}
 
 					<div ref={componentRef}>
-						<div style={miniMenuStyle} className="miniMenu">
+						<div style={miniMenuStyle} className={st.miniMenu}>
 							<div>
-								<ul className="navbar" style={{ display: login ? 'none' : '' }}>
-									<li className="navbar_link_item">
+								<ul className={st.navbar} style={{ display: login ? 'none' : '' }}>
+									<li className={st.navbar_link_item}>
 										<Link to="/categories/films">Фильмы</Link>
 									</li>
-									<li className="navbar_link_item">
+									<li className={st.navbar_link_item}>
 										<Link to="/categories/serials">Сериалы</Link>
 									</li>
-									<li className="navbar_link_item">
+									<li className={st.navbar_link_item}>
 										<Link to="/categories">Все категории</Link>
 									</li>
-									<li className="navbar_link_item">
+									<li className={st.navbar_link_item}>
 										<Link to="/live" style={{ color: "red" }}>LIVE</Link>
 									</li>
-									<li className="navbar_link_item">
+									<li className={st.navbar_link_item}>
 										<Link to="/favourites">Избранные</Link>
 									</li>
 								</ul>
-								<Link to="/settings/profile" className="menuItem">
-									<img src={userIcon} alt="" /><div className="itemName">Настройки аккаунта</div>
+
+								<Link to="/settings/profile" className={st.menuItem}>
+									<img src={userIcon} alt="" /><div className={st.itemName}>Настройки аккаунта</div>
 								</Link>
-								<div onClick={toggleDark} className="menuItem">
-									<img src={dark ? sunIcon : sunIconForLight} alt="" /><div className="itemName">{dark ? `Темный режим` : `Светлый режим`}</div>
+								<div onClick={toggleDark} className={st.menuItem}>
+									<img src={dark ? sunIcon : sunIconForLight} alt="" /><div className={st.itemName}>{dark ? `Темный режим` : `Светлый режим`}</div>
 								</div>
-								<div className="menuItem">
-									<img src={fontIcon} alt="" /><div className="itemName">Размеры шрифта</div>
-									<div className="itemChild">
-										<div className={`childItem ${fontType === 'SMALL' ? "active": ''}`} onClick={() => { fontChange('SMALL') }}>Маленькие</div>
-										<div className={`childItem ${fontType === 'MEDIUM' ? "active": ''}`} onClick={() => { fontChange('MEDIUM') }} >Средние</div>
-										<div className={`childItem ${fontType === 'LARGE' ? "active": ''}`} onClick={() => { fontChange('LARGE') }}>Крупные</div>
+								<div className={st.menuItem}>
+									<img src={fontIcon} alt="" /><div className={st.itemName}>Размеры шрифта</div>
+									<div className={st.itemChild}>
+										<div className={`${st.childItem} ${fontType === 'SMALL' ? "active": ''}`} onClick={() => { fontChange('SMALL') }}>Маленькие</div>
+										<div className={`${st.childItem} ${fontType === 'MEDIUM' ? "active": ''}`} onClick={() => { fontChange('MEDIUM') }} >Средние</div>
+										<div className={`${st.childItem} ${fontType === 'LARGE' ? "active": ''}`} onClick={() => { fontChange('LARGE') }}>Крупные</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div className="toggleIcon">
+						<div className={st.toggleIcon}>
 							<div onClick={()=>setIsOpen(!isOpen)} style={{display:'flex'}}>
 								<img style={{cursor:'pointer'}} src={
 									isOpen ? (dark ? xIcon : xIconDark) : (dark ? menuOpen : menuOpenLight)
@@ -190,7 +205,7 @@ function Navbar({ login }) {
 				</nav>
 			</div>
 			{/* {isOpenSearch ? (movies.length > 0 ?
-				<div className="containerItems">
+				<div className={st.containerItems}>
 					{
 						movies.map((x, key) => {
 							return <MovieItem key={key} movie={x} />

@@ -1,24 +1,22 @@
-import { useState } from 'react'
 import Category from './category/category'
 import Header from './categoryHeader/header'
 import Navbar from './categoryNavbar/navbar'
-
-export default function Categories() {
-    const [categories] = useState([])
-    const [loading] = useState(true)
-
+import { useTheme } from '../../context/theme'
+export default function Categories(props) {
+    const [dark] = useTheme()    
+    console.log(props.data)
     return (
         <>
         <Header />
-        <div className="container">
-            <Navbar />
+        <Navbar data={props.data} />
+        <div className="" style={{background: dark ? '#0C0C0D' : '#F8F9FC'}}>
             {
-                categories && categories.map((val, key) => <Category key={key}
+                props.data && props.data.map((val, key) => <Category key={key}
                 type='advanced'
-                loading= {loading}
-                movies = {val?.movies}
-                title="Categories"
-                link={`/categories/1`}
+                loading= {props.loading}
+                movies = {val.movies}
+                title={val.category_name}
+                link={`/categories/${val.category_name}`}
                 />)
             }
         </div>

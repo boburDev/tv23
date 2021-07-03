@@ -1,41 +1,33 @@
-import './navbar.css'
-import { useEffect, useState } from 'react'
+import st from './navbar.module.css'
+import { useState } from 'react'
 import { useTheme } from '../../../context/theme'
-import { useApi } from '../../../context/api'
-import axios from 'axios'
 import { Link } from 'react-router-dom'
-export default function Navbar() {
-    const [api] = useApi()
-    const [categories, setCategories] = useState([])
+export default function Navbar({ data }) {
     const [active, setActive] = useState('')
     const [dark] = useTheme()
-    const itemStyle = {
-        background:dark ? ' ' : '#ffffff'
-    }
-
-    useEffect(()=>{
-        ;(async()=>{
-            const res = await axios.get(api + '/categories')
-            setCategories(res.data.data)
-            console.log(res.data.data)
-        })()
-    },[api])
 
     return (
-        <div className="container">
-            <div  className="items">
-                {
-                    categories && categories.map((val, key) => <Link
-                    to={`/categories/${val.category_name}`}
-                    id={val.category_id}
-                    onClick={e => setActive(e.target.id)}
-                    key={key}
-                    style={itemStyle}
-                    className={`nav_item ${(val.category_id === active) ? 'active' : ''}`}>
-                        {val.category_name}
-                    </Link>)
-                }
+        <>
+            <div className={st.category_navbar} style={{background: dark ? '#0C0C0D' : '#F8F9FC'}}>
+                <div className={st.container}>
+                <div className={st.items}>
+                    {
+                        data && data.map((val, key) => <Link
+                        key={key}
+                        to={`/categories/${val.category_name.toLowerCase()}`}
+                        id={val.category_id}
+                        onClick={e => setActive(e.target.id)}
+                        style={{
+                            background: dark ? 'rgba(17, 17, 18, 1)' : '#fff',
+                            color: dark ? '#777' : '#777'
+                        }}
+                        className={`${st.nav_item} ${(val.category_id === active) ? st.active : ''}`}>
+                            {val.category_name}
+                        </Link>)
+                    }
+                </div>
             </div>
-        </div>
+            </div>
+        </>
     )
 }
