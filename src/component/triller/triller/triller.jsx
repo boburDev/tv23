@@ -7,8 +7,6 @@ import SearchNotFound from '../../notFound/SearchNotFound/notFound'
 export default function Trailer(props) {
 	const [current, setCurrent] = useState(0)
 	const [itemWidth, setItemWidth] = useState()
-
-	console.log(props)
 	const carouselWayStyle = {
 		transform:`translateX(-${current*itemWidth}px)`,
 		transition:'transform 1s ease',
@@ -17,9 +15,9 @@ export default function Trailer(props) {
 	}
 	const settingSize =()=>{
 		var playerRefId = document.getElementById('playerRef')
-		
 		setItemWidth(playerRefId.clientWidth || playerRefId.offsetWidth)
 	}
+
 	useEffect(()=>{
 		settingSize()
 		window.addEventListener("resize",settingSize)
@@ -29,6 +27,7 @@ export default function Trailer(props) {
 			window.removeEventListener("load",settingSize)
 		}
 	}, [])
+	
 	useEffect(()=>{
 		settingSize()
 	}, [])

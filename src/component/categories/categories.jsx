@@ -6,7 +6,7 @@ export default function Categories(props) {
     const [dark] = useTheme()    
     return (
         <>
-        <Header />
+        <Header allCategory={props.allCategory} />
         <Navbar data={props.data} />
         <div className="" style={{background: dark ? '#0C0C0D' : '#F8F9FC'}}>
             {

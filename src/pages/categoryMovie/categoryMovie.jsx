@@ -1,15 +1,15 @@
 import Footer from "../../component/footer/footer"
 import Ads from "../../component/ads/ads"
 import Navbar from "../../component/navbar/navbar"
-import Triller from '../../component/triller/triller/triller'
-import CategoryMovie from '../../component/categories/categories'
 import { useEffect, useState } from "react"
+import CategoryMovie from '../../component/categories/categories'
 import axios from "axios"
 import { useApi } from "../../context/api"
-function Home() {
+
+function MovieCategory() {
 	const [api] = useApi()
 	const [categories, setCategories] = useState([])
-	const [recommendedTriller, setRecommendedTriller] = useState([])
+	// const [recommendedTriller, setRecommendedTriller] = useState([])
 	const [loading, setLoading] = useState(false)
 	async function getMovies (api){
 		try {
@@ -21,32 +21,33 @@ function Home() {
 		}
 	}
 
-	async function recommendedTrillers(api) {
-		try {
-			setLoading(true)
-			const trillers = await axios.get(api + '/recommended-t')
-			setRecommendedTriller(trillers.data.data)
-			setLoading(false)
-		} catch (error) {
+
+	// vse kategorini kurib chiq yaxshilab
+
+
+
+	// async function recommendedTrillers(api) {
+	// 	try {
+	// 		setLoading(true)
+	// 		const trillers = await axios.get(api + '/recommended-t')
+	// 		setRecommendedTriller(trillers.data.data)
+	// 		setLoading(false)
+	// 	} catch (error) {
 			
-		}
-	}
+	// 	}
+	// }
 	
 	useEffect(()=>{
 		getMovies(api)
-		recommendedTrillers(api)
 	},[api])
-	
 	
 	return (
 		<>
 		<Navbar />
-		<Triller
-		data={recommendedTriller}
-		api={api} />
 		<CategoryMovie
 		data={categories}
 		loading={loading}
+		allCategory={"all"}
 		what="category" />
 		<Ads />
 		<Footer />
@@ -54,5 +55,6 @@ function Home() {
 		)
 	}
 	
-	export default Home
+
+	export default MovieCategory
 	

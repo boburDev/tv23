@@ -10,7 +10,7 @@ import searchIconBlack from '../../assets/logo/search_icon_white.svg'
 import searchIcon from '../../assets/logo/search_icon.svg'
 import menuOpen from '../../assets/logo/menu_icon.svg'
 import menuOpenLight from '../../assets/logo/menu_icon_light.svg'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react'
 import { useTheme } from '../../context/theme'
 import { useLang } from '../../context/lanuage'
@@ -22,6 +22,7 @@ function Navbar({ login }) {
 	const [lang, setLang] = useLang()
 	const [fontType, setFontType] = useState('MEDIUM')
 	const [reload, setReload] = useState(false)
+	const language = useParams()
 	//toggle dark or light mode  and write localstorage
 
 	const toggleDark = () => {
@@ -98,22 +99,22 @@ function Navbar({ login }) {
 		<section style={searchStyle}>
 			<div className={st.container}>
 				<nav className={st.nav}>
-					<Link className={st.logo_link} to="/"><img src={logo} alt="logo" /></Link>
+					<Link className={st.logo_link} to={`/${language.lang || 'ru'}`}><img src={logo} alt="logo" /></Link>
 					<ul style={{ display: isOpenSearch ? 'none' : '' }} className={st.navbar}>
 						<li className={st.navbar_link_item}>
-							<Link to="/categories/films">Movie</Link>
+							<Link to={`${language.lang || 'ru'}/categories/films`}>Movie</Link>
 						</li>
 						<li className={st.navbar_link_item}>
-							<Link to="/categories/serials">Сериалы</Link>
+							<Link to={`${language.lang || 'ru'}/categories/serials`}>Сериалы</Link>
 						</li>
 						<li className={st.navbar_link_item}>
-							<Link to="/categories">Все категории</Link>
+							<Link to={`${language.lang || 'ru'}/categories`}>Все категории</Link>
 						</li>
 						<li className={st.navbar_link_item}>
-							<Link style={{ color: "red" }} to="/live" >LIVE</Link>
+							<Link style={{ color: "red" }} to={`${language.lang || 'ru'}/live`} >LIVE</Link>
 						</li>
 						<li className={st.navbar_link_item}>
-							<Link to="/favourites">Избранные</Link>
+							<Link to={`${language.lang || 'ru'}/favourites`}>Избранные</Link>
 						</li>
 					</ul>
 					<div className={st.user_tools} style={{ width: isOpenSearch ? '100%' : '100%' }}  >
@@ -162,23 +163,23 @@ function Navbar({ login }) {
 							<div>
 								<ul className={st.navbar} style={{ display: login ? 'none' : '' }}>
 									<li className={st.navbar_link_item}>
-										<Link to="/categories/films">Фильмы</Link>
+										<Link to={`${language.lang || 'ru'}/categories/films`}>Фильмы</Link>
 									</li>
 									<li className={st.navbar_link_item}>
-										<Link to="/categories/serials">Сериалы</Link>
+										<Link to={`${language.lang || 'ru'}/categories/serials`}>Сериалы</Link>
 									</li>
 									<li className={st.navbar_link_item}>
-										<Link to="/categories">Все категории</Link>
+										<Link to={`${language.lang || 'ru'}/categories`}>Все категории</Link>
 									</li>
 									<li className={st.navbar_link_item}>
-										<Link to="/live" style={{ color: "red" }}>LIVE</Link>
+										<Link to={`${language.lang || 'ru'}/live`} style={{ color: "red" }}>LIVE</Link>
 									</li>
 									<li className={st.navbar_link_item}>
-										<Link to="/favourites">Избранные</Link>
+										<Link to={`${language.lang || 'ru'}/favourites`}>Избранные</Link>
 									</li>
 								</ul>
 
-								<Link to="/settings/profile" className={st.menuItem}>
+								<Link to={`${language.lang || 'ru'}/settings/profile`} className={st.menuItem}>
 									<img src={userIcon} alt="" /><div className={st.itemName}>Настройки аккаунта</div>
 								</Link>
 								<div onClick={toggleDark} className={st.menuItem}>

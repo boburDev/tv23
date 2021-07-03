@@ -3,7 +3,7 @@ import filterIcon from '../../../assets/logo/filer-icon.svg'
 import filterIconDark from '../../../assets/logo/filter-icon-light.svg'
 import { useTheme } from '../../../context/theme'
 
-export default function Header() {
+export default function Header({ allCategory }) {
   const [dark] = useTheme()
   return (
     <div
@@ -11,7 +11,9 @@ export default function Header() {
     className={st.container}>
       <div className={st.row_container} style={{borderBottom: dark  ? '1px solid #777777' : '1px solid #1111113f'}}>
 		<div style={{color: dark ? '#fff':"#111112"}} className={st.title_category}>
-			Категории
+			{
+				(allCategory === 'all') ? "Категории" : "Категории"
+			}
 		</div>
 		<div onClick={()=>{}} className={st.favourites}>
 			<img
