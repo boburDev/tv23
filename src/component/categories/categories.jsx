@@ -4,7 +4,6 @@ import Navbar from './categoryNavbar/navbar'
 import { useTheme } from '../../context/theme'
 export default function Categories(props) {
     const [dark] = useTheme()    
-    console.log(props.data)
     return (
         <>
         <Header />

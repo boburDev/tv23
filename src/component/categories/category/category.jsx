@@ -1,9 +1,9 @@
 import st from './category.module.css'
-import {  useRef, useState } from 'react'
+import {  useState } from 'react'
 import { Link } from 'react-router-dom'
 import MovieItem from '../../movieItem/movieItem'
 import SliderCounterAdvanced from '../../sliderCounter/SliderCounterAdvanced'
-import NoFoundVideos from '../../notFound/notFount'
+import NoFoundVideos from '../../notFound/videoNotFound/notFount'
 import { useTheme } from '../../../context/theme'
 
 export default function Category({title, link, loading, movies = [], visibled = 6, type='advanced', showAllLink = true}) {

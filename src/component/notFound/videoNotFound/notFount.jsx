@@ -1,4 +1,4 @@
-import { useTheme } from '../../context/theme'
+import { useTheme } from '../../../context/theme'
 import st from './notFound.module.css'
 
 export default function NoFoundVideos() {

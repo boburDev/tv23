@@ -1,0 +1,120 @@
+.container{
+    display: flex;
+    composes:container from "../../../pages/app/app.css";
+    width: 100vw;
+    /* background: url('../../../assets/images/TarailerBack.jpg') no-repeat; */
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 85vh;
+    /* padding: 20px; */
+}
+
+.box{
+    color: aliceblue;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 40px 0;
+    /* background-color:/; */
+}
+
+.box .info{
+    font-family: Montserrat;
+    font-style: normal;
+    flex-direction: column;
+    display: flex;
+    width: 50%;
+    padding-right: 30px;
+}
+.info .name{
+    margin: 10px 0px;
+    font-weight: 900;
+    font-size: 40px;
+    line-height: 49px;
+}
+.info .country{
+    margin: 10px 0px;
+
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+}
+.info .description{
+    margin: 10px 0px;
+
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 130%;
+}
+.genre{
+    margin: 10px 0px;
+    flex-wrap: wrap;
+    display: flex;
+}
+.genreItem{
+    margin: 3px;
+    padding:3px 10px;
+    margin-right: 10px;
+    background: #111112;
+    font-family: LatoRegular;
+    border-radius: 25px;
+    display: flex;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 140%;
+}
+
+
+.rating{
+    margin: 10px 0px;
+
+    display: flex;
+}
+
+.rating .title{
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.button{
+    margin: 10px 0px;
+    
+}
+
+.box .player{
+    display: flex;
+    padding: 40px;
+    padding-right: 0;
+    width: 50%;
+    height: 100%;
+}
+
+@media only screen and (max-width:970px){
+    .container{
+        height: auto;
+        padding-bottom: 80px;
+    }
+    .box{
+        flex-direction: column-reverse;
+    }
+    .box .info{
+        width: 100%;
+    padding-right: 0px;
+    }
+    .name{
+        justify-content: flex-start;
+        text-align: left;
+    }
+    .box .player{
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        padding: 0px;
+        width: 100%;
+    }
+    .button{
+        margin: 0 auto;
+    }
+}

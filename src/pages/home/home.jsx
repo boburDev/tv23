@@ -1,6 +1,7 @@
 import Footer from "../../component/footer/footer"
 import Ads from "../../component/ads/ads"
 import Navbar from "../../component/navbar/navbar"
+import Triller from '../../component/triller/triller/triller'
 // import MovieItem from '../../component/movieItem/movieItem'
 import CategoryMovie from '../../component/categories/categories'
 import { useEffect, useState } from "react"
@@ -28,11 +29,11 @@ function Home() {
 	return (
 		<>
 		<Navbar />
+		<Triller />
 		<CategoryMovie
 		data={categories}
 		loading={loading}
 		what="category" />
-		{/* <MovieItem movie={movie} /> */}
 		<Ads />
 		<Footer />
 		</>

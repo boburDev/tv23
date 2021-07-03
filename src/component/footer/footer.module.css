@@ -54,6 +54,11 @@
     text-decoration: none;
 }
 
+.categories .category_item a:hover {
+    color: #555;
+    text-decoration: none;
+}
+
 .info_liks {
     padding: 0;
     list-style-type: none;
@@ -70,6 +75,11 @@
 
 .info_liks.dark .info_link__item a {
     color: #000;
+    text-decoration: none;
+}
+
+.info_liks .info_link__item a:hover {
+    color: #555;
     text-decoration: none;
 }
 
@@ -101,10 +111,17 @@
     text-decoration: none;
 }
 
+
 .support_links.dark .support_link__item a {
     color: #000;
     text-decoration: none;
 }
+
+.support_links .support_link__item a:hover {
+    color: #555;
+    text-decoration: none;
+}
+
 
 
 .footer_footer {
