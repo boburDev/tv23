@@ -1,19 +1,58 @@
 .container{
     composes:container from '../../../pages/app/app.css';
-    margin: 30px 0;
+    padding-top: 30px;
     overflow: visible;
+    font-family: 'Lato', sans-serif;
 }
 
 .topBar{
     display: flex;
     justify-content: space-between;
     padding: 20px 0;
+    padding-top: 28px;
 }
+.title_films {
+    display: flex;
+    align-items: baseline;
+}
+.title_films p{
+    color: #BBBBBB;
+    margin-right: 8px;
+}
+
+.title_films.black p {
+    color: rgba(187, 187, 187, 1);
+}
+
+.title_films h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-weight: 900;
+    font-size: 32px;
+    line-height: 39px;
+    color: #FFFFFF;
+}
+
+.title_films.black h3 {
+    color: rgba(17, 17, 18, 1);
+
+}
+
+.additional_functions {
+    display: flex;
+    margin-left: auto;
+}
+.additional_functions > div {
+    margin-left: 20px;
+}
+
+
 .configures{
     display: flex;
 }
     
 .dropdown{
+    border-radius: 19px;
     margin-right: 10px;
 }
 .icon{
@@ -26,6 +65,7 @@
     line-height: 14px;
     color: #777777;
 }
+
 
 .playerArea{
     display: flex;
@@ -52,4 +92,10 @@
     justify-content: space-around;
     flex-direction: column;
     z-index: 1;
+}
+
+
+
+.additional_functions.black > div > .btn {
+    background: #fff;
 }

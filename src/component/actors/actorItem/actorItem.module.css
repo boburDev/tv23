@@ -1,11 +1,14 @@
 .container{
-    display: flex;
-    padding: 10px;
-    width: 220px;
     position: relative;
+    display: flex;
+    width: 120px;
+    height: 178px;
+    margin-left: 37px;
+    font-family: 'Lato', sans-serif;
 }
 .container:first-child{
     padding-left: 0;
+    margin-left: 0;
 }
 .container:last-child{
     padding-right: 0;
@@ -19,8 +22,8 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     overflow: hidden;  
     margin-bottom: 20px;

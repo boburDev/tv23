@@ -3,19 +3,25 @@ import st from './moviePlayerContainer.module.css'
 import Button from '../../elements/button/button'
 import DropDown from '../../elements/dropDown/dropDown'
 import DropDownItem from '../../elements/dropDown/dropDownItem/dropDownItem'
-import star2 from '../../../assets/image/star2.png'
+import unSelectedStart from '../../../assets/logo/unselected_start.svg'
+import favourStart from '../../../assets/logo/rate_and_favour.svg'
+import sendIcon from '../../../assets/logo/send_icon.svg'
+import sendSelectedIcon from '../../../assets/logo/send_icon_selected.svg'
+import sendSelectedBlackIcon from '../../../assets/logo/send_icon_selected_black.svg'
 import cover from '../../../assets/image/cover.png'
 import VideoPlayer from '../moviePlayer/moviePlayer'
 import { useResolution } from '../../../context/resolution'
+import { useTheme } from '../../../context/theme'
 
-export default function moviePlayerContainer({ movie }) {
-    
+export default function MoviePlayerContainer({ movie }) {
     const [resolution, setResolution] = useResolution()
-    
+    const [dark] = useTheme()
+
     const [playerHeight, setPlayerHeight] = useState('')
     const [isVideo, setIsVideo] = useState(false)
-    const [isFavourite, setIsFavourite] = useState(true)
-
+    const [isFavourite, setIsFavourite] = useState(false)
+    const [sendLink, setSendLink] = useState(false)
+    
     const settingSize =()=>{
         var playerRef = document.getElementById('playerRef')
         setPlayerHeight(playerRef.offsetWidth*480/854)
@@ -40,34 +46,30 @@ export default function moviePlayerContainer({ movie }) {
         marginBottom:'20px',
         width:'200px'
     }
+
+    const ligthMode = {
+        background: dark ? 'rgb(35 35 39)' : '#fff',
+        color: dark ? '#fff' : '#777'
+    }
+
     return (
-        <div className={st.container}>
+        <div className={st.container} style={{background: dark ? '#0C0C0D' : '#F8F9FC'}}>
             <div className={st.topBar}>
                 <div className={st.configures}>
-                    <div className={st.dropdown}>
-                        <DropDown activeText = {'РУСС'}>
+                    <div className={st.dropdown} style={ligthMode}>
+                        <DropDown activeText = {'РУСС'} style={ligthMode}>
                             <DropDownItem >РУСС</DropDownItem>
                             <DropDownItem>УЗБ</DropDownItem>
                             <DropDownItem>АНГЛ</DropDownItem>
                         </DropDown>
                     </div>
-                    <div className={st.dropdown}>
-                        <DropDown activeText = {resolution}>
+                    <div className={st.dropdown} style={ligthMode}>
+                        <DropDown activeText = {resolution} style={ligthMode}>
                             <DropDownItem onClick={()=>{changeResolution('360p')}}>360p</DropDownItem>
                             <DropDownItem  onClick={()=>{changeResolution('720p')}}>720p</DropDownItem>
                             <DropDownItem  onClick={()=>{changeResolution('HD')}}>HD(1080)</DropDownItem>
                         </DropDown>
                     </div>
-                </div>
-                <div onClick={()=>{setIsFavourite(!isFavourite)}} className={st.favourite}>
-                    <Button
-                    className={st.btn}
-                    style={{
-                        background: isFavourite ? '#D7141D' : 'rgb(35 35 39)',
-                        color:isFavourite ? 'white': ''
-                    }}>
-                        <img className={st.icon} src={star2} alt="favourite"/>В избранное
-                    </Button>
                 </div>
             </div>
             <div style={{ height: playerHeight }} id="playerRef" className={st.playerArea}>
@@ -85,6 +87,37 @@ export default function moviePlayerContainer({ movie }) {
                         </div>
                     </div>
                 }
+            </div>
+            <div className={st.topBar}>
+                <div
+                style={{color: dark ? '#fff' : '#000'}}
+                className={`${st.title_films} ${dark ? '': st.black}`}>
+                    <p>Название: </p><h3>Гоблин</h3>
+                </div>
+                <div className={`${st.additional_functions} ${dark ? '': st.black}`}>
+                    <div onClick={()=>{setIsFavourite(!isFavourite)}} className={st.favourite}>
+                        <Button
+                        className={st.btn}
+                        style={{
+                            background: dark ? 'rgb(35 35 39)' : '#fff',
+                            color: dark ? (isFavourite && '#fff') : (isFavourite ? '#000': '')
+                        }}>
+                            <img width="20px" className={st.icon} src={isFavourite ? favourStart: unSelectedStart} alt="favourite"/>В избранное
+                        </Button>
+                    </div>
+                    <div onClick={()=>{setSendLink(!sendLink)}} className={st.favourite}>
+                        <Button
+                        className={st.btn}
+                        style={{
+                            background: dark ? 'rgb(35 35 39)' : '#fff',
+                            color: dark ? (sendLink && '#fff') : (sendLink ? '#000': '')
+                        }}>
+                            <img width="20px" className={st.icon} src={
+                                dark ? (sendLink ? sendSelectedIcon : sendIcon) : (sendLink ? sendSelectedBlackIcon : sendIcon)
+                                } alt="favourite"/>Отправить
+                        </Button>
+                    </div>
+                </div>
             </div>
         </div>
     )

@@ -15,10 +15,8 @@
     margin-bottom: 30px;
 }
 .actors{
-    display: flex;
-    align-items:center ;
-    overflow-x: auto;
-    overflow-y: hidden;
     position: relative;
-    margin-bottom: 10px;
+    display: flex;
+    width: 100%;
+    overflow: hidden;
 }

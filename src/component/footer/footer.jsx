@@ -15,7 +15,7 @@ function Footer () {
                 <div className={st.container}>
                     <div className={st.footer_body}>
                         <div className={st.app_downloading}>
-                            <p className={st.download_title}>
+                            <p className={st.download_title} style={{color: dark ? '#fff' : '#000'}}>
                                 Скачать приложение вы можете через:
                             </p>
                             <Link className={st.download_link} to="#">
