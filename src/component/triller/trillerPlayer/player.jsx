@@ -1,16 +1,16 @@
-import PlayPause from "../../elements/playPause/playPause";
-import { useEffect, useRef, useState } from "react";
-import st from "./player.module.css";
+import PlayPause from "../../elements/playPause/playPause"
+import { useEffect, useRef, useState } from "react"
+import st from "./player.module.css"
 export default function TrailerPlayer({ src, api , isActive}) {
   
-  const [isPlay, SetIsPlay] = useState(false);
+  const [isPlay, SetIsPlay] = useState(false)
   const videoRef = useRef()
 
   const [isLoadedVideo, setIsLoadedVideo] = useState(false)
 
   useEffect(() => {
-    isPlay ? videoRef.current.play() : videoRef.current.pause()
-  }, [isPlay]);
+    (isPlay && isActive) ? videoRef.current.play() : videoRef.current.pause()
+  }, [isPlay,isActive])
 
   useEffect(()=>{
     if(!isActive)SetIsPlay(false)
@@ -19,7 +19,10 @@ export default function TrailerPlayer({ src, api , isActive}) {
 
   return (
     <div className={st.container}>
-    <div style={{display:'flex', width:'100%', height:'100%'}} onClick={isActive ? () => {SetIsPlay((x) => !x);} : ()=>{}} >
+    <div style={{display:'flex', width:'100%', height:'100%'}} onClick={()=> {
+      isActive ? SetIsPlay(isPlay) : SetIsPlay(false)
+      // console.log('ok')
+    }} >
     <div  className={st.playerButton}> 
     {isLoadedVideo ? <PlayPause isPlay={isPlay}/> : 'Loading video Please Wait until loading the video...'}
     </div>
@@ -32,11 +35,14 @@ export default function TrailerPlayer({ src, api , isActive}) {
         onPlay={()=>{SetIsPlay(true)}}
         onPause={()=>{SetIsPlay(false)}}
         onLoadedData={()=>{setIsLoadedVideo(true)}}
-        src={`${api}/stream/triller/${src}`}
-        ref={videoRef}></video>
+        ref={videoRef}
+        className={st.trller_video}
+        controlsList="nodownload">
+			<source src={`${api}/stream/triller/${src}/`} type="video/mp4" />
+		</video>
     }
     </div>
     </div>
-    );
+    )
   }
   

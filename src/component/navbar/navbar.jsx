@@ -102,19 +102,19 @@ function Navbar({ login }) {
 					<Link className={st.logo_link} to={`/${language.lang || 'ru'}`}><img src={logo} alt="logo" /></Link>
 					<ul style={{ display: isOpenSearch ? 'none' : '' }} className={st.navbar}>
 						<li className={st.navbar_link_item}>
-							<Link to={`${language.lang || 'ru'}/categories/films`}>Movie</Link>
+							<Link to={`/${language.lang || 'ru'}/categories/фильмы`}>Фильмы</Link>
 						</li>
 						<li className={st.navbar_link_item}>
-							<Link to={`${language.lang || 'ru'}/categories/serials`}>Сериалы</Link>
+							<Link to={`/${language.lang || 'ru'}/categories/сериалы`}>Сериалы</Link>
 						</li>
 						<li className={st.navbar_link_item}>
-							<Link to={`${language.lang || 'ru'}/categories`}>Все категории</Link>
+							<Link to={`/${language.lang || 'ru'}/categories`}>Все категории</Link>
 						</li>
 						<li className={st.navbar_link_item}>
-							<Link style={{ color: "red" }} to={`${language.lang || 'ru'}/live`} >LIVE</Link>
+							<Link style={{ color: "red" }} to={`/${language.lang || 'ru'}/live`} >LIVE</Link>
 						</li>
 						<li className={st.navbar_link_item}>
-							<Link to={`${language.lang || 'ru'}/favourites`}>Избранные</Link>
+							<Link to={`/${language.lang || 'ru'}/favourites`}>Избранные</Link>
 						</li>
 					</ul>
 					<div className={st.user_tools} style={{ width: isOpenSearch ? '100%' : '100%' }}  >
@@ -163,23 +163,23 @@ function Navbar({ login }) {
 							<div>
 								<ul className={st.navbar} style={{ display: login ? 'none' : '' }}>
 									<li className={st.navbar_link_item}>
-										<Link to={`${language.lang || 'ru'}/categories/films`}>Фильмы</Link>
+										<Link to={`/${language.lang || 'ru'}/categories/films`}>Фильмы</Link>
 									</li>
 									<li className={st.navbar_link_item}>
-										<Link to={`${language.lang || 'ru'}/categories/serials`}>Сериалы</Link>
+										<Link to={`/${language.lang || 'ru'}/categories/serials`}>Сериалы</Link>
 									</li>
 									<li className={st.navbar_link_item}>
-										<Link to={`${language.lang || 'ru'}/categories`}>Все категории</Link>
+										<Link to={`/${language.lang || 'ru'}/categories`}>Все категории</Link>
 									</li>
 									<li className={st.navbar_link_item}>
-										<Link to={`${language.lang || 'ru'}/live`} style={{ color: "red" }}>LIVE</Link>
+										<Link to={`/${language.lang || 'ru'}/live`} style={{ color: "red" }}>LIVE</Link>
 									</li>
 									<li className={st.navbar_link_item}>
-										<Link to={`${language.lang || 'ru'}/favourites`}>Избранные</Link>
+										<Link to={`/${language.lang || 'ru'}/favourites`}>Избранные</Link>
 									</li>
 								</ul>
 
-								<Link to={`${language.lang || 'ru'}/settings/profile`} className={st.menuItem}>
+								<Link to={`/${language.lang || 'ru'}/settings/profile`} className={st.menuItem}>
 									<img src={userIcon} alt="" /><div className={st.itemName}>Настройки аккаунта</div>
 								</Link>
 								<div onClick={toggleDark} className={st.menuItem}>

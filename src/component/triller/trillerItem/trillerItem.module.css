@@ -67,7 +67,7 @@
     padding:3px 10px;
     margin-right: 10px;
     background: #111112;
-    font-family: LatoRegular;
+    /* font-family: LatoRegular; */
     border-radius: 25px;
     display: flex;
     font-weight: normal;

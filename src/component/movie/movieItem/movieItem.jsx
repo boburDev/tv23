@@ -1,18 +1,18 @@
 import { useState } from 'react'
 import st from './movieItem.module.css'
-import { Link } from 'react-router-dom'
-import { useTheme } from '../../context/theme'
-import { useApi } from '../../context/api'
+import { Link, useParams } from 'react-router-dom'
+import { useTheme } from '../../../context/theme'
+import { useApi } from '../../../context/api'
 
 export default function MovieItem({ movie = {} }) {
+    const language = useParams()
     const [dark] = useTheme()
     const [api] = useApi()
     const [imageLoaded, setImageLoaded] = useState(false)
-
     return (
         <>
         <Link
-        to={`/categories/${movie && movie.category_id}/${movie && movie.movie_id}`}
+        to={`/${language.lang}/categories/${movie.category_name}/${movie.movie_id}`}
         className={st.container}>
 
         <div

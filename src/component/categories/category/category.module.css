@@ -23,7 +23,7 @@
 .title{
     display: flex;
     padding: 0px 0px;
-    font-family: LatoRegular;
+    /* font-family: LatoRegular; */
     font-weight: 500;
     font-size: 17px;
     line-height: 29px;

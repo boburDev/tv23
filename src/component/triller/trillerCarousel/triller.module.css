@@ -3,13 +3,14 @@
     min-height: 60vh;
     display: flex;
     flex-direction: column;
-    margin-bottom: auto;
+    user-select: none;
+    font-family: 'Lato', sans-serif;
 }
 
 .carousel{
     position: relative;
     display: flex;
-    composes:container from '../../../pages/app/app.css';
+    composes: container from '../../../pages/app/app.css';
     height: 52vh;
 }
 .slideBox{
@@ -40,6 +41,7 @@
     display: flex;
     composes:container from '../../../pages/app/app.css';
     width:100%;
+    font-family: 'Lato', sans-serif;
 }
 .info{
     display: flex;
@@ -77,8 +79,9 @@
     flex-direction: column;
     /* align-items: center; */
 }
-.genres{
-    composes:genre from '../SingleMovieInfo/SingleMovieInfo.module.css';
+.genre{
+    font-family: 'Lato', sans-serif;
+    composes:genre from '../../movie/signleMovie/signleMovie.module.css';
     margin-top: 10px;
     align-items: flex-start;
     max-width: 80%;

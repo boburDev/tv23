@@ -1,6 +1,7 @@
 .container{
     overflow:hidden;
     height: 100vh;
+    font-family: 'Lato', sans-serif;
 }
 :root{
     --heightCarouselItem:641px;

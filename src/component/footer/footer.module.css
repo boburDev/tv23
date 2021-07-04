@@ -147,7 +147,7 @@
 
 .author {
     display: flex;
-    font-family: LatoRegular;
+    /* font-family: LatoRegular; */
     font-weight: 500;
     font-size: 24px;
     line-height: 29px;

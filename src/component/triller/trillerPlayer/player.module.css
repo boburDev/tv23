@@ -18,3 +18,15 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.trller_video::-internal-media-controls-download-button {
+    display:none;
+}
+
+.trller_video::-webkit-media-controls-enclosure {
+    overflow:hidden;
+}
+
+.trller_video::-webkit-media-controls-panel {
+    width: calc(100% + 30px); /* Adjust as needed */
+}
