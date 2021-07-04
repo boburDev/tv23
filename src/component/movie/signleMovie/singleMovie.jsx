@@ -1,22 +1,24 @@
-import {useRef, useState} from 'react'
-import st from './SingleMovieInfo.module.css'
+import { useRef, useState } from 'react'
+import st from './signleMovie.module.css'
 import { Link } from 'react-router-dom'
-import rateStars from '../../assets/images/rates.png'
-import { useTheme } from '../../Contexts/ThemeProvider'
-import { useApi } from '../../Contexts/api'
-export default function SingleMovieInfo({movie}) {
+import rateStars from '../../../assets/image/rates.png'
+import { useTheme } from '../../../context/themer'
+
+export default function SingleMovieInfo({ movie, api }) {
+    
     const innerDescription = useRef()
     const [collapseDesc, setCollapseDesc] = useState(false)
     const {dark} = useTheme()
+
     const descStyle = {
         height :(!collapseDesc ? 48+'px' :'auto')
     }
-console.log(movie)
+
     const setCollapse=()=>{
         setCollapseDesc(x=>!x)
         console.log(innerDescription.current.innerHeight)
     }
-    const [api] = useApi()
+
     return (
         <div className={st.movieWrapper}>
             <div className={st.movieIntro}>

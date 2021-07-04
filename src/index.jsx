@@ -5,13 +5,16 @@ import { BrowserRouter } from 'react-router-dom'
 import { ThemeProvider } from './context/theme'
 import { ApiProvider } from './context/api'
 import { LangProvider } from './context/lanuage'
+import { ResulutionContext } from './context/resolution'
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider>
         <ApiProvider>
           <LangProvider>
-            <App />
+            <ResulutionContext>
+              <App />
+            </ResulutionContext>
           </LangProvider>
         </ApiProvider>
       </ThemeProvider>

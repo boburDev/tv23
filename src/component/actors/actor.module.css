@@ -1,0 +1,24 @@
+.container{
+    composes:container from '../../pages/app/app.css';
+    display: flex;
+    flex-direction: column;
+}
+.sliderContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.typeButton{
+    display: flex;
+    margin-bottom: 30px;
+}
+.actors{
+    display: flex;
+    align-items:center ;
+    overflow-x: auto;
+    overflow-y: hidden;
+    position: relative;
+    margin-bottom: 10px;
+}

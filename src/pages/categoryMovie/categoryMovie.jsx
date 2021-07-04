@@ -12,21 +12,37 @@ import { useParams } from "react-router-dom"
 export default function CategoryMovie() {
     const [api] = useApi()
 	const category = useParams()
-	const [categories, setCategories] = useState({})	
+	const [movies, setMovies] = useState({})	
+	const [categories, setCategories] = useState()	
+	const [cat, setCat] = useState('')	
 	const [recommendedTriller, setRecommendedTriller] = useState([])
 	const [loading, setLoading] = useState(false)
+
 	async function getMovies (api, value){
 		try {
 			setLoading(true)
 			const val = value.category.toLowerCase().charAt(0).toUpperCase() + value.category.toLowerCase().slice(1)
-			const categories = await axios.get(api + '/movie-category', {
+			setCat(val)
+			const movies = await axios.get(api + '/movie-category', {
 				params: {
 					categoryId: val
 				}
 			})
+			setMovies(movies.data.data)
 			setLoading(false)
-			setCategories(categories.data.data)
 		} catch (error) {
+		}
+	}
+
+	async function getCategories(api, cat) {
+		try {
+			setLoading(true)
+			const categories = await axios.get(api + '/categories')
+			const data = categories.data.data
+			setCategories(data.filter(a => a.category_name !== cat))
+			setLoading(false)
+		} catch (error) {
+			
 		}
 	}
 
@@ -43,7 +59,8 @@ export default function CategoryMovie() {
 	useEffect(()=>{
 		getMovies(api, category)
 		recommendedTrillers(api)
-	},[api, category])
+		getCategories(api, cat)
+	},[api, category, cat])
 	
 
     return (
@@ -53,7 +70,8 @@ export default function CategoryMovie() {
 		api={api}
 		movies={recommendedTriller} />
 		<MovieCategory
-		data={categories}
+		data={movies}
+		categories={categories}
 		loading={loading}
 		what="signle-movie-category" />
 		<Ads />

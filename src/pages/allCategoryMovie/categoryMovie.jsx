@@ -19,6 +19,7 @@ function MovieCategory() {
 			const categories = await axios.get(api + '/category-with-movies')
 			setLoading(false)
 			setCategories(categories.data.data)
+			console.log(categories.data.data)
 		} catch (error) {
 		}
 	}
@@ -68,6 +69,7 @@ function MovieCategory() {
 		genres={genres}
 		type="genres"
 		loading={loading}
+		what="category"
 		allCategory={"all"} />
 		<Ads />
 		<Footer />

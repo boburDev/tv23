@@ -1,13 +1,12 @@
 import Category from './category/category'
 import Header from './categoryHeader/header'
 import Navbar from './categoryNavbar/navbar'
-import MovieItem from '../movie/movieItem/movieItem'
 import { useTheme } from '../../context/theme'
 import { useParams } from 'react-router-dom'
 export default function Categories(props) {
     const language = useParams()
     const [dark] = useTheme()
-    // console.log(props.data.data)
+    // console.log(props)
     return (
         <>
             {
@@ -28,9 +27,9 @@ export default function Categories(props) {
                     </div>
                 </> : 
                 <>
-                <Header
-                allCategory={props.allCategory}
+                <Header allCategory={props.allCategory}
                 text={props.data.category && props.data.category.category_name} />
+                <Navbar data={props.categories} />
                 <div className="" style={{background: dark ? '#0C0C0D' : '#F8F9FC'}}>
                     <Category
                     title={""}

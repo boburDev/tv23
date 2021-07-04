@@ -15,12 +15,12 @@ export default function Category({title, pagination, link, loading, movies = [],
     return (
         <div className={st.container}>
            <div className={st.category_wrapper}>
-            <div className={st.titleBox}>
-                    <h1 style={{color: dark ? '#fff' : '#000'}} className={st.titleText}>{title}</h1>
-                    {
-                        showAllLink && <Link to={link} className={st.title}>Все</Link>
-                    }
-                </div>
+            {
+                showAllLink && <div className={st.titleBox}>
+                <h1 style={{color: dark ? '#fff' : '#000'}} className={st.titleText}>{title}</h1>
+                <Link to={link} className={st.title}>Все</Link>
+            </div>
+            }
                 <div className={st.items}>
                         {movies && movies.length===0  ? (
                         loading ?  //if Loaded finished and no found videos

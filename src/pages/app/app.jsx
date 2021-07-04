@@ -12,8 +12,8 @@ function App() {
 			<Route path="/:lang?" component={Home} exact />
 			<Route path="/:lang?/categories" component={AllCategoryMovie} exact />
 			<Route path="/:lang?/categories/:category" component={CategoryMovie} exact />
-			<Route path="/:lang?/genres/:genre" component={GenreMovie} exact />
 			<Route path="/:lang?/categories/:category/:movieid" component={Movie} exact />
+			<Route path="/:lang?/genres/:genre" component={GenreMovie} exact />
 		</Switch>
     </>
   )
