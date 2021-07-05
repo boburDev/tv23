@@ -11,7 +11,7 @@ export default function Category({title, pagination, link, loading, movies = [],
     const [dark] = useTheme()
     const counts = Math.ceil(movies.length/visibled > 5 ? 5 : movies.length/visibled)
     const [current, setCurrent] = useState(0)
-    
+    const categoryId = link && link.category_name
     return (
         <div className={st.container}>
            <div className={st.category_wrapper}>
@@ -34,7 +34,7 @@ export default function Category({title, pagination, link, loading, movies = [],
                         </> :<NoFoundVideos />
                         ) : movies.map((item, key ) =>
                         (
-                            (current*visibled<=key && (current+1)*visibled>key) && <MovieItem key={key} movie={item} />
+                            (current*visibled<=key && (current+1)*visibled>key) && <MovieItem caregoryId={categoryId} key={key} movie={item} />
                         )
                         )}
                         

@@ -51,10 +51,10 @@ export default function MovieInfo({ movie, api }) {
                         </div>
                         
                         <div className={`${st.genre} ${!dark ? st.dark : ''}`}>
-                            <Link to="#">Фантези</Link>
-                            <Link to="#">триллеры</Link>
-                            <Link to="#">экранизации</Link>
-                            <Link to="#">Ужасы</Link>
+                            <Link to="/">Фантези</Link>
+                            <Link to="/">триллеры</Link>
+                            <Link to="/">экранизации</Link>
+                            <Link to="/">Ужасы</Link>
                         </div>
                     </div>
                     

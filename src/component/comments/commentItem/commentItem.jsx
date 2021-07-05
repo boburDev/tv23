@@ -5,10 +5,10 @@ import avatar from '../../../assets/image/avatar.png'
 export default function CommentItem({ comment, api }) {
     const [dark] = useTheme()
     return (
-        <div  className={st.container}>
+        <div  className={st.container} style={{color: dark ? '' : '#666'}}>
             {
             comment ? <>
-            <div style={{color: dark ? '' : 'black'}} className={st.author}>
+            <div style={{color: dark ? '' : '#000'}} className={st.author}>
                 <div className={st.avatar}>
                     <img src={avatar || `${api}/${comment.user_path}`} alt="avatar" />
                 </div>
@@ -18,7 +18,9 @@ export default function CommentItem({ comment, api }) {
                 </div>
             </div>
             <div className={st.divider}></div>
-            <div style={{color: dark ? '' : '#777777'}} className={st.comment}>{comment.comment_body}</div></> : 'Nothing  commented'}
+            <div className={st.comment}>{comment.comment_body}</div>
+            </> : <div className="">Nothing  commented</div>
+            }
         </div> 
     )
 }

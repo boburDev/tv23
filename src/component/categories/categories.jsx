@@ -33,6 +33,7 @@ export default function Categories(props) {
                 <div className="" style={{background: dark ? '#0C0C0D' : '#F8F9FC'}}>
                     <Category
                     title={""}
+                    link={props.data.category}
                     movies={props.data && props.data.data}
                     showAllLink={false}
                     pagination="basic"

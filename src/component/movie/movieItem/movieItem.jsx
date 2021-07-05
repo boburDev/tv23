@@ -4,15 +4,16 @@ import { Link, useParams } from 'react-router-dom'
 import { useTheme } from '../../../context/theme'
 import { useApi } from '../../../context/api'
 
-export default function MovieItem({ movie = {} }) {
+export default function MovieItem({ movie = {}, caregoryId }) {
     const language = useParams()
     const [dark] = useTheme()
     const [api] = useApi()
     const [imageLoaded, setImageLoaded] = useState(false)
+
     return (
         <>
         <Link
-        to={`/${language.lang}/categories/${movie.category_name}/${movie.movie_id}`}
+        to={`/${language.lang}/categories/${movie.category_name || caregoryId}/${movie.movie_id}`}
         className={st.container}>
 
         <div

@@ -14,9 +14,9 @@ import { useResolution } from '../../../context/resolution'
 import { useTheme } from '../../../context/theme'
 import { useSharing } from '../../../context/shareLink'
 
-export default function MoviePlayerContainer({ movie }) {
+export default function MoviePlayerContainer({ movie, api }) {
     const [resolution, setResolution] = useResolution()
-    const [playerType, setPlayerType] = useState(localStorage.getItem.player_type || 'Триллеры')
+    const [playerType, setPlayerType] = useState(localStorage.getItem('player_type') || 'Триллеры')
     const [dark] = useTheme()
 
     const [playerHeight, setPlayerHeight] = useState('')
@@ -63,11 +63,11 @@ export default function MoviePlayerContainer({ movie }) {
                         <DropDown activeText = {`Плеер ${playerType && playerType}`} style={ligthMode}>
                             <DropDownItem onClick={()=>{
                                 localStorage.setItem('player_type', 'Фильмы')
-                                setPlayerType('movies')
+                                setPlayerType('Фильмы')
                             }}>Фильмы</DropDownItem>
                             <DropDownItem onClick={()=>{
                                 localStorage.setItem('player_type', 'Триллеры')
-                                setPlayerType('trillers')
+                                setPlayerType('Триллеры')
                             }}>Триллеры</DropDownItem>
                         </DropDown>
                     </div>
@@ -82,7 +82,7 @@ export default function MoviePlayerContainer({ movie }) {
             </div>
             <div style={{ height: playerHeight }} id="playerRef" className={st.playerArea}>
                 {
-                    isVideo ? <VideoPlayer movie={movie}/> :
+                    isVideo ? <VideoPlayer api={api} movie={movie}/> :
                     <div className={st.cover}>
                     <img src={cover} alt="video_cover" />
                     <div className={st.controlBtn}>
