@@ -29,7 +29,7 @@ export default function Categories(props) {
                 <>
                 <Header allCategory={props.allCategory}
                 text={props.data.category && props.data.category.category_name} />
-                <Navbar data={props.categories} />
+                <Navbar data={props.categories} text={props.data.category}/>
                 <div className="" style={{background: dark ? '#0C0C0D' : '#F8F9FC'}}>
                     <Category
                     title={""}

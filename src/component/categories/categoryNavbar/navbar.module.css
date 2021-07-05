@@ -48,24 +48,14 @@
     cursor: pointer;
     background: #313131;
 }
-.active{
-    background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.12) 9.82%,
-    rgba(255, 255, 255, 0) 92.86%
-    ),
-    #d7141d!important;
-    color: white;
+.nav_item.activeCategory{
+    background: linear-gradient(180deg,rgba(255, 255, 255, 0.12) 9.82%,rgba(255, 255, 255, 0) 92.86%),#d7141d!important;
     border: none;
+    color: white;
 }
-.active:hover{
-    
-    background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.12) 9.82%,
-    rgba(255, 255, 255, 0) 92.86%
-    ),
-    #d7141d;
+.nav_item.activeCategory:hover{
+    color: #fff;
+    background: linear-gradient(180deg,rgba(255, 255, 255, 0.12) 9.82%,rgba(255, 255, 255, 0) 92.86%),#d7141d;
 }
 
 

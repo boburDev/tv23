@@ -81,7 +81,7 @@
 }
 .genre{
     font-family: 'Lato', sans-serif;
-    composes:genre from '../../movie/signleMovie/signleMovie.module.css';
+    composes:genre from '../../movie/movieInfo/movieInfo.module.css';
     margin-top: 10px;
     align-items: flex-start;
     max-width: 80%;

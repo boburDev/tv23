@@ -48,10 +48,18 @@ export default function Actors({ visibled = 12}) {
     return (
         <div className={st.container} style={{background: dark ? '#0C0C0D' : '#F8F9FC'}}>
             <div className={st.typeButton}>
-                <div onClick={()=>{changeType(types.actor)}}>
-                    <Button style={{background:activeType===types.actor ? '' : '#111112'}}>Актеры</Button>
+                <div onClick={()=>changeType(types.actor)}>
+                    <Button style={{
+                        background: activeType===types.actor ? '' : '#111112',
+                        color: activeType === types.actor ? '#fff' : '#777'
+                        }}>Актеры</Button>
                 </div>
-                <div style={{marginLeft:'10px'}} onClick={()=>{changeType(types.creator)}}><Button style={{background:activeType===types.creator ? '' : '#111112'}}>Создатели</Button></div>
+                <div style={{ marginLeft:'10px' }} onClick={()=>changeType(types.creator)}>
+                    <Button style={{
+                        background: activeType === types.creator ? '' : '#111112',
+                        color: activeType === types.actor ? '#777' : ''
+                    }}>Создатели</Button>
+                </div>
             </div>
             <div className={st.actors}>
                 {

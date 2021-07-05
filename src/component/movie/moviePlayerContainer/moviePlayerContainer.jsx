@@ -15,6 +15,7 @@ import { useTheme } from '../../../context/theme'
 
 export default function MoviePlayerContainer({ movie }) {
     const [resolution, setResolution] = useResolution()
+    const [playerType, setPlayerType] = useState(localStorage.getItem.player_type || 'Триллеры')
     const [dark] = useTheme()
 
     const [playerHeight, setPlayerHeight] = useState('')
@@ -57,10 +58,15 @@ export default function MoviePlayerContainer({ movie }) {
             <div className={st.topBar}>
                 <div className={st.configures}>
                     <div className={st.dropdown} style={ligthMode}>
-                        <DropDown activeText = {'РУСС'} style={ligthMode}>
-                            <DropDownItem >РУСС</DropDownItem>
-                            <DropDownItem>УЗБ</DropDownItem>
-                            <DropDownItem>АНГЛ</DropDownItem>
+                        <DropDown activeText = {`Плеер ${playerType && playerType}`} style={ligthMode}>
+                            <DropDownItem onClick={()=>{
+                                localStorage.setItem('player_type', 'Фильмы')
+                                setPlayerType('movies')
+                            }}>Фильмы</DropDownItem>
+                            <DropDownItem onClick={()=>{
+                                localStorage.setItem('player_type', 'Триллеры')
+                                setPlayerType('trillers')
+                            }}>Триллеры</DropDownItem>
                         </DropDown>
                     </div>
                     <div className={st.dropdown} style={ligthMode}>

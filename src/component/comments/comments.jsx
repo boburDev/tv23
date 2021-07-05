@@ -2,16 +2,13 @@ import st from './comments.module.css'
 import Button from '../elements/button/button'
 import SliderCounterAdvanced from '../sliderCounter/SliderCounterAdvanced'
 import { useEffect, useRef, useState } from 'react'
-import CommentItem from './CommentItem/CommentItem'
-import { useTheme } from '../../Contexts/ThemeProvider'
-import axios from 'axios'
-import { useApi } from '../../Contexts/api'
+import CommentItem from './commentItem/commentItem'
+import { useTheme } from '../../context/theme';
 
-export default function Commenting(film_id) {
+export default function Commenting({film_id, api}) {
     const bodyRef = useRef()
-    const {dark} = useTheme()
-    const [api] = useApi()
-    const [comments, setComments] = useState([])
+    const [dark] = useTheme()
+    const [comments] = useState([])
     // useEffect(()=>{
     //     setComments(backendComments)
     // }, [])
@@ -27,34 +24,13 @@ export default function Commenting(film_id) {
             window.removeEventListener('resize',settingSize)
         }
     }, [])
-    const addComment =async(e)=>{
-        e.preventDefault()
-        const res = await axios.post(`${api}/add-comment`, {
-            movieId:film_id.film_id,
-            commentBody:bodyRef.current.value,
-            userId:localStorage.getItem('user_id')
-        })
-        if(res)clearHandle(); else window.alert('Error while commenting!!!')
-
-    }
+    
     const [isValid, setIsValid] = useState(false)
     const changeHandler =(e)=>{
         if(e.target.value === '')setIsValid(false)
         else setIsValid(true)
     }
-    const clearHandle =()=>{
-        bodyRef.current.value = ''
-        setIsValid(false)
-    }
-    useEffect(()=>{
-        ;(async()=>{
-            const res = await axios.get(api + '/comments?movieId='+film_id?.film_id)
-            // console.log(res.data)
-            setComments(res.data.data)
-        })()
-        // console.log(movie)
-    }, [api, film_id])
-
+  
     return (
         <div className={st.container}> 
             <div className={st.commentContainer}>
@@ -73,7 +49,7 @@ export default function Commenting(film_id) {
                 
                 <textarea onChange={changeHandler} ref={bodyRef} style={{color:dark ? '' : 'black'}} cols="30" rows="10"></textarea>
                 <div className={st.button}>
-                    <div onClick={isValid ? addComment : ()=>{console.log("Error")}}><Button   style={{ backgroundColor: !isValid ? "#de7b80" : '', paddingLeft:'40px',paddingRight:'40px'}}>Добавить</Button></div>
+                    <div><Button   style={{ backgroundColor: !isValid ? "#de7b80" : '', paddingLeft:'40px',paddingRight:'40px'}}>Добавить</Button></div>
                 </div>
                 
             </div>

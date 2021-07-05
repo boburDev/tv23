@@ -28,14 +28,14 @@ export default function Category({title, pagination, link, loading, movies = [],
                             <MovieItem />
                             <MovieItem />
                             <MovieItem />
-                            <MovieItem />   
+                            <MovieItem />
                             <MovieItem />
                             <MovieItem />
                         </> :<NoFoundVideos />
                         ) : movies.map((item, key ) =>
                         (
                             (current*visibled<=key && (current+1)*visibled>key) && <MovieItem key={key} movie={item} />
-                        )    
+                        )
                         )}
                         
                 </div>

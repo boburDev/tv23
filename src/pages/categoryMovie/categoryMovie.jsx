@@ -14,7 +14,6 @@ export default function CategoryMovie() {
 	const category = useParams()
 	const [movies, setMovies] = useState({})	
 	const [categories, setCategories] = useState()	
-	const [cat, setCat] = useState('')	
 	const [recommendedTriller, setRecommendedTriller] = useState([])
 	const [loading, setLoading] = useState(false)
 
@@ -22,7 +21,7 @@ export default function CategoryMovie() {
 		try {
 			setLoading(true)
 			const val = value.category.toLowerCase().charAt(0).toUpperCase() + value.category.toLowerCase().slice(1)
-			setCat(val)
+
 			const movies = await axios.get(api + '/movie-category', {
 				params: {
 					categoryId: val
@@ -34,12 +33,12 @@ export default function CategoryMovie() {
 		}
 	}
 
-	async function getCategories(api, cat) {
+	async function getCategories(api) {
 		try {
 			setLoading(true)
 			const categories = await axios.get(api + '/categories')
 			const data = categories.data.data
-			setCategories(data.filter(a => a.category_name !== cat))
+			setCategories(data)
 			setLoading(false)
 		} catch (error) {
 			
@@ -59,8 +58,8 @@ export default function CategoryMovie() {
 	useEffect(()=>{
 		getMovies(api, category)
 		recommendedTrillers(api)
-		getCategories(api, cat)
-	},[api, category, cat])
+		getCategories(api)
+	},[api, category])
 	
 
     return (

@@ -34,12 +34,11 @@
     position: absolute;
 }
 .name{
-    font-style: normal;
+    font-family: Lato;
     font-weight: 900;
-    font-size: 14px;
+    font-size: 17px;
     line-height: 17px;
     margin-bottom: 5px;
-    color: #FFFFFF;
 }
 .role{
     font-style: normal;

@@ -2,7 +2,7 @@ import st from './navbar.module.css'
 import { useState } from 'react'
 import { useTheme } from '../../../context/theme'
 import { Link, useParams } from 'react-router-dom'
-export default function Navbar({ data, type }) {
+export default function Navbar({ data, type, text }) {
     const [active, setActive] = useState('')
     const [dark] = useTheme()
     const language = useParams()
@@ -19,7 +19,6 @@ export default function Navbar({ data, type }) {
                         key={key}
                         style={{
                             background: dark ? 'rgba(17, 17, 18, 1)' : '#fff',
-                            color: dark ? '#777' : '#777'
                         }}
                         className={`${st.nav_item} ${(val.genre_id === active) ? st.active : ''}`}>
                             {val.genre_name}
@@ -31,9 +30,8 @@ export default function Navbar({ data, type }) {
                         onClick={e => setActive(e.target.id)}
                         style={{
                             background: dark ? 'rgba(17, 17, 18, 1)' : '#fff',
-                            color: dark ? '#777' : '#777'
                         }}
-                        className={`${st.nav_item} ${(val.category_id === active) ? st.active : ''}`}>
+                        className={`${st.nav_item} ${(val.category_id === (text && text.category_id)) ? st.activeCategory : ''}`}>
                             {val.category_name}
                         </Link>)
                     }

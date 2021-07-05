@@ -1,9 +1,13 @@
 .container{
-    composes:container from '../../pages/app/App.css';
+    composes:container from '../../pages/app/app.css';
     position:relative;
     display: flex;
-    margin-bottom: 30px;
-} 
+    padding-bottom: 30px;
+    padding-top: 50px;
+}
+.container * {
+    font-family: 'Lato', sans-serif;
+}
 .commentContainer{
     display: flex;
 
@@ -30,8 +34,7 @@
     font-weight: bold;
     font-size: 27px;
     line-height: 33px;
-    /* identical to box height */
-
+    font-family: Montserrat;
     text-transform: uppercase;
     margin-bottom: 10px;
     color: #FFFFFF;
