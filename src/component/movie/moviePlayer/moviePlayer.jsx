@@ -130,21 +130,21 @@ export default function VideoPlayer({ movie, api }) {
 			setIsFullScreen(false)
 		}
 	}
-
+	
 	const handleSetCurrentSecond=(second)=>{
 		setCurrentSecond(function(x){
 			return {...x,...{currentTime:second}}
 		})
 		videoRef.current.currentTime = second
 	}
-
+	
 	const handleSet10Sec=(second)=>{
 		setCurrentSecond(function(x){
 			return {...x,...{currentTime:x.currentTime+second}}
 		})
 		videoRef.current.currentTime = videoRef.current.currentTime + second
 	}
-
+	
 	const timeUpdate=()=>{
 		window.localStorage.setItem('movie_id',movie && movie.movie_id )
 		window.localStorage.setItem('movie_current_time', videoRef.current.currentTime )
@@ -152,7 +152,7 @@ export default function VideoPlayer({ movie, api }) {
 		
 		setCurrentSecond({currentTime:videoRef.current.currentTime, duration:videoRef.current.duration})
 	}
-
+	
 	const keyHandler =(e)=>{
 		switch(e.keyCode){
 			case 39:handleSet10Sec(5); break;
@@ -164,45 +164,45 @@ export default function VideoPlayer({ movie, api }) {
 			default: break;
 		}
 	}
-
+	
 	return (
 		<div id="videoContainer"  onKeyDown={keyHandler} tabIndex={0} className={st.container}>
-			<div className={st.controlBtns}>
-				<div onClick={()=>{setIsPlay(!isPlay)}}  className={st.playerVisible}> </div>
-					<div onClick={()=>{setIsPlay(!isPlay)}} className={st.playPause}>
-						{isLoad ? <PlayPause isPlay={isPlay}/> : 'Please wait'}
-					</div> 
+		<div className={st.controlBtns}>
+		<div onClick={()=>{setIsPlay(!isPlay)}}  className={st.playerVisible}> </div>
+		<div onClick={()=>{setIsPlay(!isPlay)}} className={st.playPause}>
+		{isLoad ? <PlayPause isPlay={isPlay}/> : 'Please wait'}
+		</div> 
 		
-					<div onClick={()=>{setIsPlay(!isPlay)}} onDoubleClick={()=>{handleSet10Sec(-10)}} className={st.prevTap}></div>
-					<div onClick={()=>{setIsPlay(!isPlay)}} onDoubleClick={()=>{handleSet10Sec(10)}} className={st.nextTap}></div>
-					<div className={st.controls}>
-						<div onClick={()=>{setIsPlay(!isPlay)}} className={st.playingStatus}>
-							<img src={isPlay ? pauseIcon : playIcon} alt="" />
-						</div>
-						<Seekbar currentSecond={currentSecond} setCurrentSecond={handleSetCurrentSecond}/>
-						<div className={st.volume}>
-							<VideoVolume
-							isMuted={isMuted}
-							setIsMuted={handleMuted}
-							volume={volume}
-							setVolume = {handleChangeVolume}/>
-						</div>
-						<div className={st.duration}>{duration}</div>
-						<div onClick={isFullScreen ? closeFullscreen : openFullscreen} className={st.playingStatus}>
-							<img src={!isFullScreen ? fullScreenIcon : exitFullScreenIcon} alt="" />
-						</div>
-					</div>
-			</div>
-			<video ref={videoRef} id='video'
-			style={{width:width, maxHeight:isFullScreen ? '100vh' : '90vh'}}
-			onTimeUpdate={timeUpdate}
-			onLoadedMetadata ={onLoadedMetaInfo}
-			onLoadStart={()=>setIsLoad(false)}
-			onLoadedData={()=>setIsLoad(true)}
-			preload={`${api}/${data.movie_thumnail_path}`}
-			controlsList="nodownload">
-				<source src={`${api}/stream/movie/${(data && data.movie_id) && data.movie_path}/${resolution}`} type="video/mp4" />
-			</video>
+		<div onClick={()=>{setIsPlay(!isPlay)}} onDoubleClick={()=>{handleSet10Sec(-10)}} className={st.prevTap}></div>
+		<div onClick={()=>{setIsPlay(!isPlay)}} onDoubleClick={()=>{handleSet10Sec(10)}} className={st.nextTap}></div>
+		<div className={st.controls}>
+		<div onClick={()=>{setIsPlay(!isPlay)}} className={st.playingStatus}>
+		<img src={isPlay ? pauseIcon : playIcon} alt="" />
+		</div>
+		<Seekbar currentSecond={currentSecond} setCurrentSecond={handleSetCurrentSecond}/>
+		<div className={st.volume}>
+		<VideoVolume
+		isMuted={isMuted}
+		setIsMuted={handleMuted}
+		volume={volume}
+		setVolume = {handleChangeVolume}/>
+		</div>
+		<div className={st.duration}>{duration}</div>
+		<div onClick={isFullScreen ? closeFullscreen : openFullscreen} className={st.playingStatus}>
+		<img src={!isFullScreen ? fullScreenIcon : exitFullScreenIcon} alt="" />
+		</div>
+		</div>
+		</div>
+		<video ref={videoRef} id='video'
+		style={{width:width, maxHeight:isFullScreen ? '100vh' : '90vh'}}
+		onTimeUpdate={timeUpdate}
+		onLoadedMetadata ={onLoadedMetaInfo}
+		onLoadStart={()=>setIsLoad(false)}
+		onLoadedData={()=>setIsLoad(true)}
+		preload={`${api}/${data.movie_thumnail_path}`}
+		controlsList="nodownload">
+		<source src={`${api}/stream/movie/${(data && data.movie_id) && data.movie_path}/${resolution}`} type="video/mp4" />
+		</video>
 		</div>
 		)
 	}

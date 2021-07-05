@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import st from './moviePlayerContainer.module.css'
 import Button from '../../elements/button/button'
 import DropDown from '../../elements/dropDown/dropDown'
@@ -55,27 +55,59 @@ export default function MoviePlayerContainer({ movie, api }) {
         color: dark ? '#fff' : '#777'
     }
 
+    useEffect(()=>{
+        if (movie && !movie.triller_id) {
+            localStorage.setItem('player_type', 'Фильмы')
+        }
+    },[movie])
+
     return (
         <div className={st.container} style={{background: dark ? '#0C0C0D' : '#F8F9FC'}}>
             <div className={st.topBar}>
                 <div className={st.configures}>
                     <div className={st.dropdown} style={ligthMode}>
                         <DropDown activeText = {`Плеер ${playerType && playerType}`} style={ligthMode}>
-                            <DropDownItem onClick={()=>{
+                        {
+                            movie && !movie.triller_id && <>
+                            <DropDownItem style={{borderBottom: 'none'}} onClick={()=>{
                                 localStorage.setItem('player_type', 'Фильмы')
                                 setPlayerType('Фильмы')
                             }}>Фильмы</DropDownItem>
-                            <DropDownItem onClick={()=>{
-                                localStorage.setItem('player_type', 'Триллеры')
-                                setPlayerType('Триллеры')
-                            }}>Триллеры</DropDownItem>
+                            </>
+                        }
+                        
+                            
+                            {
+                                movie && movie.triller_id && 
+                                <>
+                                <DropDownItem onClick={()=>{
+                                    localStorage.setItem('player_type', 'Фильмы')
+                                    setPlayerType('Фильмы')
+                                }}>Фильмы</DropDownItem>
+                                <DropDownItem style={{borderBottom: 'none'}} onClick={()=>{
+                                    localStorage.setItem('player_type', 'Триллеры')
+                                    setPlayerType('Триллеры')
+                                }}>Триллеры</DropDownItem>
+                                </>
+                            }
                         </DropDown>
                     </div>
                     <div className={st.dropdown} style={ligthMode}>
                         <DropDown activeText = {resolution} style={ligthMode}>
                             <DropDownItem onClick={()=>{changeResolution('360p')}}>360p</DropDownItem>
                             <DropDownItem  onClick={()=>{changeResolution('720p')}}>720p</DropDownItem>
-                            <DropDownItem  onClick={()=>{changeResolution('HD')}}>HD(1080)</DropDownItem>
+                            {
+                                movie && !movie.movie_4k_is && <DropDownItem style={{borderBottom: 'none'}}  onClick={()=>{changeResolution('HD')}}>HD(1080)</DropDownItem>
+                            }
+                            
+                            {
+                                movie && movie.movie_4k_is && <>
+                                <DropDownItem
+                                onClick={()=>{changeResolution('HD')}}>HD(1080)</DropDownItem>
+                                <DropDownItem
+                                style={{borderBottom: 'none'}}
+                                onClick={()=>{changeResolution('HD')}}>4K</DropDownItem></>
+                            }
                         </DropDown>
                     </div>
                 </div>
