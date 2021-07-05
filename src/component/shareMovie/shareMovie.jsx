@@ -34,6 +34,14 @@ export default function ShareLink() {
     const [dark] = useTheme()
     const [setSharing] = useSharing(true)
 
+    function copyLink() {
+        var copyText = document.getElementById("movie_link_read");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999)
+        document.execCommand("copy");
+      
+      }
+
     return (
         <>
             <div className={st.modal}>
@@ -146,10 +154,15 @@ export default function ShareLink() {
                         </div>
                         <div className={st.link_copy}>
                             <input
+                            id="movie_link_read"
+                            value="chsdbcks"
                             type="text"
                             style={{ background: dark ? '#0C0C0D' : '#F8F9FC', color: dark ? '#fff' : '#000' }}
-                            className={st.share_link_input} readOnly value="chsdbcks" />
-                            <button style={{color: dark ? '#fff' : '#000'}} className={st.copy_button}>COPY</button>
+                            className={st.share_link_input} readOnly />
+                            <button
+                            onClick={copyLink}
+                            style={{color: dark ? '#fff' : '#000'}}
+                            className={st.copy_button}>COPY</button>
                         </div>
 
                         <div className={st.start_at}>
