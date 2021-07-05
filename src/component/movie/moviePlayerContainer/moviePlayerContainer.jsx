@@ -12,6 +12,7 @@ import cover from '../../../assets/image/cover.png'
 import VideoPlayer from '../moviePlayer/moviePlayer'
 import { useResolution } from '../../../context/resolution'
 import { useTheme } from '../../../context/theme'
+import { useSharing } from '../../../context/shareLink'
 
 export default function MoviePlayerContainer({ movie }) {
     const [resolution, setResolution] = useResolution()
@@ -22,6 +23,7 @@ export default function MoviePlayerContainer({ movie }) {
     const [isVideo, setIsVideo] = useState(false)
     const [isFavourite, setIsFavourite] = useState(false)
     const [sendLink, setSendLink] = useState(false)
+    const [openModal, setOpenModal] = useSharing()
     
     const settingSize =()=>{
         var playerRef = document.getElementById('playerRef')
@@ -111,15 +113,18 @@ export default function MoviePlayerContainer({ movie }) {
                             <img width="20px" className={st.icon} src={isFavourite ? favourStart: unSelectedStart} alt="favourite"/>В избранное
                         </Button>
                     </div>
-                    <div onClick={()=>{setSendLink(!sendLink)}} className={st.favourite}>
+                    <div onClick={()=>{
+                        setSendLink(!sendLink)
+                        setOpenModal(!openModal)
+                        }} className={st.favourite}>
                         <Button
                         className={st.btn}
                         style={{
                             background: dark ? 'rgb(35 35 39)' : '#fff',
-                            color: dark ? (sendLink && '#fff') : (sendLink ? '#000': '')
+                            color: dark ? (openModal && '#fff') : (sendLink ? '#000': '')
                         }}>
                             <img width="20px" className={st.icon} src={
-                                dark ? (sendLink ? sendSelectedIcon : sendIcon) : (sendLink ? sendSelectedBlackIcon : sendIcon)
+                                dark ? (openModal ? sendSelectedIcon : sendIcon) : (openModal ? sendSelectedBlackIcon : sendIcon)
                                 } alt="favourite"/>Отправить
                         </Button>
                     </div>

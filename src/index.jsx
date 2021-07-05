@@ -6,6 +6,7 @@ import { ThemeProvider } from './context/theme'
 import { ApiProvider } from './context/api'
 import { LangProvider } from './context/lanuage'
 import { ResulutionContext } from './context/resolution'
+import { ShareLinkProvider } from './context/shareLink'
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
@@ -13,7 +14,9 @@ ReactDOM.render(
         <ApiProvider>
           <LangProvider>
             <ResulutionContext>
-              <App />
+              <ShareLinkProvider>
+                <App />
+              </ShareLinkProvider>
             </ResulutionContext>
           </LangProvider>
         </ApiProvider>
