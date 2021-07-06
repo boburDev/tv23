@@ -27,7 +27,7 @@ export default function SignleMovie() {
             }
         })
         setMovie(movie.data.data)
-        // console.log(movie.data.data)
+        console.log(movie.data.data)
     }
 
     useEffect(()=>{
