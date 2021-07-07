@@ -7,8 +7,9 @@ const ApiProvider = ({children}) => {
     const isTester = false
     
     useEffect(()=>{
+        // HTTPS=true npm start
         const server = {
-            server_dev: "http://localhost:4000",
+            server_dev: "http://localhost:4000",    
             server_dep: "https://23tv.uz/api",
         }
         if (isTester) {

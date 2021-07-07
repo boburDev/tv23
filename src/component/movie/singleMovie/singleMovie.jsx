@@ -2,7 +2,7 @@ import MovieInfo from '../movieInfo/movieInfo'
 import MoviePlayerContainer from '../moviePlayerContainer/moviePlayerContainer'
 import Actor from '../../actors/actor'
 import Ads from '../../ads/ads'
-// import Category from '../../categories/category/category'
+import Category from '../../categories/category/category'
 import Comments from '../../comments/comments'
 import { useSharing } from '../../../context/shareLink'
 import ShareLink from '../../shareMovie/shareMovie'
@@ -15,8 +15,10 @@ export default function SignleMovie() {
     const [openModal] = useSharing()
     const params = useParams()
     const [movie, setMovie] = useState({})
-    // console.log(params.movieid, params.category)
-
+    const [actors, setActors] = useState([])
+    const [directors, setDirectors] = useState([])
+    const [similarMovie, setSimilarMovie] = useState([])
+    
     async function Movie(api, params) {
         const movie = await axios.get(api + '/movie-one', {
             headers: {
@@ -27,20 +29,51 @@ export default function SignleMovie() {
             }
         })
         setMovie(movie.data.data)
-        console.log(movie.data.data)
+        // console.log(movie.data.data)
+    }
+
+    async function getActors (api, params){
+        const res =await axios.get(`${api}/movie-actors?movieId=${params && params.movieid}`)
+        setActors(res.data.data)
+    }
+
+    async function getDirector(api, params){
+        const res =await axios.get(`${api}/movie-directors?movieId=${params && params.movieid}`)
+        setDirectors(res.data.data)
+    }
+
+    async function getMovies(api, params, movie){
+        const res =await axios.get(`${api}/similar-movies`, {
+            params: {
+                movieId: params && params.movieid,
+                categoryName: movie && movie.category_name
+            }
+        })
+        setSimilarMovie(res.data.data)
     }
 
     useEffect(()=>{
+        if (movie && movie.category_id) {
+            getMovies(api, params, movie)
+        }
+    },[movie,params,api])
+    
+
+    useEffect(()=>{
         Movie(api, params)
+        getActors(api, params)
+        getDirector(api, params)
     }, [params,api])
 
     return(
         <>
             <MoviePlayerContainer movie={movie} api={api} />
-            <MovieInfo />
+            <MovieInfo movie={movie} api={api} />
             <Ads />
-            <Actor />
-            {/* <Category title="Похожие сериалы" movies={[]} /> */}
+            <Actor creator={directors} actors={actors} api={api} />
+            <Category
+            showAllLinkText={false}
+            title="Похожие сериалы" movies={similarMovie} />
             <Comments />
             {
                 openModal && <ShareLink />

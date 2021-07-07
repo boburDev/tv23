@@ -5,6 +5,7 @@ import AllCategoryMovie from '../allCategoryMovie/categoryMovie'
 import CategoryMovie from '../categoryMovie/categoryMovie'
 import GenreMovie from '../genreMovie/genreMovie'
 import Movie from '../movie/movie'
+import Live from '../live/live'
 import { useTheme } from '../../context/theme'
 function App() {
 	const [dark] = useTheme()
@@ -13,6 +14,7 @@ function App() {
 			<Switch>
 				<Route path="/:lang?" component={Home} exact />
 				<Route path="/:lang?/categories" component={AllCategoryMovie} exact />
+				<Route path="/:lang?/live" component={Live} exact />
 				<Route path="/:lang?/categories/:category" component={CategoryMovie} exact />
 				<Route path="/:lang?/categories/:category/:movieid" component={Movie} exact />
 				<Route path="/:lang?/genres/:genre" component={GenreMovie} exact />

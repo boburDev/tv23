@@ -7,7 +7,7 @@ import SliderCounterBasic from '../../sliderCounter/sliderCounterBasic'
 import NoFoundVideos from '../../notFound/videoNotFound/notFount'
 import { useTheme } from '../../../context/theme'
 
-export default function Category({title, pagination, link, loading, movies = [], visibled = 6, showAllLink = true}) {
+export default function Category({title, pagination, link, loading, movies = [], visibled = 6, showAllLink = true, showAllLinkText = true}) {
     const [dark] = useTheme()
     const counts = Math.ceil(movies.length/visibled > 5 ? 5 : movies.length/visibled)
     const [current, setCurrent] = useState(0)
@@ -18,7 +18,9 @@ export default function Category({title, pagination, link, loading, movies = [],
             {
                 showAllLink && <div className={st.titleBox}>
                 <h1 style={{color: dark ? '#fff' : '#000'}} className={st.titleText}>{title}</h1>
-                <Link to={link} className={st.title}>Все</Link>
+                {
+                    showAllLinkText && <Link to={link} className={st.title}>Все</Link>
+                }
             </div>
             }
                 <div className={st.items}>

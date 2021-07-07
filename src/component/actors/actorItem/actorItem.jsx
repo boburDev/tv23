@@ -1,7 +1,7 @@
 import { useLang } from '../../../context/lanuage'
 import st from './actorItem.module.css'
 
-export default function ActorItem({ movieUsers, type }) {
+export default function ActorItem({ movieUsers, type, api }) {
     const [lang] = useLang()
     return (
         <div className={st.container}>
@@ -9,7 +9,7 @@ export default function ActorItem({ movieUsers, type }) {
                 <div className={st.image}>
                     <img
                     className={st.img}
-                    src={type === 'actor' ? movieUsers.actor_path : movieUsers.director_path}
+                    src={type === 'actor' ? `${api}/${movieUsers.actor_path}` : `${api}/${movieUsers.director_path}`}
                     alt="" />
                 </div>
                 <div className={st.name}>

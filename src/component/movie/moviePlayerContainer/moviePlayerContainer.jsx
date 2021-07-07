@@ -8,7 +8,6 @@ import favourStart from '../../../assets/logo/rate_and_favour.svg'
 import sendIcon from '../../../assets/logo/send_icon.svg'
 import sendSelectedIcon from '../../../assets/logo/send_icon_selected.svg'
 import sendSelectedBlackIcon from '../../../assets/logo/send_icon_selected_black.svg'
-import cover from '../../../assets/image/cover.png'
 import VideoPlayer from '../moviePlayer/moviePlayer'
 import { useResolution } from '../../../context/resolution'
 import { useTheme } from '../../../context/theme'
@@ -116,7 +115,7 @@ export default function MoviePlayerContainer({ movie, api }) {
                 {
                     isVideo ? <VideoPlayer api={api} movie={movie}/> :
                     <div className={st.cover}>
-                    <img src={cover} alt="video_cover" />
+                    <img src={`${api}/${movie.movie_screen}`} alt="video_cover" />
                     <div className={st.controlBtn}>
                         <div onClick={() => setIsVideo(true)}>
                             <Button style={coverBtnStyle}>Смотреть по подписке</Button>
@@ -132,7 +131,7 @@ export default function MoviePlayerContainer({ movie, api }) {
                 <div
                 style={{color: dark ? '#fff' : '#000'}}
                 className={`${st.title_films} ${dark ? '': st.black}`}>
-                    <p>Название: </p><h3>Гоблин</h3>
+                    <p>Название: </p><h3>{movie && movie.movie_name}</h3>
                 </div>
                 <div className={`${st.additional_functions} ${dark ? '': st.black}`}>
                     <div onClick={()=>{setIsFavourite(!isFavourite)}} className={st.favourite}>

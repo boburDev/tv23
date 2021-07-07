@@ -5,36 +5,13 @@ import ActorItem from './actorItem/actorItem'
 import Button from '../elements/button/button'
 import { useTheme } from '../../context/theme'
 
-import q0 from '../../assets/people/John Cena.jpeg'
-import q1 from '../../assets/people/Justin Lin.jpeg'
-import q2 from '../../assets/people/Vin Diesel.jpeg'
+export default function Actors({ actors=[], creator=[], visibled = 12, api}) {
 
-export default function Actors({ visibled = 12}) {
-
-    const actors = [
-        {
-            "actor_name": '1',
-            "role": 'Actor',
-            "actor_path": q0
-        }
-    ]
-
-    const creator = [
-        {
-            "director_name": '3',
-            "role": 'Creator',
-            "director_path": q2
-        },
-        {
-            "director_name": '3',
-            "role": 'Creator',
-            "director_path": q1
-        }
-    ]
     const types ={
         creator:'creator',
         actor:'actor'
     }
+    
     const [activeType, setActiveType] = useState(types.actor) //creator
     const [dark] = useTheme()
     const counts = Math.ceil(activeType === 'actor' ?
@@ -67,7 +44,7 @@ export default function Actors({ visibled = 12}) {
                    actors && 
                    (
                        actors.length===0 ? 'No found' : actors.map((item, key)=>
-                       (current*visibled<=key && (current+1)*visibled>key) && <ActorItem key={key} movieUsers={item} type='actor' />)
+                       (current*visibled<=key && (current+1)*visibled>key) && <ActorItem api={api} key={key} movieUsers={item} type='actor' />)
                    )
                 }
 
@@ -76,7 +53,7 @@ export default function Actors({ visibled = 12}) {
                    creator && 
                    (
                     creator.length===0 ? <div style={{width:'100%', height:'200px', display:'flex', justifyContent:'center', alignItems:'center', color:'white'}}> No found</div> : creator.map((item, key)=>
-                    (current*visibled<=key && (current+1)*visibled>key) && <ActorItem key={key} movieUsers={item} type='creator'/>)
+                    (current*visibled<=key && (current+1)*visibled>key) && <ActorItem api={api} key={key} movieUsers={item} type='creator'/>)
                    )
                 }
                 
