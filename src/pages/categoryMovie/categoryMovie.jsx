@@ -24,7 +24,7 @@ export default function CategoryMovie() {
 
 			const movies = await axios.get(api + '/movie-category', {
 				params: {
-					categoryId: val
+					categoryName: val
 				}
 			})
 			setMovies(movies.data.data)
