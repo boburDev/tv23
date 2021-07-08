@@ -1,22 +1,20 @@
 import st from './enterpassword.module.css'
-import goBack from '../../../assets/images/goBack.png'
+import goBack from '../../../assets/image/goBack.png'
 import InputProfile from '../../elements/inputProfile/inputProfile'
 import Button from '../../elements/button/button'
 import { useTheme } from '../../../context/theme'
 import { useLogin } from '../../../context/login'
 import { useEffect, useRef } from 'react'
-import { useHistory } from 'react-router'
 
 export default function EnterPassword() {
     const [dark] = useTheme()
-    const history = useHistory()
     const [userState, setUserState] = useLogin()
 
     useEffect(()=>{
         if(userState.user.username === '' || userState.user.phone === '' ){
-            history.push('/sign-up')
+            setUserState({ openPassword: false })
         }
-    }, [history, userState])
+    }, [userState, setUserState])
 
     const pass1Ref = useRef()
     const pass2Ref = useRef()
@@ -30,10 +28,10 @@ export default function EnterPassword() {
                     user:{
                         ...state.user,
                         password: pass1Ref.current.value
-                    }
+                    },
+                    signUp: 'verify'
                 }
             })
-            history.push('/sign-up/password/verify')
         }
     }
 
@@ -56,10 +54,6 @@ export default function EnterPassword() {
         }
     }
 
-    useEffect(()=>{
-        console.log(userState)
-    }, [userState])
-
     const handleChange =()=>{
         const result = validate(pass1Ref.current.value, pass2Ref.current.value)
         if(result.isValid){
@@ -72,34 +66,36 @@ export default function EnterPassword() {
                     }
                 }
             })
+            
         }else{
-            setUserState(function(state){
-                return {
-                    ...state, error:{
-                        isError:true,
-                        message:result.message
+            if (pass1Ref.current.value && pass2Ref.current.value) {
+                setUserState(function(state){
+                    return {
+                        ...state, error:{
+                            isError:true,
+                            message:result.message
+                        }
                     }
-                }
-            })
+                })
+            }
         }
     }
 
     return (
         <div>
             <div className={st.navigation}>
-                <img src={goBack} alt=""/>
+                <img src={goBack} onClick={()=>setUserState({
+                    signUp: ""
+                })} alt=""/>
             </div>
             <div
             style={{color:dark ? '' : 'black'}}
             className={st.title}> Придумайте пароль</div>
             <div className={st.description}> В целях безопасности ваш пароль должен состоять из 6 или более символов.</div>
-            <InputProfile onChange={handleChange} reference={pass1Ref} type='password' isPass={true} label="Пароль"/>
-            <InputProfile onChange={handleChange} reference={pass2Ref} type='password' isPass={true} label="Повторите пароль"/>
-            
-            { userState.error.isError ? userState.error.message : '' }
+            <InputProfile onKeyUp={handleChange} reference={pass1Ref} type='password' isPass={true} label="Пароль"/>
+            <InputProfile onKeyUp={handleChange} reference={pass2Ref} type='password' isPass={true} label="Повторите пароль"/>
 
-            <div
-            onClick={userState.error.isError ? ()=>{} : handlePassword}>
+            <div onClick={handlePassword}>
                 <Button
                 style={{
                     width:'100%',

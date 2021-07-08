@@ -7,10 +7,10 @@ const SocketProvider = ({children}) => {
     const [state,setState] = useState('')
     const isTester = true
     
-    console.log(IO('http://localhost:4000/live', {
-        path: '/socket',
-        transports: ['websocket']
-    }))
+    // console.log(IO('http://localhost:4000/live', {
+    //     path: '/socket',
+    //     transports: ['websocket']
+    // }))
     
     useEffect(()=>{
         // HTTPS=true npm start

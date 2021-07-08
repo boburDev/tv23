@@ -8,6 +8,7 @@ function LoginProvider({ children }) {
         user:{
             phone:'',
             username:'',
+            age:'',
             password:'',
             code:''
         },
@@ -15,7 +16,8 @@ function LoginProvider({ children }) {
         error:{
             isError:false,
             message:null
-        }
+        },
+        signUp: ''
     })
 
     const value = {

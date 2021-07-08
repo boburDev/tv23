@@ -1,28 +1,31 @@
-import goBack from '../../../assets/images/goBack.png'
+import goBack from '../../../assets/image/goBack.png'
 import st from './createaccaunt.module.css'
 import InputProfile from '../../elements/inputProfile/inputProfile'
 import Button from '../../elements/button/button'
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { useLogin } from '../../../context/login'
 
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 export default function CreateAccount() {
-    const [setUserState] = useLogin(true)
+    const [setLoginInfo] = useLogin(true)
     const phoneRef = useRef()
-    const history = useHistory()
     const usernameRef = useRef()
-
+    const ageRef = useRef()
+    const language = useParams()
     const handleInfo=()=>{
-        setUserState((state)=>{
-            return {
-                ...state, 
+        if (phoneRef.current.value && usernameRef.current.value && ageRef.current.value) {
+            setLoginInfo((state)=>{
+                return {
+                    ...state, 
                     user:{
-                        phone:phoneRef.current.value,
-                        username:usernameRef.current.value
-                    }
-            }
-        })
-        history.push('/sign-up/password')
+                        phone: phoneRef.current.value,
+                        username: usernameRef.current.value,
+                        age: ageRef.current.value
+                    },
+                    signUp: 'password'
+                }
+            })
+        }
     }
 
     return (
@@ -32,11 +35,12 @@ export default function CreateAccount() {
             </div>
             <div className={st.title}>
                 <div >Создать аккаунт</div>
-                <Link to="/login" style={{color: 'red', textDecoration: 'none'}}>Вход</Link>
+                <Link to={`/${language.lang || 'ru'}/login`} className={st.regLink}>Вход</Link>
             </div>
                 <InputProfile reference={phoneRef} label="Тел.номер" />
                 <InputProfile reference={usernameRef} label="Имя пользователя"/>
-                <div  onClick={ handleInfo }>
+                <InputProfile reference={ageRef} label="Возраст"/>
+                <div onClick={handleInfo}>
                     <Button style={{width:'100%', marginTop:'30px'}} >Перейти дальше</Button>
                 </div>
         </div>

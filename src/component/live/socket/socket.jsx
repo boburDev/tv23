@@ -18,7 +18,6 @@ export default function Socket({ api }) {
     useEffect(()=>{
         if (connect) {
             socket.connect()
-            // console.log('Client connected...');
         } else {
             if (socket) socket.disconnect()
         }

@@ -4,7 +4,7 @@ import st from './login.module.css'
 import InputProfile from '../../elements/inputProfile/inputProfile'
 import Button from '../../elements/button/button'
 import { useTheme } from '../../../context/theme'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { useApi } from '../../../context/api'
 
@@ -12,7 +12,7 @@ export default function SignIn() {
     const [dark] = useTheme()
     const [api] = useApi()
     const history = useHistory()
-
+    const language = useParams()
     const phoneRef = useRef()
     const passRef = useRef()
     const [error, setError] = useState({
@@ -60,7 +60,7 @@ export default function SignIn() {
             </div>
             <div className={st.title}>
                 <div  style={{color:dark ? '' : 'black'}}>Войти</div>
-                <Link to="/sign-up" className={st.regLink}>Регистрация</Link>
+                <Link to={`/${language.lang || 'ru'}/sign-up`} className={st.regLink}>Регистрация</Link>
             </div>
             <InputProfile onChange={handleOnChange} isCorrect={!error.isError} reference={phoneRef}  label='Телефон номер'/>
             <InputProfile  onChange={handleOnChange}  isCorrect={!error.isError} reference={passRef} label='Пароль' isPass={true} type='password'/>

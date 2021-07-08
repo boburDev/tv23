@@ -1,5 +1,5 @@
-import st from './login.module.css'
-import Navbar from "../../../component/categories/categoryNavbar/navbar"
+import st from '../auth.module.css'
+import Navbar from "../../../component/navbar/navbar"
 import MaskLogin from '../../../assets/image/MaskLogin.png'
 import SignIn from '../../../component/auth/login/login'
 export default function Login () {

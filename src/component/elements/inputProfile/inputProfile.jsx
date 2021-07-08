@@ -6,7 +6,7 @@ import { useTheme } from '../../../context/theme'
 
 export default function InputProfile({
     style,
-    onChange,
+    onKeyUp,
     label,
     reference,
     type='text',
@@ -22,7 +22,7 @@ export default function InputProfile({
             <label className={st.title} htmlFor={rand}>{label}</label>
             
             <div style={{position:'relative'}}>
-                <input onChange={onChange}
+                <input onKeyUp={onKeyUp}
                 style={{
                     color: isCorrect ?(dark ? '' : '#666666') : '#D7141D',
                     background:isCorrect ? (dark ? '' : 'rgba(119, 119, 119, 0.06)') : 'rgba(215, 20, 29, 0.06)'

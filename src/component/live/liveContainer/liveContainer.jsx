@@ -28,12 +28,12 @@ export default function SignleMovie() {
         setMovie(movie.data.data)
     }
 
-    console.log(socket)
+    
     
 
     useEffect(()=>{
         Movie(api, params)
-    }, [params,api])
+    }, [params,api, socket])
 
     return(
         <>

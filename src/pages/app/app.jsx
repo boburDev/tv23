@@ -7,6 +7,7 @@ import GenreMovie from '../genreMovie/genreMovie'
 import Movie from '../movie/movie'
 import Live from '../live/live'
 import Login from '../auth/login/login'
+import SignUp from '../auth/signup/signup'
 import { useTheme } from '../../context/theme'
 function App() {
 	const [dark] = useTheme()
@@ -20,6 +21,8 @@ function App() {
 				<Route path="/:lang?/categories/:category/:movieid" component={Movie} exact />
 				<Route path="/:lang?/genres/:genre" component={GenreMovie} exact />
 				<Route path="/:lang?/login" component={Login} exact />
+				<Route path="/:lang?/sign-up" component={SignUp} exact />
+				<Route path="/:lang?/sign-up/pass" component={SignUp} exact />
 			</Switch>
 		</div>
 	)
