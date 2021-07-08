@@ -7,6 +7,9 @@ import { ApiProvider } from './context/api'
 import { LangProvider } from './context/lanuage'
 import { ResulutionContext } from './context/resolution'
 import { ShareLinkProvider } from './context/shareLink'
+import { SocketProvider } from './context/socket'
+import { LoginProvider } from './context/login'
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
@@ -15,7 +18,11 @@ ReactDOM.render(
           <LangProvider>
             <ResulutionContext>
               <ShareLinkProvider>
-                <App />
+                <SocketProvider>
+                  <LoginProvider>
+                    <App />
+                  </LoginProvider>
+                </SocketProvider>
               </ShareLinkProvider>
             </ResulutionContext>
           </LangProvider>

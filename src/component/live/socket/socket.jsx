@@ -1,26 +1,34 @@
-// import io from 'socket.io-client';
-// let socket;
+import { useEffect, useState } from 'react'
+import IO from 'socket.io-client'
 
+export default function Socket({ api }) {
+    const [connect, setConnect] = useState(false)
+    const [socket, setSocket] = useState(null)
 
-// export const initiateSocket = () => {
-    
-//     console.log(`Connecting socket...`);
-//     // if (socket && room) socket.emit('join', room);
-//   }
+    useEffect(()=>{
+        if (api) {
+            setSocket(IO(api + '/live', {
+                transports: ['websocket'],
+                autoConnect: false,
+                path: '/socket'
+            }))
+        }
+    },[api])
 
-//   export const disconnectSocket = () => {
-//     console.log('Disconnecting socket...');
-//     if(socket) socket.disconnect();
-//   }
-  
+    useEffect(()=>{
+        if (connect) {
+            socket.connect()
+            // console.log('Client connected...');
+        } else {
+            if (socket) socket.disconnect()
+        }
+    }, [socket, connect])
 
-
-export default function Socket() {
-    // socket = io('http://localhost:4000')
-    // console.log(socket)
     return (
         <>
-
+            <button onClick={() => setConnect(!connect)}>
+                { connect ? 'Disconnect' : 'Connect' }
+            </button>
         </>
     )
 }

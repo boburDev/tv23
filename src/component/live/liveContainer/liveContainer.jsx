@@ -6,14 +6,16 @@ import { useApi } from '../../../context/api'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import Socket from '../socket/socket'
+// import Socket from '../socket/socket'
+import { useSocket } from '../../../context/socket'
 
 export default function SignleMovie() {
     const [api] = useApi()
     const [openModal] = useSharing()
     const params = useParams()
     const [movie, setMovie] = useState({})
-    
+    const [socket] = useSocket()
+
     async function Movie(api, params) {
         const movie = await axios.get(api + '/movie-one', {
             headers: {
@@ -24,10 +26,9 @@ export default function SignleMovie() {
             }
         })
         setMovie(movie.data.data)
-        // console.log(movie.data.data)
     }
 
-
+    console.log(socket)
     
 
     useEffect(()=>{
@@ -41,9 +42,7 @@ export default function SignleMovie() {
             {
                 openModal && <ShareLink />
             }
-
-
-            <Socket />
+            {/* <Socket api={api} /> */}
         </>
     )
 }
