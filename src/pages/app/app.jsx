@@ -8,7 +8,9 @@ import Movie from '../movie/movie'
 import Live from '../live/live'
 import Login from '../auth/login/login'
 import SignUp from '../auth/signup/signup'
+import Settings from '../account/account'
 import { useTheme } from '../../context/theme'
+
 function App() {
 	const [dark] = useTheme()
 	return (
@@ -23,6 +25,7 @@ function App() {
 				<Route path="/:lang?/login" component={Login} exact />
 				<Route path="/:lang?/sign-up" component={SignUp} exact />
 				<Route path="/:lang?/sign-up/pass" component={SignUp} exact />
+				<Route path="/:lang?/settings" component={Settings} />
 			</Switch>
 		</div>
 	)
