@@ -1,29 +1,29 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useApi } from './api'
 import IO from 'socket.io-client'
 const Context = createContext()
 
 
 const SocketProvider = ({children}) => {
     const [state,setState] = useState('')
+    const [api] = useApi()
     const isTester = true
     
-    // console.log(IO('http://localhost:4000/live', {
-    //     path: '/socket',
-    //     transports: ['websocket']
-    // }))
-    
     useEffect(()=>{
-        // HTTPS=true npm start
-
         if (isTester) {
-            setState(IO('http://localhost:4000/live', {
-                path: '/socket',
-                transports: ['websocket']
+            setState(IO(api+'/live', {
+                path: '/socket.io',
+                transports: ["websocket"],
+                autoConnect: false
             }))
         } else {
-            setState(IO('https://23tv.uz/api/live', { transports: ['websocket'] }))
+            setState(IO(api+'/live', {
+                path: '/socket.io',
+                transports: ['websocket'],
+                autoConnect: false
+            }))
         }
-    },[isTester])
+    },[isTester, api])
 
 
     const value = {

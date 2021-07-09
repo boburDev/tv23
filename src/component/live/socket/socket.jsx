@@ -1,19 +1,10 @@
 import { useEffect, useState } from 'react'
-import IO from 'socket.io-client'
+import { useSocket } from '../../../context/socket'
 
-export default function Socket({ api }) {
+export default function Socket() {
+
     const [connect, setConnect] = useState(false)
-    const [socket, setSocket] = useState(null)
-
-    useEffect(()=>{
-        if (api) {
-            setSocket(IO(api + '/live', {
-                transports: ['websocket'],
-                autoConnect: false,
-                path: '/socket'
-            }))
-        }
-    },[api])
+    const [socket] = useSocket()
 
     useEffect(()=>{
         if (connect) {
