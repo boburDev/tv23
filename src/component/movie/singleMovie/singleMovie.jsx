@@ -22,7 +22,7 @@ export default function SignleMovie() {
     async function Movie(api, params) {
         const movie = await axios.get(api + '/movie-one', {
             headers: {
-                Authorization: localStorage.getItem('access_token') || 1
+                Authorization: localStorage.getItem('Authorization') || 1
             },
             params: {
                 movieId: params && params.movieid
@@ -67,7 +67,7 @@ export default function SignleMovie() {
 
     return(
         <>
-            <MoviePlayerContainer movie={movie} api={api} />
+            <MoviePlayerContainer movie={movie && movie} api={api} />
             <MovieInfo movie={movie} api={api} />
             <Ads />
             <Actor creator={directors} actors={actors} api={api} />

@@ -9,23 +9,26 @@ import Live from '../live/live'
 import Login from '../auth/login/login'
 import SignUp from '../auth/signup/signup'
 import Settings from '../account/account'
+import NotFound from '../notfound404/notfound404'
 import { useTheme } from '../../context/theme'
 
 function App() {
 	const [dark] = useTheme()
+
 	return (
 		<div style={{background: dark ? '#0C0C0D' : '#F8F9FC'}}>
 			<Switch>
 				<Route path="/:lang?" component={Home} exact />
+				<Route path="/:lang?/login" component={Login} exact />
+				<Route path="/:lang?/sign-up" component={SignUp} exact />
+				<Route path="/:lang?/sign-up/pass" component={SignUp} exact />
 				<Route path="/:lang?/categories" component={AllCategoryMovie} exact />
 				<Route path="/:lang?/live" component={Live} exact />
 				<Route path="/:lang?/categories/:category" component={CategoryMovie} exact />
 				<Route path="/:lang?/categories/:category/:movieid" component={Movie} exact />
 				<Route path="/:lang?/genres/:genre" component={GenreMovie} exact />
-				<Route path="/:lang?/login" component={Login} exact />
-				<Route path="/:lang?/sign-up" component={SignUp} exact />
-				<Route path="/:lang?/sign-up/pass" component={SignUp} exact />
 				<Route path="/:lang?/settings" component={Settings} />
+				<Route path="**" component={NotFound} exact />
 			</Switch>
 		</div>
 	)

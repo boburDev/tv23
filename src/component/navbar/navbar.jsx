@@ -14,7 +14,7 @@ import { Link, useParams } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react'
 import { useTheme } from '../../context/theme'
 import { useLang } from '../../context/lanuage'
-function Navbar({ login }) {
+function Navbar({ login, path }) {
 	const [isOpenSearch, setIsOpenSearch] = useState(false)
 	const [isOpen, setIsOpen] = useState()
 	const componentRef = useRef()
@@ -100,7 +100,9 @@ function Navbar({ login }) {
 			<div className={st.container}>
 				<nav className={st.nav}>
 					<Link className={st.logo_link} to={`/${language.lang || 'ru'}`}><img src={logo} alt="logo" /></Link>
-					<ul style={{ display: isOpenSearch ? 'none' : '' }} className={st.navbar}>
+					{
+						path !== 'auth' && <>
+						<ul style={{ display: isOpenSearch ? 'none' : '' }} className={st.navbar}>
 						<li className={st.navbar_link_item}>
 							<Link to={`/${language.lang || 'ru'}/categories/фильмы`}>Фильмы</Link>
 						</li>
@@ -118,47 +120,46 @@ function Navbar({ login }) {
 						</li>
 					</ul>
 					<div className={st.user_tools} style={{ width: isOpenSearch ? '100%' : '100%' }}  >
-						<div className={st.search_tool} htmlFor="search_tool" style={{
-							width: isOpenSearch ? ' 100%' : '',
-							marginLeft: 'auto',
-							backgroundColor: dark ? '' : '#F6F6F6'
-						}}>
+							<div className={st.search_tool} htmlFor="search_tool" style={{
+								width: isOpenSearch ? ' 100%' : '',
+								marginLeft: 'auto',
+								backgroundColor: dark ? '' : '#F6F6F6'
+							}}>
 
-							<input
-								style={{ color: dark ? '' : '#888888' }}
-								onFocus={() => { setIsOpenSearch(true) }}
-								id="search_tool"
-								type="text"
-								placeholder=""
-							/>
+								<input
+									style={{ color: dark ? '' : '#888888' }}
+									onFocus={() => { setIsOpenSearch(true) }}
+									id="search_tool"
+									type="text"
+									placeholder=""
+								/>
 
-							<div
-								onClick={handleSearch}
-								className={st.search_icon}
-							>
-								<img src={isOpenSearch ? (dark ? xIcon : xIconDark) : (dark ? searchIcon : searchIconBlack)} alt="search-icon" />
+								<div
+									onClick={handleSearch}
+									className={st.search_icon}>
+									<img src={isOpenSearch ? (dark ? xIcon : xIconDark) : (dark ? searchIcon : searchIconBlack)} alt="search-icon" />
+								</div>
+
 							</div>
 
 						</div>
+						
+						<div className={`${st.language} ${dark ? st.dark : ''}`}>
+							<Link to="/ru" style={{fontWeight: lang === 'ru' ? 900 : 400}}
+							onClick={() => {
+								setLang('ru')
+								setReload(true)
+							}}>RU</Link>
+							<span style={{ color: !dark ? "black" : 'white' }}>|</span>
+							<Link to="/uz" style={{fontWeight: lang === 'uz' ? 900 : 400}}
+							onClick={() => {
+								setLang('uz')
+								setReload(true)
+							}}>UZ</Link>
+						</div>
 
-					</div>
-					<div className={`${st.language} ${dark ? st.dark : ''}`}>
-						<Link to="/ru" style={{fontWeight: lang === 'ru' ? 900 : 400}}
-						onClick={() => {
-							setLang('ru')
-							setReload(true)
-						}}>RU</Link>
-						<span style={{ color: !dark ? "black" : 'white' }}>|</span>
-						<Link to="/uz" style={{fontWeight: lang === 'uz' ? 900 : 400}}
-						onClick={() => {
-							setLang('uz')
-							setReload(true)
-						}}>UZ</Link>
-					</div>
-
-					{/* Mini menu for mobile devices */}
-
-					<div ref={componentRef}>
+						{/* Mini menu for mobile devices */}
+						<div ref={componentRef}>
 						<div style={miniMenuStyle} className={st.miniMenu}>
 							<div>
 								<ul className={st.navbar} style={{ display: login ? 'none' : '' }}>
@@ -203,6 +204,8 @@ function Navbar({ login }) {
 							</div>
 						</div>
 					</div>
+					</>
+					}
 				</nav>
 			</div>
 			{/* {isOpenSearch ? (movies.length > 0 ?

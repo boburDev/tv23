@@ -6,9 +6,23 @@ import EnterPassword from '../../../component/auth/enterpassword/enterpassword'
 import VerifyPhone from '../../../component/auth/verifyphone/verifyphone'
 
 import { useLogin } from '../../../context/login'
+import { useAuth } from '../../../context/user'
+import { useParams } from 'react-router-dom'
+import { useEffect } from 'react'
 
 export default function SignUp () {
     const [login] = useLogin()
+
+    const [auth] = useAuth()
+    const language = useParams()
+
+    useEffect(()=>{
+        if (typeof auth === 'object' && auth) {
+            window.location.href = `/${language.lang || 'ru'}`
+        }
+    },[auth,language])
+
+
     console.log(login && login.signUp)
     return (
         <>

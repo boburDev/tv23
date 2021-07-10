@@ -17,7 +17,7 @@ export default function Socket() {
     return (
         <>
             <button onClick={() => setConnect(!connect)}>
-                { connect ? 'Disconnect' : 'Connect' }
+                { connect ? 'Stop LIVE' : 'Start LIVE' }
             </button>
         </>
     )

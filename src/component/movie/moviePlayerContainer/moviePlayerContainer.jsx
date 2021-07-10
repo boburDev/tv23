@@ -113,7 +113,11 @@ export default function MoviePlayerContainer({ movie, api }) {
             </div>
             <div style={{ height: playerHeight }} id="playerRef" className={st.playerArea}>
                 {
-                    isVideo ? <VideoPlayer api={api} movie={movie}/> :
+                    isVideo ? <>
+                    {
+                        movie && movie.movie_id && <VideoPlayer api={api} movie={movie}/>
+                    }
+                    </> :
                     <div className={st.cover}>
                     <img src={`${api}/${movie.movie_screen}`} alt="video_cover" />
                     <div className={st.controlBtn}>

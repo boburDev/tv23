@@ -1,21 +1,27 @@
 import LivePlayerContainer from '../livePlayerContainer/livePlayerContainer'
-import Comments from '../../comments/comments'
-import { useSharing } from '../../../context/shareLink'
-import ShareLink from '../../shareMovie/shareMovie'
+import UserLivePlayerContainer from '../livePlayerContainer/userLivePlayerContainer'
 import { useApi } from '../../../context/api'
-import Socket from '../socket/socket'
+import { useAuth } from '../../../context/user'
+import { useEffect, useState } from 'react'
 
 export default function SignleMovie() {
     const [api] = useApi()
-    const [openModal] = useSharing()
+    const [auth] = useAuth()
+    const [status,setStatus] = useState(1)
+
+    useEffect(()=>{
+        if (typeof auth === 'object' && auth) {
+            const status = auth && auth.status
+            setStatus(status)
+        }
+    },[auth])
+
 
     return(
         <>
-            <LivePlayerContainer movie={[]} api={api} />
-            <Socket />
-            <Comments />
             {
-                openModal && <ShareLink />
+                (status === 23) ? <LivePlayerContainer movie={[]} api={api} /> :
+                <UserLivePlayerContainer movie={[]} api={api} />
             }
         </>
     )

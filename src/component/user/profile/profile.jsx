@@ -4,7 +4,7 @@ import profileImage from '../../../assets/image/profileImage.png'
 import InputProfile from '../../../component/elements/inputProfile/inputProfile'
 import { useTheme } from '../../../context/theme'
 
-export default function Profile() {
+export default function Profile({ data }) {
     const inputRef = useRef()
     const [dark] = useTheme()
     const [isEdit, setIsEdit] = useState(false)
@@ -18,30 +18,33 @@ export default function Profile() {
     }, [isEdit])
 
     const textStyle = {
-        color:dark ? '' : 'black'
+        color: dark ? '#fff' : '#000'
     }
     return (
         <div style={{background :dark ?  '#0C0C0D' : ''}} className={st.container}>
             <img src={profileImage} className={st.profileImage} alt=""/>
             <div className={st.mainContainer} style={{display:isEdit ? 'none' : ''}}>
                 <div className={st.mainInfo}>
-                    <div style={textStyle} className={st.nickName}>NickName:Mansur</div>
+                    <div style={textStyle} className={st.nickName}>Nickname: {data && data.userName}</div>
                     <div className={st.pairs}>
                         <div className={st.key}>Баланс:</div><div style={textStyle} className={st.val}> 0 сум</div>
                     </div>
                 </div>
                 <div className={st.addInfo}>
                     <div className={`${st.pairs } ${st.pairsBottom}`}>
-                        <div className={st.key}>Номер телефон: </div><div className={st.val} style={textStyle}> не добавлен</div>
+                        <div className={st.key}>Номер телефон: </div>
+                        <div className={st.val} style={textStyle}>{data && data.userTel}</div>
                     </div>
                     <div className={st.pairs}>
-                        <div className={st.key}>E-mail: </div><div className={st.val} style={textStyle}>lorem Ipsum</div>
+                        <div className={st.key}>E-mail: </div><div className={st.val} style={textStyle}>Waiting...</div>
                     </div>
                    
                 </div>
                 <div className={st.actions}>
                         <div className={st.pairs}>
-                            <div className={st.key}>23TV ID number: </div><div className={st.val}> 00101</div>
+                            <div className={st.key}>23TV ID number: </div><div
+                            style={{color: dark ? '#fff' : '#000'}}
+                            className={st.val}> 00101</div>
                         </div>
                         <div onClick={()=>{setIsEdit(x=>!x)}} className={st.buttonLink}>Редактировать профиль</div>
                 </div>

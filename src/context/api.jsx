@@ -4,12 +4,12 @@ const Context = createContext()
 
 const ApiProvider = ({children}) => {
     const [state,setState] = useState('')
-    const isTester = false
+    const isTester = true
     
     useEffect(()=>{
         // HTTPS=true npm start
         const server = {
-            server_dev: "http://localhost:4000",    
+            server_dev: "https://localhost:4000",
             server_dep: "https://23tv.uz/api",
         }
         if (isTester) {

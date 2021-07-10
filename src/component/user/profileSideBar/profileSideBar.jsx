@@ -1,10 +1,11 @@
-import { NavLink } from 'react-router-dom'
-import logout from '../../assets/image/logout.png'
-import { useTheme } from '../../context/theme'
+import { NavLink, useParams } from 'react-router-dom'
+import logout from '../../../assets/image/logout.png'
+import { useTheme } from '../../../context/theme'
 import st from './profileSideBar.module.css'
 
 export default function ProfileSideBar() {
     const [dark] = useTheme()
+    const language = useParams()
     return (
         <div style={{background:dark ? 'black':'white'}} className={st.container}>
             <ul className={st.sidebarLinks}>
@@ -12,7 +13,7 @@ export default function ProfileSideBar() {
                     <NavLink
                     activeClassName={dark ? st.sideLinkActive:st.sideLinkActiveDark}
                     className={ dark ? st.sideLink : st.sideLinkLight}
-                    to="/settings/profile"
+                    to={`/${language.lang || 'ru'}/settings/profile`}
                     >
                     Аккаунт
                     </NavLink>
@@ -20,10 +21,8 @@ export default function ProfileSideBar() {
                 <li>
                     <NavLink
                     activeClassName={dark ? st.sideLinkActive:st.sideLinkActiveDark}
-
                     className={st.sideLink}
-                    to="/settings/follow"
-                    >
+                    to={`/${language.lang || 'ru'}/settings/follow`}>
                     Подписки
                     </NavLink>
                 </li>
@@ -31,8 +30,7 @@ export default function ProfileSideBar() {
                     <NavLink
                     activeClassName={dark ? st.sideLinkActive:st.sideLinkActiveDark}
                     className={st.sideLink}
-                    to="/settings/payment"
-                    >
+                    to={`/${language.lang || 'ru'}/settings/payment`}>
                     Оплата
                     </NavLink>
                 </li>
@@ -40,14 +38,18 @@ export default function ProfileSideBar() {
                     <NavLink
                     activeClassName={dark ? st.sideLinkActive:st.sideLinkActiveDark}
                     className={st.sideLink}
-                    to="/settings/history"
-                    >
+                    to={`/${language.lang || 'ru'}/settings/history`}>
                     История
                     </NavLink>
                 </li>
             </ul>
-            <div className={st.exitbtn}>
-                <img src={logout} alt="/"/> Выход
+            <div
+            style={{cursor: 'pointer'}}
+            className={st.exitbtn} onClick={()=>{
+                localStorage.removeItem('Authorization')
+                window.location.href = `/${language.lang || 'ru'}/login`
+            }}>
+                <img src={logout} alt="logout"/> Выход
             </div>
         </div>
     )

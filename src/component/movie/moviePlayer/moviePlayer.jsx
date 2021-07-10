@@ -175,33 +175,34 @@ export default function VideoPlayer({ movie, api }) {
 		
 		<div onClick={()=>{setIsPlay(!isPlay)}} onDoubleClick={()=>{handleSet10Sec(-10)}} className={st.prevTap}></div>
 		<div onClick={()=>{setIsPlay(!isPlay)}} onDoubleClick={()=>{handleSet10Sec(10)}} className={st.nextTap}></div>
-		<div className={st.controls}>
-		<div onClick={()=>{setIsPlay(!isPlay)}} className={st.playingStatus}>
-		<img src={isPlay ? pauseIcon : playIcon} alt="" />
+			<div className={st.controls}>
+				<div onClick={()=>{setIsPlay(!isPlay)}} className={st.playingStatus}>
+					<img src={isPlay ? pauseIcon : playIcon} alt="" />
+				</div>
+			<Seekbar currentSecond={currentSecond} setCurrentSecond={handleSetCurrentSecond}/>
+				<div className={st.volume}>
+					<VideoVolume
+					isMuted={isMuted}
+					setIsMuted={handleMuted}
+					volume={volume}
+					setVolume = {handleChangeVolume}/>
+				</div>
+			<div className={st.duration}>{duration}</div>
+				<div onClick={isFullScreen ? closeFullscreen : openFullscreen} className={st.playingStatus}>
+					<img src={!isFullScreen ? fullScreenIcon : exitFullScreenIcon} alt="" />
+				</div>
+			</div>
 		</div>
-		<Seekbar currentSecond={currentSecond} setCurrentSecond={handleSetCurrentSecond}/>
-		<div className={st.volume}>
-		<VideoVolume
-		isMuted={isMuted}
-		setIsMuted={handleMuted}
-		volume={volume}
-		setVolume = {handleChangeVolume}/>
-		</div>
-		<div className={st.duration}>{duration}</div>
-		<div onClick={isFullScreen ? closeFullscreen : openFullscreen} className={st.playingStatus}>
-		<img src={!isFullScreen ? fullScreenIcon : exitFullScreenIcon} alt="" />
-		</div>
-		</div>
-		</div>
+
 		<video ref={videoRef} id='video'
-		style={{width:width, maxHeight:isFullScreen ? '100vh' : '90vh'}}
-		onTimeUpdate={timeUpdate}
-		onLoadedMetadata ={onLoadedMetaInfo}
-		onLoadStart={()=>setIsLoad(false)}
-		onLoadedData={()=>setIsLoad(true)}
-		preload={`${api}/${data.movie_thumnail_path}`}
-		controlsList="nodownload">
-		<source src={`${api}/stream/movie/${(data && data.movie_id) && data.movie_path}/${resolution}`} type="video/mp4" />
+			style={{width:width, maxHeight:isFullScreen ? '100vh' : '90vh'}}
+			onTimeUpdate={timeUpdate}
+			onLoadedMetadata ={onLoadedMetaInfo}
+			onLoadStart={()=>setIsLoad(false)}
+			onLoadedData={()=>setIsLoad(true)}
+			preload={`${api}/${data.movie_thumnail_path}`}
+			controlsList="nodownload">
+			<source src={`${api}/stream/movie/${(data && data.movie_id) && data.movie_path}/${resolution}`} type="video/mp4" />
 		</video>
 		</div>
 		)

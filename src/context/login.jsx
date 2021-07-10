@@ -17,8 +17,11 @@ function LoginProvider({ children }) {
             isError:false,
             message:null
         },
-        signUp: ''
+        signUp: '',
+        accessToken: localStorage.getItem('Authorization')
     })
+
+
 
     const value = {
         state,

@@ -9,6 +9,7 @@ import { ResulutionContext } from './context/resolution'
 import { ShareLinkProvider } from './context/shareLink'
 import { SocketProvider } from './context/socket'
 import { LoginProvider } from './context/login'
+import { AuthorizetionProvider } from './context/user'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -20,7 +21,9 @@ ReactDOM.render(
               <ShareLinkProvider>
                 <SocketProvider>
                   <LoginProvider>
-                    <App />
+                    <AuthorizetionProvider>
+                      <App />
+                    </AuthorizetionProvider>
                   </LoginProvider>
                 </SocketProvider>
               </ShareLinkProvider>
