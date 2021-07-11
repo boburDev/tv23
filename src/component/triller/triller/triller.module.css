@@ -89,4 +89,8 @@
     bottom: 10px;
     z-index: 99;
   }
+
+  .controls > div:nth-child(2) {
+    margin: 0 50px;
+  }
 }

@@ -185,4 +185,8 @@
   .box .info .genre .genreItem {
     font-size: 12px;
   }
+
+  .button > button {
+    font-size: 18px;
+  }
 }
