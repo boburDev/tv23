@@ -3,9 +3,11 @@
   height: 100vh;
   font-family: "Lato", sans-serif;
 }
+
 :root {
   --heightCarouselItem: 641px;
 }
+
 .player {
   display: flex;
   height: 645px;
@@ -78,6 +80,13 @@
   .controls {
     height: max-content;
     bottom: 20px;
+    z-index: 99;
+  }
+}
+
+@media only screen and (max-width: 445px) {
+  .controls {
+    bottom: 10px;
     z-index: 99;
   }
 }
