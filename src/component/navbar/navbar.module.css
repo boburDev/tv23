@@ -309,9 +309,11 @@
   .navbar .navbar_link_item a {
     font-size: 14px;
   }
+
   .miniMenu .navbar .navbar_link_item {
     display: flex;
   }
+
   .miniMenu .navbar {
     display: flex;
     align-items: flex-start;
@@ -319,10 +321,12 @@
     margin-left: 0;
     margin-right: 0;
   }
+
   .miniMenu .navbar .navbar_link_item {
     width: 100%;
     border: 1px solid #dcdcdc;
   }
+
   .miniMenu .navbar .navbar_link_item a {
     padding: 12px 15px;
     color: inherit;

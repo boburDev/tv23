@@ -12,8 +12,7 @@
   text-decoration: none;
   color: white;
   position: relative;
-  min-width: 180px;
-  margin: 0 5px;
+  min-width: 170px;
 }
 
 .title {
@@ -161,13 +160,15 @@
 @media only screen and (max-width: 830px) {
   .container {
     width: calc(100% / 3);
+    min-width: auto;
   }
 }
-@media only screen and (max-width: 500px) {
-  .container {
-    flex: 1;
-  }
 
+@media only screen and (max-width: 560px) {
+  .container {
+    width: 45%;
+    min-width: auto;
+  }
   .title {
     font-size: 18px;
   }
@@ -181,8 +182,16 @@
   }
 }
 
-@media only screen and (max-width: 400px) {
-  .container {
-    width: 100%;
+@media only screen and (max-width: 420px) {
+  .title {
+    font-size: 14px;
+  }
+
+  .description {
+    font-size: 10px;
+  }
+
+  .imgBox {
+    height: 140px;
   }
 }
