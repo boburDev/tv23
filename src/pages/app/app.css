@@ -1,23 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&display=swap");
 
-*{
-	margin: 0;
-	padding: 0;
-	user-zoom:unset;
-	box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  user-zoom: unset;
+  box-sizing: border-box;
 }
 
 body {
-	margin: 0;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.container{
-	width: 100%;
-	margin: 0 auto;
-	padding: 0px 120px;
-	/* overflow: hidden; */
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0px 120px;
+  /* overflow: hidden; */
 }
