@@ -7,7 +7,7 @@ const Context = createContext()
 const SocketProvider = ({children}) => {
     const [state,setState] = useState('')
     const [api] = useApi()
-    const isTester = false
+    const isTester = true
     
     useEffect(()=>{
         if (isTester) {

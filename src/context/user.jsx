@@ -13,7 +13,7 @@ const AuthorizetionProvider = ({children}) => {
             const res = await axios.get(api+'/user-data')
             setState(res.data.data)
         } catch (error) {
-            setState(error.response.status)
+            setState(error.response && error.response.status)
         }
     }
 
