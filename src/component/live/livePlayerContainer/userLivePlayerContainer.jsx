@@ -1,18 +1,21 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 import st from '../../movie/moviePlayerContainer/moviePlayerContainer.module.css'
 import stLocal from './livePlayerContainer.module.css'
-import Button from '../../elements/button/button'
-import VideoPlayer from '../../movie/moviePlayer/moviePlayer'
+// import Button from '../../elements/button/button'
+// import VideoPlayer from '../../movie/moviePlayer/moviePlayer'
 import { useTheme } from '../../../context/theme'
-
-import cover from '../../../assets/image/cover.png'
+// import { useSocket } from '../../../context/socket'
+// import cover from '../../../assets/image/cover.png'
+import IO from 'socket.io-client'
 
 export default function UserLivePlayerContainer({ movie, api }) {
     const [dark] = useTheme()
-    
+    const socket = IO('http://localhost:4000/live', { path: '/socket.io', transports: ["websocket"]}) //autoConnect: true
+
+    // const [socket] = useSocket()
+
 
     const [playerHeight, setPlayerHeight] = useState('')
-    const [isVideo, setIsVideo] = useState(false)
     const [collapseDesc, setCollapseDesc] = useState(false)
     const descStyle = {
         height :(!collapseDesc ? 48+'px' :'auto')
@@ -32,12 +35,76 @@ export default function UserLivePlayerContainer({ movie, api }) {
         }
     }, [])
 
-    const coverBtnStyle ={
-        marginBottom:'20px',
-        width:'200px'
+
+
+    useEffect(()=>{
+        document.getElementById('my-button').onclick = () => {
+            initLive(socket)
+        }
+    },[socket])
+
+    async function initLive(socket) {
+        // let peerConnection
+        // const config = {
+        // iceServers: [
+        //     {
+        //     urls: ["stun:stun.l.google.com:19302"]
+        //     }
+        // ]
+        // }
+        // const video = document.getElementById("video")
+
+
+            
     }
 
-    
+
+
+
+    // console.log('waiting...')
+    //     console.log(socket)
+        
+    //     socket.emit("offer", (id, description) => {
+    //         console.log('working...')
+    //         peerConnection = new RTCPeerConnection(config)
+    //         peerConnection
+    //         .setRemoteDescription(description)
+    //         .then(() => peerConnection.createAnswer())
+    //         .then(sdp => peerConnection.setLocalDescription(sdp))
+    //         .then(() => {
+    //         socket.emit("answer", id, peerConnection.localDescription)
+    //         })
+    //         peerConnection.ontrack = event => {
+    //         video.srcObject = event.streams[0]
+    //         }
+    //         peerConnection.onicecandidate = event => {
+    //         if (event.candidate) {
+    //             socket.emit("candidate", id, event.candidate)
+    //         }
+    //         }
+    //     })
+    //     console.log('outside...')
+        
+        
+    //     socket.on("candidate", (id, candidate) => {
+    //         peerConnection.addIceCandidate(new RTCIceCandidate(candidate))
+    //         .catch(e => console.error(e))
+    //     })
+        
+    //     socket.on("connect", () => {
+    //         socket.emit("watcher")
+    //     })
+        
+    //     socket.on("broadcaster", () => {
+    //         socket.emit("watcher")
+    //     })
+        
+    //     window.onunload = window.onbeforeunload = () => {
+    //         socket.close()
+    //         peerConnection.close()
+    //     }
+
+
 
     return (
         <div className={st.container} style={{background: dark ? '#0C0C0D' : '#F8F9FC'}}>
@@ -47,18 +114,20 @@ export default function UserLivePlayerContainer({ movie, api }) {
 			</div>
             </div>
             <div style={{ height: playerHeight }} id="playerRef" className={st.playerArea}>
-                {
+                <video autoPlay id="video"></video>
+                {/* {
                     isVideo ? <VideoPlayer api={api} movie={movie}/> :
                     <div className={st.cover}>
                     <img src={cover} alt="video_cover" />
                     <div className={st.controlBtn}>
-                        <div onClick={() => setIsVideo(true)}>
-                            <Button style={coverBtnStyle}>Смотреть по подписке</Button>
-                        </div>
-                        </div>
+                    <div onClick={() => setIsVideo(true)}>
+                    <Button style={coverBtnStyle}>Смотреть по подписке</Button>
                     </div>
-                }
+                    </div>
+                    </div>
+                } */}
             </div>
+                <button id='my-button'>Live</button>
             <div className={st.topBar}>
                 <div className={`${st.additional_functions} ${dark ? '': st.black}`}>
                   
