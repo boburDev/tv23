@@ -129,6 +129,12 @@
   }
 }
 
+@media only screen and (max-width: 560px) {
+  .items {
+    justify-content: space-between;
+  }
+}
+
 @media only screen and (max-width: 375px) {
   .container {
     composes: container from "../../../pages/app/app.css";
@@ -137,9 +143,9 @@
     padding-right: 5px;
   }
 
-  .items {
+  /* .items {
     flex-direction: column;
-  }
+  } */
 }
 
 @media only screen and (max-width: 320px) {

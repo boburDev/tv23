@@ -3,6 +3,7 @@
   display: flex;
   position: relative;
   font-family: "Lato", sans-serif;
+  margin-top: 20px;
 }
 
 .items * {

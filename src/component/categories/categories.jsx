@@ -3,6 +3,7 @@ import Header from "./categoryHeader/header";
 import Navbar from "./categoryNavbar/navbar";
 import { useTheme } from "../../context/theme";
 import { useParams } from "react-router-dom";
+
 export default function Categories(props) {
   const language = useParams();
   const [dark] = useTheme();
