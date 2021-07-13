@@ -413,6 +413,28 @@
     width: 100px;
   }
 }
+@media screen and(max-width: 1120px) {
+  .container {
+    padding: 0 120px;
+  }
+
+  .nav .logo_link,
+  .nav .logo_link img {
+    width: 105px;
+    height: 66px;
+  }
+
+  .navbar .navbar_link_item a {
+    padding: 0 10px;
+    font-size: 11.85px;
+  }
+
+  .search_tool input {
+    padding: 5px;
+    font-size: 17px;
+  }
+}
+
 @media only screen and (max-width: 320px) {
   .container {
     composes: container from "../../pages/app/app.css";

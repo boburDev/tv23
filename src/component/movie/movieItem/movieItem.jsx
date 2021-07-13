@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import st from "./movieItem.module.css";
 import { Link, useParams } from "react-router-dom";
 import { useTheme } from "../../../context/theme";
@@ -9,6 +9,14 @@ export default function MovieItem({ movie = {}, caregoryId }) {
   const [dark] = useTheme();
   const [api] = useApi();
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [showAllGenre, setShowAllGenre] = useState(true);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      if (window.innerWidth <= 720) setShowAllGenre(false);
+      else setShowAllGenre(true);
+    });
+  }, []);
 
   return (
     <>
@@ -40,10 +48,16 @@ export default function MovieItem({ movie = {}, caregoryId }) {
           className={`${st.description} ${movie ? "" : st.animate}`}
           style={{ color: dark ? " " : "black" }}
         >
-          Janri:{" "}
+          Janri:
           {movie &&
             movie?.movie_genre &&
-            movie.movie_genre.toString().split(",").join(", ")}
+            movie.movie_genre
+              .toString()
+              .split(",")
+              .map((genre, index) => {
+                if (!showAllGenre) return index <= 2 && <div>{genre},</div>;
+                else return <div>{genre},</div>;
+              })}
         </div>
       </Link>
     </>

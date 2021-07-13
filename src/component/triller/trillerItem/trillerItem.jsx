@@ -1,8 +1,18 @@
 import st from "./trillerItem.module.css";
 import Button from "../../elements/button/button";
 import TrailarPlayer from "../trillerPlayer/player";
+import { useEffect, useState } from "react";
 
 export default function TrailerItem({ isActive, data, api }) {
+  const [showAllGenre, setShowAllGenre] = useState(true);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      if (window.innerWidth <= 720) setShowAllGenre(false);
+      else setShowAllGenre(true);
+    });
+  }, []);
+
   return (
     <>
       {
@@ -20,7 +30,13 @@ export default function TrailerItem({ isActive, data, api }) {
               <div className={st.genre}>
                 {data &&
                   data.movie_genre.split(",").map((x, key) => {
-                    return (
+                    return !showAllGenre ? (
+                      key <= 5 && (
+                        <div className={st.genreItem} key={key}>
+                          {key === 5 ? "..." : x}
+                        </div>
+                      )
+                    ) : (
                       <div className={st.genreItem} key={key}>
                         {x}
                       </div>
