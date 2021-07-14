@@ -7,10 +7,9 @@ import { ApiProvider } from "./context/api";
 import { LangProvider } from "./context/lanuage";
 import { ResulutionContext } from "./context/resolution";
 import { ShareLinkProvider } from "./context/shareLink";
-
-// import { SocketProvider } from './context/socket'
 import { LoginProvider } from "./context/login";
 import { AuthorizetionProvider } from "./context/user";
+import { FilterProvider } from "./context/filter";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -20,13 +19,13 @@ ReactDOM.render(
           <LangProvider>
             <ResulutionContext>
               <ShareLinkProvider>
-                {/* <SocketProvider> */}
                 <LoginProvider>
                   <AuthorizetionProvider>
-                    <App />
+                    <FilterProvider>
+                      <App />
+                    </FilterProvider>
                   </AuthorizetionProvider>
                 </LoginProvider>
-                {/* </SocketProvider> */}
               </ShareLinkProvider>
             </ResulutionContext>
           </LangProvider>

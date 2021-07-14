@@ -60,7 +60,7 @@ export default function Category({
               (item, key) =>
                 current * visibled <= key &&
                 (current + 1) * visibled > key && (
-                  <MovieItem caregoryId={categoryId} key={key} movie={item} />
+                  <MovieItem caregoryId={categoryId} key={Math.random() * Math.random()} movie={item} />
                 )
             )
           )}

@@ -2,9 +2,11 @@ import st from './header.module.css'
 import filterIcon from '../../../assets/logo/filer-icon.svg'
 import filterIconDark from '../../../assets/logo/filter-icon-light.svg'
 import { useTheme } from '../../../context/theme'
+import { useFilter } from '../../../context/filter'
 
 export default function Header({ allCategory, text }) {
   const [dark] = useTheme()
+  const [open, setOpen] = useFilter()
   return (
     <div
     style={{ display: (allCategory === 'all') && 'none', background: dark ? '#0C0C0D':"#F8F9FC" }}
@@ -14,10 +16,10 @@ export default function Header({ allCategory, text }) {
 			{ text || 'Категории' }
 		</div>
 		
-		<div className={st.favourites}>
+		<div className={st.favourites} onClick={()=>setOpen(!open)}>
 			<img src={dark ? filterIcon : filterIconDark} alt="" />
 		</div>
-		
+
 	  </div>
     </div>
   )
