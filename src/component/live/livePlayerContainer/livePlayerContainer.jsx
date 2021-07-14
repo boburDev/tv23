@@ -10,7 +10,7 @@ export default function LivePlayerContainer({ api }) {
     const [dark] = useTheme()
     // const [socket] = useSocket()
     
-    const socket = IO('http://localhost:4000/live', { path: '/socket.io', transports: ["websocket"],  }) // autoConnect: false
+    const socket = IO('http://localhost:4000/live', { path: '/socket.io', transports: ["websocket"], autoConnect: false })
 
     const [connect, setConnect] = useState(false)
     const [playerHeight, setPlayerHeight] = useState('')

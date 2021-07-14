@@ -6,14 +6,13 @@ import CategoryMovie from "../../component/categories/categories"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { useApi } from "../../context/api"
-import { useFilter } from '../../context/filter'
 import FilterComponent from '../../component/filter/filter'
 function Home() {
   const [api] = useApi()
-  const [open] = useFilter()
   const [categories, setCategories] = useState([])
   const [recommendedTriller, setRecommendedTriller] = useState([])
   const [loading, setLoading] = useState(false)
+
   async function getMovies(api) {
     try {
       setLoading(true)
@@ -40,9 +39,6 @@ function Home() {
 
   return (
     <>
-    {
-      console.log(open)
-    }
       <FilterComponent />
       <Navbar />
       <Triller data={recommendedTriller} api={api} />

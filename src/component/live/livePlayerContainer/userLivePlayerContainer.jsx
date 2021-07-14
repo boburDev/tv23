@@ -10,7 +10,7 @@ import IO from 'socket.io-client'
 
 export default function UserLivePlayerContainer({ movie, api }) {
     const [dark] = useTheme()
-    const socket = IO('http://localhost:4000/live', { path: '/socket.io', transports: ["websocket"]}) //autoConnect: true
+    const socket = IO('http://localhost:4000/live', { path: '/socket.io', transports: ["websocket"], autoConnect: false})
 
     // const [socket] = useSocket()
 

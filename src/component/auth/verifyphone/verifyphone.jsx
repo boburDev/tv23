@@ -4,58 +4,61 @@ import goBack from '../../../assets/image/goBack.png'
 import VerifyInput from '../../elements/verifyInput/verifyInput'
 import { useTheme } from '../../../context/theme'
 import { useEffect, useState } from 'react'
-import { useHistory } from 'react-router'
 import { useLogin } from '../../../context/login'
-// import firebase from '../../../Contexts/firebase'
-// import axios from 'axios'
-// import { useApi } from '../../../context/api'
+import firebase from '../../../context/firebase'
+import { useApi } from '../../../context/api'
+import axios from 'axios'
+
 export default function VerifyPhone() {
     const [dark] = useTheme()
-    const history = useHistory()
     const [userState] = useLogin()
-    // const [api] = useApi()
+    const [api] = useApi()
     const [isSendSms] = useState(true)
 
-    // const setupReCaptcha =()=>{
-    //     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-    //         'size': 'invisible',
-    //         'callback': (response) => {
-    //           // reCAPTCHA solved, allow signInWithPhoneNumber.
-    //           onSignInOnSubmit();
-    //         }
-    //       });
-    // }
+    const setupReCaptcha =()=>{
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+            'size': 'invisible',
+            'callback': (response) => {
+              // reCAPTCHA solved, allow signInWithPhoneNumber.
+              console.log('setupReCaptcha')
+              onSignInOnSubmit()
+            }
+          })
+    }
 
-    // const onSignInOnSubmit=()=>{
-    //     setupReCaptcha()
-    //     const phoneNumber = userState.user.phone;
-    //     const appVerifier = window.recaptchaVerifier;
-    //     firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
-    //         .then((confirmationResult) => {
+    const onSignInOnSubmit=()=>{
+        setupReCaptcha()
+        const phoneNumber = userState.user.phone
+        const appVerifier = window.recaptchaVerifier
+        console.log('onSignInOnSubmit')
+        firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+            .then((confirmationResult) => {
 
-    //             const code = window.prompt("Kodni kirit:");
-    //             confirmationResult.confirm(code).then(async(result) => {
+                const code = window.prompt("Kodni kirit:")
+                confirmationResult.confirm(code).then(async(result) => {
 
-    //                 const res = await axios.post(`${api}/create-user`, {
-    //                     username:userState.user.username,
-    //                     password:userState.user.password,
-    //                     phoneNumber:userState.user.password
-    //                 })
-    //                 if(res){
-    //                 window.localStorage.setItem('autorization', res.data.accessToken)
-    //                 window.localStorage.setItem('user', JSON.stringify(res.data.data))
-    //                 history.push('/')
-    //                 }
-    //                 const user = result.user;
-    //             }).catch((error) => {
-    //             //not signed in
-    //             });
-    //         window.confirmationResult = confirmationResult;
-    //         // ...
-    //         }).catch((error) => {
-    //     //sms sent error
-    //     });
-    // }
+                    const res = await axios.post(`${api}/create-user`, {
+                        username:userState.user.username,
+                        password:userState.user.password,
+                        phoneNumber:userState.user.password
+                    })
+                    if(res){
+                        console.log('res', res)
+                    // window.localStorage.setItem('autorization', res.data.accessToken)
+                    // window.localStorage.setItem('user', JSON.stringify(res.data.data))
+                    // history.push('/')
+                    }
+                    const user = result.user
+                    console.log('user', user)
+                }).catch((error) => {
+                //not signed in
+                })
+            window.confirmationResult = confirmationResult
+            // ...
+            }).catch((error) => {
+        //sms sent error
+        })
+    }
     
 
     useEffect( ()=>{
@@ -66,10 +69,8 @@ export default function VerifyPhone() {
             if(userState.user.password === ''){
                 // history.push('/sign-up/password')
             }
-
         }
-        console.log(userState)
-    }, [userState, history])
+    }, [userState])
 
     return (
         <div>
