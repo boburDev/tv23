@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 const Context = createContext();
 
 const FilterProvider = ({ children }) => {
-  const [state, setState] = useState(true);
+  const [state, setState] = useState(false);
 
   const value = {
     state,

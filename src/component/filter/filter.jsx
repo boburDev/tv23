@@ -96,7 +96,7 @@ export default function FilterConfigure() {
             genreId: selectedGenreId,
             countryId: selectedCountryId,
         }
-        console.log(searchData)
+
         const res = await axios.post(api + '/filter-movie', searchData, {
             headers: {
                 Language: localStorage.getItem('lang')
