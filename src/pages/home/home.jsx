@@ -42,7 +42,7 @@ function Home() {
       <FilterComponent />
       <Navbar />
       <Triller data={recommendedTriller} api={api} />
-      <CategoryMovie data={categories} loading={loading} what="category" />
+      {/* <CategoryMovie data={categories} loading={loading} what="category" /> */}
       <Ads />
       <Footer />
     </>

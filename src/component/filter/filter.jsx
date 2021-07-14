@@ -18,6 +18,10 @@ export default function FilterConfigure() {
     const [isOpen, setIsOpen] = useFilter()
     const [tab, setTab] = useState('country') // country, genre, year
     const [dark] = useTheme()
+    
+    const [selectedGenreId, setselectedGenreId] = useState([])
+    const [selectedCountryId, setSelectedCountryId] = useState([])
+    const [selectedYear, setSelectedYear] = useState([])
 
     useEffect(()=>{
         ;(async()=>{
@@ -25,7 +29,6 @@ export default function FilterConfigure() {
                 if (api) {
                     const res = await axios.get(api + '/countries')
                     setCountries(res.data.data)
-                    // console.log(res.data.data)
                 }
             } catch (error) {
                 throw error
@@ -39,7 +42,6 @@ export default function FilterConfigure() {
                 if (api) {
                     const res = await axios.get(api + '/genres')
                     setGenres(res.data.data)
-                    // console.log(res.data.data)
                 }
             } catch (error) {
                 throw error
@@ -53,7 +55,6 @@ export default function FilterConfigure() {
                 if (api) {
                     const res = await axios.get(api + '/movie-year')
                     setYear(res.data.data)
-                    // console.log(res.data.data)
                 }
             } catch (error) {
                 throw error
@@ -61,6 +62,56 @@ export default function FilterConfigure() {
         })()
     },[api])
     
+
+   
+    
+    const handleChangeGenre=(_, e)=>{
+        if (e.target.checked) {
+            setselectedGenreId([e.target.value, ...selectedGenreId])
+        } else if (e.target.checked === false) {
+            removeElement(selectedGenreId, e)
+        }
+    }
+
+    const handleChangeCountry=(_, e)=>{
+        if (e.target.checked) {
+            setSelectedCountryId([e.target.value, ...selectedCountryId])
+        } else if (e.target.checked === false) {
+            removeElement(selectedCountryId, e)
+        } 
+    }
+
+    const handleChangeYear=(_ ,e)=>{
+        if (e.target.checked) {
+            setSelectedYear([e.target.value, ...selectedYear])
+        } else if (e.target.checked === false) {
+            removeElement(selectedYear, e)
+        }
+    }
+
+
+    const sendSearchData = async() => {
+        const searchData = {
+            year: selectedYear,
+            genreId: selectedGenreId,
+            countryId: selectedCountryId,
+        }
+        console.log(searchData)
+        const res = await axios.post(api + '/filter-movie', searchData, {
+            headers: {
+                Language: localStorage.getItem('lang')
+            }
+        })
+        console.log(res.data.data)
+    }
+
+    function removeElement(data,e) {
+        for( var i = 0; i < data.length; i++){
+            if ( data[i] === e.target.value) { 
+                data.splice(i, 1); 
+            }
+        }
+    }
 
     const containerStyle= {
         visibility: isOpen ? 'visible' : 'hidden',
@@ -71,36 +122,7 @@ export default function FilterConfigure() {
         top: isOpen ? '0': '100%',
         left: isOpen ? '0': '50%'
     }
-    const [searchData, setSearchData ] = useState({
-        year:"",
-        genreId:"",
-        countryId:""
-    })
-    
-    const handleChangeGenre=(children, e)=>{
-        setSearchData((data) =>{
-            return  {...data,genreId:e.target.value}
-        } )
-    }
-    const handleChangeCountry=(children, e)=>{
-        setSearchData((data) =>{
-            return  {...data,countryId:e.target.value}
-        } )
-    }
-    const handleChangeYear=(children ,e)=>{
-        setSearchData((data) =>{
-            return  {...data,year:children}
-        } )
-    }
-    const sendSearchData = async() => {
-        // console.log(searchData)
-        const res = await axios.post(api + '/filter-movie', searchData, {
-            headers: {
-                Language: localStorage.getItem('lang')
-            }
-        })
-        console.log(res.data.data)
-    }
+
     return (
         <div style={{...containerStyle, ...{background: dark ? '' : 'rgba(255, 255, 255, 0.98)'}}} className={st.container}>
         <div className={st.containerTitle} style={{borderBottom:dark ? ' ' :' 1px solid rgba(119, 119, 119, 0.2)'}}>

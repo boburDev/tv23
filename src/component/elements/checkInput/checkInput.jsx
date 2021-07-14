@@ -15,7 +15,7 @@ export default function CheckInput({name,value, children, onChange}) {
     return (
         <div className={`${st.item } ${dark ? st.dark : st.light}`}>
             <div className={st.checked}><img src={ dark ? checked : checkedDark} alt="" /></div>
-            <input ref={radioInput} id={id} onChange={(e)=>{onChange(children, e)}} value={value} name={name} type="radio" /> <label htmlFor={id}>{children}</label>
+            <input ref={radioInput} id={id} onChange={(e)=>{onChange(children, e)}} value={value} name={name} type="checkbox" /> <label htmlFor={id}>{children}</label>
         </div>
     )
 }
