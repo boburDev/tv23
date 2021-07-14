@@ -13,11 +13,13 @@
   padding-top: 20px;
   padding-bottom: 15px;
 }
+
 .titleBox > h1 {
   font-weight: 800;
   line-height: 33px;
   font-size: 21px;
 }
+
 .title {
   display: flex;
   padding: 0px 0px;
@@ -93,6 +95,14 @@
     max-width: 950px;
     width: 100%;
   }
+
+  .titleBox > h1 {
+    font-size: 16px !important;
+  }
+
+  .title {
+    font-size: 16px !important;
+  }
 }
 
 @media only screen and (max-width: 850px) {
@@ -108,6 +118,14 @@
     composes: container from "../../../pages/app/app.css";
     max-width: 760px;
     width: 100%;
+  }
+
+  .titleBox > h1 {
+    font-size: 14px !important;
+  }
+
+  .title {
+    font-size: 14px !important;
   }
 }
 
