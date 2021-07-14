@@ -4,7 +4,7 @@ const Context = createContext()
 
 const ApiProvider = ({children}) => {
     const [state,setState] = useState('')
-    const isTester = true
+    const isTester = false
     
     useEffect(()=>{
         // HTTPS=true npm start
