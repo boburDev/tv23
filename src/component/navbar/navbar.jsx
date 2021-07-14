@@ -10,101 +10,135 @@ import searchIconBlack from "../../assets/logo/search_icon_white.svg";
 import searchIcon from "../../assets/logo/search_icon.svg";
 import menuOpen from "../../assets/logo/menu_icon.svg";
 import menuOpenLight from "../../assets/logo/menu_icon_light.svg";
+import MovieItem from '../movie/movieItem/movieItem'
+import SearchNotFound from '../notFound/SearchNotFound/notFound'
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { useTheme } from "../../context/theme";
 import { useLang } from "../../context/lanuage";
+import axios from "axios";
+import { useApi } from "../../context/api";
+
+
 
 function Navbar({ login, path }) {
-  const [isOpenSearch, setIsOpenSearch] = useState(false);
-  const [isOpen, setIsOpen] = useState();
-  const componentRef = useRef();
-  const [dark, setDark] = useTheme();
-  const [lang, setLang] = useLang();
-  const [fontType, setFontType] = useState("MEDIUM");
-  const [reload, setReload] = useState(false);
-  const language = useParams();
-  //toggle dark or light mode  and write localstorage
+	const [api] = useApi()
+	const [isOpenSearch, setIsOpenSearch] = useState(false);
+	const [isOpen, setIsOpen] = useState();
+	const componentRef = useRef();
+	const [dark, setDark] = useTheme();
+	const [lang, setLang] = useLang();
+	const [fontType, setFontType] = useState("MEDIUM");
+	const [reload, setReload] = useState(false);
+	const language = useParams();
+	const [loading, setLoading] = useState(false)
+	const [movies, setMovies] = useState([])
+	//toggle dark or light mode  and write localstorage
 
-  const toggleDark = () => {
-    setDark((x) => {
-      window.localStorage.setItem("dark_mode", !x ? 1 : 0);
-      return !x;
-    });
-  };
+	const toggleDark = () => {
+	setDark((x) => {
+		window.localStorage.setItem("dark_mode", !x ? 1 : 0);
+		return !x;
+	});
+	};
 
-  useEffect(() => {
-    if (reload) {
-      window.location.reload();
-      setReload(false);
-    }
-  }, [reload]);
+	useEffect(() => {
+	if (reload) {
+		window.location.reload();
+		setReload(false);
+	}
+	}, [reload]);
 
-  const miniMenuStyle = {
-    transition: " all .3s ease",
-    transform: isOpen ? "translate(0, 0 )" : "translate(-20px, 0) ",
-    visibility: isOpen ? "visible" : "hidden",
-    opacity: isOpen ? 1 : 0,
-    userSelect: "none",
-  };
+	const miniMenuStyle = {
+	transition: " all .3s ease",
+	transform: isOpen ? "translate(0, 0 )" : "translate(-20px, 0) ",
+	visibility: isOpen ? "visible" : "hidden",
+	opacity: isOpen ? 1 : 0,
+	userSelect: "none",
+	};
 
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (
-        componentRef.current &&
-        !componentRef.current.contains(event.target) &&
-        isOpen
-      ) {
-        setIsOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [componentRef, isOpen, setIsOpen]);
+	useEffect(() => {
+	function handleClickOutside(event) {
+		if (
+		componentRef.current &&
+		!componentRef.current.contains(event.target) &&
+		isOpen
+		) {
+		setIsOpen(false);
+		}
+	}
+	document.addEventListener("mousedown", handleClickOutside);
+	return () => {
+		document.removeEventListener("mousedown", handleClickOutside);
+	};
+	}, [componentRef, isOpen, setIsOpen]);
 
-  const searchStyle = {
-    transition: "opacity .3s ease-in-out",
-    position: isOpenSearch ? "fixed" : "",
-    top: isOpenSearch ? "0" : "initial",
-    left: isOpenSearch ? "0" : "initial",
-    zIndex: isOpenSearch ? 9999 : "",
-    height: isOpenSearch ? "100vh" : "",
-    width: isOpenSearch ? "100%" : "",
-    opacity: isOpenSearch ? ".9" : "",
-    background: dark ? "#0C0C0D" : "#F8F9FC",
-  };
+	const searchStyle = {
+	transition: "opacity .3s ease-in-out",
+	position: isOpenSearch ? "fixed" : "",
+	top: isOpenSearch ? "0" : "initial",
+	left: isOpenSearch ? "0" : "initial",
+	zIndex: isOpenSearch ? 9999 : "",
+	height: isOpenSearch ? "100vh" : "",
+	width: isOpenSearch ? "100%" : "",
+	opacity: isOpenSearch ? ".9" : "",
+	background: dark ? "#0C0C0D" : "#F8F9FC",
+	};
 
-  const handleSearch = () => {
-    setIsOpenSearch((x) => !x);
-  };
-  useEffect(() => {
-    if (isOpenSearch)
-      window.onscroll = function () {
-        window.scrollTo(null, null);
-      };
-    else window.onscroll = function () {};
-  }, [isOpenSearch]);
+	const handleSearch = () => {
+	setIsOpenSearch((x) => !x);
+	};
+	useEffect(() => {
+	if (isOpenSearch)
+		window.onscroll = function () {
+		window.scrollTo(null, null);
+		}
 
-  const fontChange = (size) => {
-    var domElements = document.querySelectorAll(
-      "a, p, div, h1, h2, h3, h4, h5, h6"
-    );
-    for (let i = 0; i < domElements.length; i++) {
-      switch (size) {
-        case "SMALL":
-          domElements[i].style.fontSize = "12px";
-          break;
-        case "LARGE":
-          domElements[i].style.fontSize = "18px";
-          break;
-        default:
-          domElements[i].style.fontSize = "";
-      }
-    }
-    setFontType(size);
-  };
+	else window.onscroll = function () {};
+	}, [isOpenSearch]);
+
+	const fontChange = (size) => {
+		var domElements = document.querySelectorAll(
+			"a, p, div, h1, h2, h3, h4, h5, h6"
+		);
+		for (let i = 0; i < domElements.length; i++) {
+			switch (size) {
+			case "SMALL":
+				domElements[i].style.fontSize = "12px";
+				break;
+			case "LARGE":
+				domElements[i].style.fontSize = "18px";
+				break;
+			default:
+				domElements[i].style.fontSize = "";
+			}
+		}
+		setFontType(size)
+	}
+
+	async function searchIngineOnKeyUpHandler(e) {
+		if (e.target.value.trim() !== '') {
+			setLoading(true)
+			try {
+				const res = await axios.post(api + '/search-movie', {
+					searchValue: e.target.value.toLowerCase(),
+				}, {
+					headers: {
+						Language: localStorage.getItem('lang')
+					}
+				})
+				setMovies(res.data.data)
+				console.log(res.data.data)
+			} catch (err) {
+				console.log(err)
+			}
+
+			setLoading(false)
+
+		} else {
+			setMovies([])
+		}
+	}
 
   return (
     <section style={searchStyle}>
@@ -166,6 +200,7 @@ function Navbar({ login, path }) {
                     onFocus={() => {
                       setIsOpenSearch(true);
                     }}
+					onKeyUp={searchIngineOnKeyUpHandler}
                     id="search_tool"
                     type="text"
                     placeholder=""
@@ -328,8 +363,8 @@ function Navbar({ login, path }) {
           )}
         </nav>
       </div>
-      {/* {isOpenSearch ? (movies.length > 0 ?
-				<div className={st.containerItems}>
+      {isOpenSearch ? (movies.length > 0 ?
+				<div className={st.container}>
 					{
 						movies.map((x, key) => {
 							return <MovieItem key={key} movie={x} />
@@ -338,7 +373,7 @@ function Navbar({ login, path }) {
 
 
 				</div>
-				:  <SearchNotFound loading={loading} />)  : ''} */}
+				:  <SearchNotFound loading={loading} />)  : ''}
     </section>
   );
 }

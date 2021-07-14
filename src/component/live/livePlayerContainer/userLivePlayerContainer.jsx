@@ -10,9 +10,9 @@ import IO from 'socket.io-client'
 
 export default function UserLivePlayerContainer({ movie, api }) {
     const [dark] = useTheme()
-    const socket = IO('http://localhost:4000/live', { path: '/socket.io', transports: ["websocket"], autoConnect: false})
-
+    
     // const [socket] = useSocket()
+    // const socket = IO('http://localhost:4000/live', { path: '/socket.io', transports: ["websocket"], autoConnect: false})
 
 
     const [playerHeight, setPlayerHeight] = useState('')
@@ -35,74 +35,92 @@ export default function UserLivePlayerContainer({ movie, api }) {
         }
     }, [])
 
-
-
     useEffect(()=>{
-        document.getElementById('my-button').onclick = () => {
-            initLive(socket)
-        }
-    },[socket])
+        Live()
+    })
+    
+    function Live(){
+        // getting dom elements
+        const btnJoinViewer = document.getElementById("joinViewer");
+        const videoElement = document.querySelector("video");
 
-    async function initLive(socket) {
-        // let peerConnection
-        // const config = {
-        // iceServers: [
-        //     {
-        //     urls: ["stun:stun.l.google.com:19302"]
-        //     }
-        // ]
-        // }
-        // const video = document.getElementById("video")
+        // variables
+        let user;
+        let rtcPeerConnections = {};
+
+        // constants
+        const iceServers = {
+        iceServers: [
+            { urls: "stun:stun.services.mozilla.com" },
+            { urls: "stun:stun.l.google.com:19302" },
+        ],
+        };
+
+        // Let's do this 💪
+        // const socket = IO('http://localhost:4000/live', { path: '/socket.io', transports: ["websocket"], autoConnect: false })
+        
+        const socket = IO('https://tv23.herokuapp.com/live', {
+            path: '/socket.io',
+            transports: ["websocket"],
+            autoConnect: false
+        })
+
+        btnJoinViewer.onclick = function () {
+            socket.connect()
+            user = {
+            room: "TV23",
+            name: "someone",
+            };
 
 
-            
+            socket.emit("register as viewer", user);
+        };
+
+        // create offer
+        socket.on("offer", function (broadcaster, sdp) {
+
+        rtcPeerConnections[broadcaster.id] = new RTCPeerConnection(iceServers);
+
+        rtcPeerConnections[broadcaster.id].setRemoteDescription(sdp);
+
+        rtcPeerConnections[broadcaster.id]
+            .createAnswer()
+            .then((sessionDescription) => {
+            rtcPeerConnections[broadcaster.id].setLocalDescription(
+                sessionDescription
+            );
+            socket.emit("answer", {
+                type: "answer",
+                sdp: sessionDescription,
+                room: user.room,
+            });
+            });
+
+        rtcPeerConnections[broadcaster.id].ontrack = (event) => {
+            videoElement.srcObject = event.streams[0];
+        };
+
+        rtcPeerConnections[broadcaster.id].onicecandidate = (event) => {
+            if (event.candidate) {
+            console.log("sending ice candidate");
+            socket.emit("candidate", broadcaster.id, {
+                type: "candidate",
+                label: event.candidate.sdpMLineIndex,
+                id: event.candidate.sdpMid,
+                candidate: event.candidate.candidate,
+            });
+            }
+        };
+        });
+
+        socket.on("answer", function (viewerId, event) {
+        rtcPeerConnections[viewerId].setRemoteDescription(
+            new RTCSessionDescription(event)
+        );
+        });
     }
 
 
-
-
-    // console.log('waiting...')
-    //     console.log(socket)
-        
-    //     socket.emit("offer", (id, description) => {
-    //         console.log('working...')
-    //         peerConnection = new RTCPeerConnection(config)
-    //         peerConnection
-    //         .setRemoteDescription(description)
-    //         .then(() => peerConnection.createAnswer())
-    //         .then(sdp => peerConnection.setLocalDescription(sdp))
-    //         .then(() => {
-    //         socket.emit("answer", id, peerConnection.localDescription)
-    //         })
-    //         peerConnection.ontrack = event => {
-    //         video.srcObject = event.streams[0]
-    //         }
-    //         peerConnection.onicecandidate = event => {
-    //         if (event.candidate) {
-    //             socket.emit("candidate", id, event.candidate)
-    //         }
-    //         }
-    //     })
-    //     console.log('outside...')
-        
-        
-    //     socket.on("candidate", (id, candidate) => {
-    //         peerConnection.addIceCandidate(new RTCIceCandidate(candidate))
-    //         .catch(e => console.error(e))
-    //     })
-        
-    //     socket.on("connect", () => {
-    //         socket.emit("watcher")
-    //     })
-        
-    //     socket.on("broadcaster", () => {
-    //         socket.emit("watcher")
-    //     })
-        
-    //     window.onunload = window.onbeforeunload = () => {
-    //         socket.close()
-    //         peerConnection.close()
-    //     }
 
 
 
@@ -115,19 +133,8 @@ export default function UserLivePlayerContainer({ movie, api }) {
             </div>
             <div style={{ height: playerHeight }} id="playerRef" className={st.playerArea}>
                 <video autoPlay id="video"></video>
-                {/* {
-                    isVideo ? <VideoPlayer api={api} movie={movie}/> :
-                    <div className={st.cover}>
-                    <img src={cover} alt="video_cover" />
-                    <div className={st.controlBtn}>
-                    <div onClick={() => setIsVideo(true)}>
-                    <Button style={coverBtnStyle}>Смотреть по подписке</Button>
-                    </div>
-                    </div>
-                    </div>
-                } */}
             </div>
-                <button id='my-button'>Live</button>
+                <button id='joinViewer'>Live</button>
             <div className={st.topBar}>
                 <div className={`${st.additional_functions} ${dark ? '': st.black}`}>
                   
