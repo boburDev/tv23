@@ -1,109 +1,134 @@
-import st from './enterpassword.module.css'
-import goBack from '../../../assets/image/goBack.png'
-import InputProfile from '../../elements/inputProfile/inputProfile'
-import Button from '../../elements/button/button'
-import { useTheme } from '../../../context/theme'
-import { useLogin } from '../../../context/login'
-import { useEffect, useRef } from 'react'
+import st from "./enterpassword.module.css";
+import goBack from "../../../assets/image/goBack.png";
+import InputProfile from "../../elements/inputProfile/inputProfile";
+import Button from "../../elements/button/button";
+import { useTheme } from "../../../context/theme";
+import { useLogin } from "../../../context/login";
+import { useEffect, useRef } from "react";
 
 export default function EnterPassword() {
-    const [dark] = useTheme()
-    const [userState, setUserState] = useLogin()
+  const [dark] = useTheme();
+  const [userState, setUserState] = useLogin();
 
-    useEffect(()=>{
-        if(userState.user.username === '' || userState.user.phone === '' ){
-            setUserState({ openPassword: false })
-        }
-    }, [userState, setUserState])
-
-    const pass1Ref = useRef()
-    const pass2Ref = useRef()
-
-    const handlePassword =()=>{
-        const result = validate(pass1Ref.current.value, pass2Ref.current.value)
-        if(result.isValid){
-            setUserState(function (state){
-                return {
-                    ...state,
-                    user:{
-                        ...state.user,
-                        password: pass1Ref.current.value
-                    },
-                    signUp: 'verify'
-                }
-            })
-        }
+  useEffect(() => {
+    if (userState.user.username === "" || userState.user.phone === "") {
+      setUserState({ openPassword: false });
     }
+  }, [userState, setUserState]);
 
-    const validate=(pass1, pass2)=>{
-        var isValid =false;
-        var message = null;
-        if(pass1 === '' || pass2 === ''){
-                message = 'Parol maydoni bo\'sh bo\'lishi mumkin emas!' 
-        }else{
-            if(pass1 === pass2){
-                isValid=true
-                message=null
-            }else{
-                message = 'Parollar bir xil emas'            
-            }
-        }
+  const pass1Ref = useRef();
+  const pass2Ref = useRef();
+
+  const handlePassword = () => {
+    const result = validate(pass1Ref.current.value, pass2Ref.current.value);
+    if (result.isValid) {
+      setUserState(function (state) {
         return {
-            isValid:isValid,
-            message:message
-        }
+          ...state,
+          user: {
+            ...state.user,
+            password: pass1Ref.current.value,
+          },
+          signUp: "verify",
+        };
+      });
     }
+  };
 
-    const handleChange =()=>{
-        const result = validate(pass1Ref.current.value, pass2Ref.current.value)
-        if(result.isValid){
-            
-            setUserState(function(state){
-                return {
-                    ...state, error:{
-                        isError:false,
-                        message:result.message
-                    }
-                }
+  const validate = (pass1, pass2) => {
+    var isValid = false;
+    var message = null;
+    if (pass1 === "" || pass2 === "") {
+      message = "Parol maydoni bo'sh bo'lishi mumkin emas!";
+    } else {
+      if (pass1 === pass2) {
+        isValid = true;
+        message = null;
+      } else {
+        message = "Parollar bir xil emas";
+      }
+    }
+    return {
+      isValid: isValid,
+      message: message,
+    };
+  };
+
+  const handleChange = () => {
+    const result = validate(pass1Ref.current.value, pass2Ref.current.value);
+    if (result.isValid) {
+      setUserState(function (state) {
+        return {
+          ...state,
+          error: {
+            isError: false,
+            message: result.message,
+          },
+        };
+      });
+    } else {
+      if (pass1Ref.current.value && pass2Ref.current.value) {
+        setUserState(function (state) {
+          return {
+            ...state,
+            error: {
+              isError: true,
+              message: result.message,
+            },
+          };
+        });
+      }
+    }
+  };
+
+  return (
+    <div>
+      <div className={st.navigation}>
+        <img
+          src={goBack}
+          onClick={() =>
+            setUserState({
+              signUp: "",
             })
-            
-        }else{
-            if (pass1Ref.current.value && pass2Ref.current.value) {
-                setUserState(function(state){
-                    return {
-                        ...state, error:{
-                            isError:true,
-                            message:result.message
-                        }
-                    }
-                })
-            }
-        }
-    }
+          }
+          alt=""
+        />
+      </div>
+      <div style={{ color: dark ? "" : "black" }} className={st.title}>
+        {" "}
+        Придумайте пароль
+      </div>
+      <div className={st.description}>
+        {" "}
+        В целях безопасности ваш пароль должен состоять из 6 или более символов.
+      </div>
+      <InputProfile
+        onKeyUp={handleChange}
+        reference={pass1Ref}
+        type="password"
+        isPass={true}
+        label="Пароль"
+      />
+      <InputProfile
+        onKeyUp={handleChange}
+        reference={pass2Ref}
+        type="password"
+        isPass={true}
+        label="Повторите пароль"
+      />
 
-    return (
-        <div>
-            <div className={st.navigation}>
-                <img src={goBack} onClick={()=>setUserState({
-                    signUp: ""
-                })} alt=""/>
-            </div>
-            <div
-            style={{color:dark ? '' : 'black'}}
-            className={st.title}> Придумайте пароль</div>
-            <div className={st.description}> В целях безопасности ваш пароль должен состоять из 6 или более символов.</div>
-            <InputProfile onKeyUp={handleChange} reference={pass1Ref} type='password' isPass={true} label="Пароль"/>
-            <InputProfile onKeyUp={handleChange} reference={pass2Ref} type='password' isPass={true} label="Повторите пароль"/>
-
-            <div onClick={handlePassword}>
-                <Button
-                style={{
-                    width:'100%',
-                    marginTop:'20px',
-                    cursor:userState.error.isError ? 'not-allowed' :'pointer',
-                    background:userState.error.isError  ? '#e4888c' : ''
-                }}>Зарегистрироваться</Button>
-            </div>
-        </div>
-    )
+      <div onClick={handlePassword}>
+        <Button
+          style={{
+            width: "100%",
+            marginTop: "20px",
+            cursor: userState.error.isError ? "not-allowed" : "pointer",
+            background: userState.error.isError ? "#e4888c" : "",
+          }}
+        >
+          Зарегистрироваться
+        </Button>
+      </div>
+    </div>
+  );
 }

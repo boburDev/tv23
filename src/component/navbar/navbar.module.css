@@ -229,18 +229,22 @@
 
   .nav .logo_link,
   .nav .logo_link img {
-    width: 105px;
+    width: 100px;
     height: 66px;
   }
 
   .navbar .navbar_link_item a {
-    padding: 0 10px;
-    font-size: 11.85px;
+    padding: 0 7px;
+    font-size: 9.85px;
   }
 
   .search_tool input {
-    padding: 5px;
-    font-size: 17px;
+    padding: 3px;
+    font-size: 15px;
+  }
+
+  .language > a {
+    font-size: 11px;
   }
 }
 
@@ -397,11 +401,19 @@
   }
 }
 
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 420px) {
   .container {
     max-width: 350px;
     padding: 0;
     padding-right: 5px;
+  }
+
+  nav > .navbar .navbar_link_item:nth-child(4) a {
+    font-size: 12px !important;
+  }
+
+  .toggleIcon img {
+    width: 30px;
   }
 
   .nav {
@@ -435,7 +447,7 @@
   }
 }
 
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 336px) {
   .container {
     composes: container from "../../pages/app/app.css";
     max-width: 320px;
