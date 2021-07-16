@@ -67,7 +67,7 @@ export default function UserLivePlayerContainer({ movie, api }) {
         room: "TV23",
         name: "someone",
       };
-
+	  
       socket.emit("register as viewer", user);
     };
 
