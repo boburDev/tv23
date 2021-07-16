@@ -5,7 +5,7 @@ import stLocal from './livePlayerContainer.module.css'
 // import VideoPlayer from '../../movie/moviePlayer/moviePlayer'
 import { useTheme } from '../../../context/theme'
 // import { useSocket } from '../../../context/socket'
-import cover from '../../../assets/bg/IMG_3873.JPG'
+import cover from '../../../assets/bg/client.JPG'
 import Button from "../../elements/button/button";
 import IO from 'socket.io-client'
 
