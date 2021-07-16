@@ -125,6 +125,14 @@ export default function FilterConfigure() {
         left: isOpen ? '0': '50%'
     }
 
+    const resultStyle = {
+        fontSize:'18px',
+        fontWeight:'600',
+        color:"white",
+        marginTop:'20px',
+        textAlign:'center'
+    }
+
     return (
         <div style={{...containerStyle, ...{background: dark ? '' : 'rgba(255, 255, 255, 0.98)'}}} className={st.container}>
         <div className={st.containerTitle} style={{borderBottom:dark ? ' ' :' 1px solid rgba(119, 119, 119, 0.2)'}}>
@@ -175,41 +183,37 @@ export default function FilterConfigure() {
                 }
             </div>
             <div onClick={sendSearchData}><Button>Filtrlash</Button></div>
-            <div >
-                <div style={{
-                    fontSize:'18px',
-                    fontWeight:'600',
-                    color:"white",
-                    marginTop:'20px',
-                    textAlign:'center'
-                }}>Topilgan kinolar</div>
-                {/* <div onClick={()=>{setIsOpen(false)}} className={st.result}>
-                    <MovieItem movie={{}}  />
-                    <MovieItem movie={{}}  />
-                    <MovieItem movie={{}}  />
-                    <MovieItem movie={{}}  />
-                    <MovieItem movie={{}}  />
-                    <MovieItem movie={{}}  />
-                    <MovieItem movie={{}}  />
-                    <MovieItem movie={{}}  />
-                    <MovieItem movie={{}}  />
-                    <MovieItem movie={{}}  />
-                </div> */}
-
-                {
-                result.length ? (result.length > 0 ?
-                <div className={st.result}>
-                    {
-                        result.map((x, key) => {
-                            return <MovieItem key={key} movie={x} />
-                        })
-                    }
+                { 
+                
+                    result.length ? (result.length > 0 ?
+                        <>
+                        <div style={resultStyle}>Topilgan kinolar</div>
+                        <div className={st.result}>
+                            {
+                                result.map((x, key) => {
+                                    return <MovieItem key={key} movie={x} />
+                                })
+                            }
 
 
-                </div>
-                :  <SearchNotFound loading={loading} />)  : ''}
+                        </div>
+                        </>
+                        :  <SearchNotFound loading={loading} />)  : 
+                        <div onClick={()=>{setIsOpen(false)}} className={st.result}>
+                            <MovieItem movie={{}}  />
+                            <MovieItem movie={{}}  />
+                            <MovieItem movie={{}}  />
+                            <MovieItem movie={{}}  />
+                            <MovieItem movie={{}}  />
+                            <MovieItem movie={{}}  />
+                            <MovieItem movie={{}}  />
+                            <MovieItem movie={{}}  />
+                            <MovieItem movie={{}}  />
+                            <MovieItem movie={{}}  />
+                        </div>
+                }
 
-            </div>
+
 
         </div>
         )
