@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useTheme } from '../../../context/theme'
 import st from './verifyInput.module.css'
-export default function VerifyInput({lengthCode=4}) {
+export default function VerifyInput({ onkeyup }) {
     const [dark] = useTheme()
     
     useEffect(()=>{
@@ -41,7 +41,11 @@ export default function VerifyInput({lengthCode=4}) {
     const fillFunc=(e)=>{
         if(e.target.value==="")e.target.value="_"
     }
+
     
+
+
+
     return (
         <div id="containerRef" className={st.container}>
         <input type="text" style={fields} onFocusCapture={fillFunc} onFocus={clearFunc} name="code" defaultValue="_" className="code_input"   />

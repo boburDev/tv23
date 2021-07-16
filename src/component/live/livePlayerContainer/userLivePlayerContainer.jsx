@@ -5,16 +5,13 @@ import stLocal from './livePlayerContainer.module.css'
 // import VideoPlayer from '../../movie/moviePlayer/moviePlayer'
 import { useTheme } from '../../../context/theme'
 // import { useSocket } from '../../../context/socket'
-// import cover from '../../../assets/image/cover.png'
+import cover from '../../../assets/bg/IMG_3873.JPG'
+import Button from "../../elements/button/button";
 import IO from 'socket.io-client'
 
 export default function UserLivePlayerContainer({ movie, api }) {
     const [dark] = useTheme()
-    
-    // const [socket] = useSocket()
-    // const socket = IO('http://localhost:4000/live', { path: '/socket.io', transports: ["websocket"], autoConnect: false})
-
-
+    const [isVideo, setIsVideo] = useState(false);
     const [playerHeight, setPlayerHeight] = useState('')
     const [collapseDesc, setCollapseDesc] = useState(false)
     const descStyle = {
@@ -42,7 +39,7 @@ export default function UserLivePlayerContainer({ movie, api }) {
     function Live(){
         // getting dom elements
         const btnJoinViewer = document.getElementById("joinViewer");
-        const videoElement = document.querySelector("video");
+        const videoElement = document.getElementById("liveVideo");
 
         // variables
         let user;
@@ -58,12 +55,7 @@ export default function UserLivePlayerContainer({ movie, api }) {
 
         // Let's do this 💪
         // const socket = IO('http://localhost:4000/live', { path: '/socket.io', transports: ["websocket"], autoConnect: false })
-        
-        const socket = IO('https://tv23.herokuapp.com/live', {
-            path: '/socket.io',
-            transports: ["websocket"],
-            autoConnect: false
-        })
+        const socket = IO('https://tv23.herokuapp.com/live', { path: '/socket.io', transports: ["websocket"], autoConnect: false })
 
         btnJoinViewer.onclick = function () {
             socket.connect()
@@ -120,6 +112,10 @@ export default function UserLivePlayerContainer({ movie, api }) {
         });
     }
 
+    const coverBtnStyle = {
+        marginBottom: "20px",
+        width: "200px",
+      };
 
 
 
@@ -132,9 +128,24 @@ export default function UserLivePlayerContainer({ movie, api }) {
 			</div>
             </div>
             <div style={{ height: playerHeight }} id="playerRef" className={st.playerArea}>
-                <video autoPlay id="video"></video>
+                <video id="liveVideo" autoPlay style={{display: isVideo ? 'flex' : 'none'}}>
+
+                </video>
+                <div className={st.cover} style={{display: isVideo ? 'none' : 'flex'}}>
+                    <img src={cover} alt="video_cover" />
+                    <div className={st.controlBtn}>
+                    <div onClick={() => setIsVideo(true)}>
+                        <Button style={coverBtnStyle}>Смотреть по подписке</Button>
+                    </div>
+                    <div>
+                        <Button style={{ background: "#111112", ...coverBtnStyle }}>
+                        Смотреть трейлер
+                        </Button>
+                    </div>
+                    </div>
+                </div>
             </div>
-                <button id='joinViewer'>Live</button>
+                <button id='joinViewer' onClick={() => setIsVideo(true)}>Live</button>
             <div className={st.topBar}>
                 <div className={`${st.additional_functions} ${dark ? '': st.black}`}>
                   

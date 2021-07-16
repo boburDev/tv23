@@ -1,19 +1,19 @@
-import Button from "../../elements/button/button";
-import st from "./verifyphone.module.css";
-import goBack from "../../../assets/image/goBack.png";
-import VerifyInput from "../../elements/verifyInput/verifyInput";
-import { useTheme } from "../../../context/theme";
-import { useEffect, useState } from "react";
-import { useLogin } from "../../../context/login";
-import firebase from "../../../context/firebase";
-import { useApi } from "../../../context/api";
-import axios from "axios";
+import Button from "../../elements/button/button"
+import st from "./verifyphone.module.css"
+import goBack from "../../../assets/image/goBack.png"
+import VerifyInput from "../../elements/verifyInput/verifyInput"
+import { useTheme } from "../../../context/theme"
+import { useEffect, useState } from "react"
+import { useLogin } from "../../../context/login"
+import firebase from "../../../context/firebase"
+// import { useApi } from "../../../context/api"
+// import axios from "axios"
 
 export default function VerifyPhone() {
-  const [dark] = useTheme();
-  const [userState] = useLogin();
-  const [api] = useApi();
-  const [isSendSms] = useState(true);
+  const [dark] = useTheme()
+  const [userState] = useLogin()
+  // const [api] = useApi()
+  const [isSendSms] = useState(true)
 
   const setupReCaptcha = () => {
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
@@ -22,47 +22,47 @@ export default function VerifyPhone() {
         size: "invisible",
         callback: (response) => {
           // reCAPTCHA solved, allow signInWithPhoneNumber.
-          console.log("setupReCaptcha");
-          //   onSignInOnSubmit();
+          console.log("setupReCaptcha")
+          //   onSignInOnSubmit()
         },
       }
-    );
-  };
+    )
+  }
 
   const onSignInOnSubmit = async () => {
-    setupReCaptcha();
-    const appVerifier = window.recaptchaVerifier;
+    setupReCaptcha()
+    const appVerifier = window.recaptchaVerifier
     try {
       const confirmationResult = await firebase
         .auth()
-        .signInWithPhoneNumber("+998905649363", appVerifier);
+        .signInWithPhoneNumber("+998998616951", appVerifier)
 
-      const code = window.prompt("codni kiriting");
+      const code = window.prompt("codni kiriting")
       try {
-        const result = await confirmationResult.confirm(code);
-        console.log("result", result);
+        const result = await confirmationResult.confirm(code)
+        console.log("result", result)
       } catch (err) {
-        console.log("err", err.message);
+        console.log("err", err.message)
       }
-      window.confirmationResult = confirmationResult;
+      window.confirmationResult = confirmationResult
     } catch (err) {
       // sms sent err
-      console.log("err", err.message);
+      console.log("err", err.message)
     }
-  };
+  }
 
   //   const onSignInOnSubmit = async () => {
-  //     setupReCaptcha();
-  //     const phoneNumber = userState.user.phone;
-  //     const appVerifier = window.recaptchaVerifier;
-  //     console.log("appVerifier", appVerifier);
+  //     setupReCaptcha()
+  //     const phoneNumber = userState.user.phone
+  //     const appVerifier = window.recaptchaVerifier
+  //     console.log("appVerifier", appVerifier)
 
   // firebase
   //   .auth()
   //   .signInWithPhoneNumber(phoneNumber, appVerifier)
   //   .then((confirmationResult) => {
-  //     const code = window.prompt("Kodni kirit:");
-  //     console.log("confirmationResult", confirmationResult);
+  //     const code = window.prompt("Kodni kirit:")
+  //     console.log("confirmationResult", confirmationResult)
   //     confirmationResult
   //       .confirm(code)
   //       .then(async (result) => {
@@ -70,28 +70,28 @@ export default function VerifyPhone() {
   //           username: userState.user.username,
   //           password: userState.user.password,
   //           phoneNumber: userState.user.password,
-  //         });
-  //         console.log("res", res);
+  //         })
+  //         console.log("res", res)
   //         if (res) {
-  //           console.log("res", res);
+  //           console.log("res", res)
   //           // window.localStorage.setItem('autorization', res.data.accessToken)
   //           // window.localStorage.setItem('user', JSON.stringify(res.data.data))
   //           // history.push('/')
   //         }
-  //         const user = result.user;
-  //         console.log("user", user);
+  //         const user = result.user
+  //         console.log("user", user)
   //       })
   //       .catch((error) => {
   //         //not signed in
-  //         console.log(error);
-  //       });
-  //     window.confirmationResult = confirmationResult;
+  //         console.log(error)
+  //       })
+  //     window.confirmationResult = confirmationResult
   //    //   ...
   //   })
   //   .catch((error) => {
   //     //sms sent error
-  //   });
-  //   };
+  //   })
+  //   }
 
   useEffect(() => {
     if (!userState.error.isError) {
@@ -101,7 +101,14 @@ export default function VerifyPhone() {
         // history.push('/sign-up/password')
       }
     }
-  }, [userState]);
+  }, [userState])
+
+
+  useEffect(()=>{
+	onSignInOnSubmit()
+  })
+
+
 
   return (
     <div>
@@ -115,9 +122,9 @@ export default function VerifyPhone() {
             Введите код отправленный на ваш номер телефона
           </div>
 
-          <VerifyInput label="Пароль" />
+          <VerifyInput onkeyup={'ok'} />
           <div className={st.buttonLink}>Восстановить пароль</div>
-          <div onClick={onSignInOnSubmit}>
+          <div onClick={()=>{console.log('ok')}}>
             <Button style={{ width: "100%", marginTop: "10px" }}>
               Подтвердить
             </Button>
@@ -129,7 +136,7 @@ export default function VerifyPhone() {
           <div
             onClick={() => {
               // onSignInOnSubmit
-              console.log("commentni och onSignInOnSubmit");
+              console.log("commentni och onSignInOnSubmit")
             }}
           >
             <Button style={{ width: "100%", marginTop: "10px" }}>
@@ -139,5 +146,5 @@ export default function VerifyPhone() {
         </>
       )}
     </div>
-  );
+  )
 }
