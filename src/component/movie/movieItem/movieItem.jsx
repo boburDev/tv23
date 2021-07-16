@@ -46,17 +46,22 @@ export default function MovieItem({ movie = {}, caregoryId }) {
         </div>
         <div
           className={`${st.description} ${movie ? "" : st.animate}`}
-          style={{ color: dark ? " " : "black" }}
+          style={{
+            color: dark ? " " : "black",
+            display: "flex",
+            flexWrap: "wrap",
+          }}
         >
-          Janri:
+          <p style={{ fontWeight: "bold" }}>Janri: &nbsp; &nbsp; </p>
           {movie &&
             movie?.movie_genre &&
             movie.movie_genre
               .toString()
               .split(",")
               .map((genre, index) => {
-                if (!showAllGenre) return index <= 2 && <div>{genre},</div>;
-                else return <div>{genre},</div>;
+                if (!showAllGenre)
+                  return index <= 2 && <p key={genre}>{genre}, &nbsp;</p>;
+                else return <p key={genre}>{genre}, &nbsp;</p>;
               })}
         </div>
       </Link>
