@@ -46,7 +46,7 @@ export default function LivePlayerContainer({ api }) {
         { urls: "stun:stun.l.google.com:19302" },
       ],
     };
-    const streamConstraints = { audio: false, video: true };
+    const streamConstraints = { audio: true, video: true }
 
     // Let's do this 💪
     // const socket = IO('http://localhost:4000/live', { path: '/socket.io', transports: ["websocket"], autoConnect: false })
