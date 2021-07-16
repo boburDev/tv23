@@ -71,47 +71,90 @@ export default function UserLivePlayerContainer({ movie, api }) {
       socket.emit("register as viewer", user);
     };
 
-    // create offer
-    socket.on("offer", function (broadcaster, sdp) {
-      rtcPeerConnections[broadcaster.id] = new RTCPeerConnection(iceServers);
+     // message handlers
+	 socket.on("new viewer", function (viewer) {
+        rtcPeerConnections[viewer.id] = new RTCPeerConnection(iceServers);
 
-      rtcPeerConnections[broadcaster.id].setRemoteDescription(sdp);
+        const stream = videoElement.srcObject;
+        stream
+            .getTracks()
+            .forEach((track) => rtcPeerConnections[viewer.id].addTrack(track, stream));
 
-      rtcPeerConnections[broadcaster.id]
-        .createAnswer()
-        .then((sessionDescription) => {
-          rtcPeerConnections[broadcaster.id].setLocalDescription(
-            sessionDescription
-          );
-          socket.emit("answer", {
-            type: "answer",
-            sdp: sessionDescription,
-            room: user.room,
-          });
+        rtcPeerConnections[viewer.id].onicecandidate = (event) => {
+            if (event.candidate) {
+            console.log("sending ice candidate");
+            socket.emit("candidate", viewer.id, {
+                type: "candidate",
+                label: event.candidate.sdpMLineIndex,
+                id: event.candidate.sdpMid,
+                candidate: event.candidate.candidate,
+            });
+            }
+        };
+
+        rtcPeerConnections[viewer.id]
+            .createOffer()
+            .then((sessionDescription) => {
+            rtcPeerConnections[viewer.id].setLocalDescription(sessionDescription);
+            socket.emit("offer", viewer.id, {
+                type: "offer",
+                sdp: sessionDescription,
+                broadcaster: user,
+            });
+            })
+            .catch((error) => {
+            console.log(error);
+            });
         });
 
-      rtcPeerConnections[broadcaster.id].ontrack = (event) => {
-        videoElement.srcObject = event.streams[0];
-      };
+        socket.on("candidate", function (id, event) {
+        var candidate = new RTCIceCandidate({
+            sdpMLineIndex: event.label,
+            candidate: event.candidate,
+        });
+        rtcPeerConnections[id].addIceCandidate(candidate);
+        });
 
-      rtcPeerConnections[broadcaster.id].onicecandidate = (event) => {
-        if (event.candidate) {
-          console.log("sending ice candidate");
-          socket.emit("candidate", broadcaster.id, {
-            type: "candidate",
-            label: event.candidate.sdpMLineIndex,
-            id: event.candidate.sdpMid,
-            candidate: event.candidate.candidate,
-          });
-        }
-      };
-    });
+        socket.on("offer", function (broadcaster, sdp) {
+        rtcPeerConnections[broadcaster.id] = new RTCPeerConnection(iceServers);
 
-    socket.on("answer", function (viewerId, event) {
-      rtcPeerConnections[viewerId].setRemoteDescription(
-        new RTCSessionDescription(event)
-      );
-    });
+        rtcPeerConnections[broadcaster.id].setRemoteDescription(sdp);
+
+        rtcPeerConnections[broadcaster.id]
+            .createAnswer()
+            .then((sessionDescription) => {
+            rtcPeerConnections[broadcaster.id].setLocalDescription(
+                sessionDescription
+            );
+            socket.emit("answer", {
+                type: "answer",
+                sdp: sessionDescription,
+                room: user.room,
+            });
+            });
+
+        rtcPeerConnections[broadcaster.id].ontrack = (event) => {
+            videoElement.srcObject = event.streams[0];
+        };
+
+        rtcPeerConnections[broadcaster.id].onicecandidate = (event) => {
+            if (event.candidate) {
+            console.log("sending ice candidate");
+            socket.emit("candidate", broadcaster.id, {
+                type: "candidate",
+                label: event.candidate.sdpMLineIndex,
+                id: event.candidate.sdpMid,
+                candidate: event.candidate.candidate,
+            });
+            }
+        };
+        });
+
+        socket.on("answer", function (viewerId, event) {
+        rtcPeerConnections[viewerId].setRemoteDescription(
+            new RTCSessionDescription(event)
+        );
+        });
   }
 
   const coverBtnStyle = {
