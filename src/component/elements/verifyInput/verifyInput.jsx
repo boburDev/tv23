@@ -3,7 +3,7 @@ import { useTheme } from '../../../context/theme'
 import st from './verifyInput.module.css'
 export default function VerifyInput({ onkeyup }) {
     const [dark] = useTheme()
-    
+
     useEffect(()=>{
         const inputElements = [...document.querySelectorAll('input.code_input')]
         
@@ -39,7 +39,7 @@ export default function VerifyInput({ onkeyup }) {
     }
     
     const fillFunc=(e)=>{
-        if(e.target.value==="")e.target.value="_"
+        if(e.target.value==="") e.target.value="_"
     }
 
     
@@ -48,12 +48,25 @@ export default function VerifyInput({ onkeyup }) {
 
     return (
         <div id="containerRef" className={st.container}>
-        <input type="text" style={fields} onFocusCapture={fillFunc} onFocus={clearFunc} name="code" defaultValue="_" className="code_input"   />
-        <input type="text"  style={fields} onFocusCapture={fillFunc} onFocus={clearFunc}  name="code" defaultValue="_" className="code_input"   />
-        <input type="text" style={fields} onFocusCapture={fillFunc} onFocus={clearFunc}  name="code" defaultValue="_" className="code_input"  />
-        <input type="text"  style={fields} onFocusCapture={fillFunc} onFocus={clearFunc}  name="code" defaultValue="_" className="code_input"   />
-        <input type="text"  style={fields} onFocusCapture={fillFunc} onFocus={clearFunc}  name="code" defaultValue="_" className="code_input"   />
-        <input type="text"  style={fields} onFocusCapture={fillFunc} onFocus={clearFunc}  name="code" defaultValue="_" className="code_input"   />
+
+        <input type="text" style={fields}
+        onFocusCapture={fillFunc} onFocus={clearFunc} name="code" defaultValue="_" className="code_input"   />
+
+        <input type="text" style={fields}
+        onFocusCapture={fillFunc} onFocus={clearFunc} name="code" defaultValue="_" className="code_input"   />
+
+        <input type="text" style={fields}
+        onFocusCapture={fillFunc} onFocus={clearFunc} name="code" defaultValue="_" className="code_input"  />
+
+        <input type="text" style={fields}
+        onFocusCapture={fillFunc} onFocus={clearFunc} name="code" defaultValue="_" className="code_input"   />
+
+        <input type="text" style={fields}
+        onFocusCapture={fillFunc} onFocus={clearFunc} name="code" defaultValue="_" className="code_input"   />
+
+        <input type="text" style={fields}
+        onFocusCapture={fillFunc} onFocus={clearFunc} name="code" defaultValue="_" className="code_input"   />
+
         </div>
         )
     }

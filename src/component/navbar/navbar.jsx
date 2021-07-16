@@ -364,16 +364,16 @@ function Navbar({ login, path }) {
         </nav>
       </div>
       {isOpenSearch ? (movies.length > 0 ?
-				<div className={st.container}>
-					{
-						movies.map((x, key) => {
-							return <MovieItem key={key} movie={x} />
-						})
-					}
+		<div className={st.container}>
+			{
+				movies.map((x, key) => {
+					return <MovieItem key={key} movie={x} />
+				})
+			}
 
 
-				</div>
-				:  <SearchNotFound loading={loading} />)  : ''}
+		</div>
+		:  <SearchNotFound loading={loading} />)  : ''}
     </section>
   );
 }

@@ -8,7 +8,8 @@ import CheckInput from '../elements/checkInput/checkInput'
 import { useTheme } from '../../context/theme'
 import { useApi } from '../../context/api'
 import axios from 'axios'
-// import MovieItem from '../movie/movieItem/movieItem'
+import MovieItem from '../movie/movieItem/movieItem'
+import SearchNotFound from '../notFound/SearchNotFound/notFound'
 
 export default function FilterConfigure() {
     const [api] = useApi()
@@ -18,11 +19,11 @@ export default function FilterConfigure() {
     const [isOpen, setIsOpen] = useFilter()
     const [tab, setTab] = useState('country') // country, genre, year
     const [dark] = useTheme()
-    
+    const [result, setResult] = useState([])
     const [selectedGenreId, setselectedGenreId] = useState([])
     const [selectedCountryId, setSelectedCountryId] = useState([])
     const [selectedYear, setSelectedYear] = useState([])
-
+    const [loading, setLoading] = useState(false)
     useEffect(()=>{
         ;(async()=>{
             try {
@@ -96,13 +97,14 @@ export default function FilterConfigure() {
             genreId: selectedGenreId,
             countryId: selectedCountryId,
         }
-
+        setLoading(true)
         const res = await axios.post(api + '/filter-movie', searchData, {
             headers: {
                 Language: localStorage.getItem('lang')
             }
         })
-        console.log(res.data.data)
+        setResult(res.data.data)
+        setLoading(false)
     }
 
     function removeElement(data,e) {
@@ -193,6 +195,19 @@ export default function FilterConfigure() {
                     <MovieItem movie={{}}  />
                     <MovieItem movie={{}}  />
                 </div> */}
+
+                {
+                result.length ? (result.length > 0 ?
+                <div className={st.result}>
+                    {
+                        result.map((x, key) => {
+                            return <MovieItem key={key} movie={x} />
+                        })
+                    }
+
+
+                </div>
+                :  <SearchNotFound loading={loading} />)  : ''}
 
             </div>
 
