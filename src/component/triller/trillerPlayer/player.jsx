@@ -21,10 +21,11 @@ export default function TrailerPlayer({ src, api , isActive}) {
     <div className={st.container}>
     <div style={{display:'flex', width:'100%', height:'100%'}} onClick={()=> {
       isActive ? SetIsPlay(isPlay) : SetIsPlay(false)
-      // console.log('ok')
     }} >
     <div  className={st.playerButton}> 
-    {isLoadedVideo ? <PlayPause isPlay={isPlay}/> : 'Loading video Please Wait until loading the video...'}
+    {isLoadedVideo ? <div onClick={()=>{
+      videoRef.current.play()
+    }}><PlayPause isPlay={isPlay} /></div> : 'Loading video Please Wait until loading the video...'}
     </div>
     
     {

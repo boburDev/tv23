@@ -5,10 +5,11 @@ export default function PlayPause({ isPlay }) {
         visibility: isPlay  ? 'hidden' : 'visible',
         transition: 'all .3s ease-in',
         transform: isPlay ? 'scale(1.5)' : 'scale(1)',
-        cursor:'pointer'
+        cursor:'pointer',
+        display: isPlay ? 'none' : 'block'
     }
     return (
-        <div   style={iconStyle}>
+        <div style={iconStyle}>
             <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="32" cy="32" r="32" fill="white" />
                 {!isPlay ? <path d="M27 24V40L40 32L27 24Z" stroke="#FF2E2E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> : (<>
