@@ -21,9 +21,7 @@ export default function MovieItem({ movie = {}, caregoryId }) {
   return (
     <>
       <Link
-        to={`/${language.lang || "ru"}/categories/${
-          movie.category_name || caregoryId
-        }/${movie.movie_id}`}
+        to={`/${language.lang || "ru"}/categories/${(movie.category_name && movie.category_name.toLowerCase()) || caregoryId}/${movie.movie_id}`}
         className={st.container}
       >
         <div
