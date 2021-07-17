@@ -1,104 +1,65 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTheme } from "../../../context/theme";
 import st from "./verifyInput.module.css";
-export default function VerifyInput({ onkeyup }) {
+export default function VerifyInput({ verifyCode, setVerfyCode }) {
   const [dark] = useTheme();
-
-  useEffect(() => {
-    const inputElements = [...document.querySelectorAll("input.code_input")];
-
-    inputElements.forEach((ele, index) => {
-      ele.addEventListener("keydown", (e) => {
-        if (e.keyCode === 8 && e.target.value === "") {
-          inputElements[Math.max(0, index - 1)].focus();
-        }
-      });
-      ele.addEventListener("input", (e) => {
-        const [first, ...rest] = e.target.value;
-        e.target.value = first ?? "";
-        if (index !== inputElements.length - 1 && first !== undefined) {
-          inputElements[index + 1].focus();
-          inputElements[index + 1].value = rest.join("");
-          inputElements[index + 1].dispatchEvent(new Event("input"));
-        }
-      });
-    });
-  }, []);
+  const inputRef = useRef(null);
+  const [inputValues, setInputValues] = useState({
+    0: "",
+    1: "",
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+  });
 
   const fields = {
     background: dark ? "" : " rgba(119, 119, 119, 0.06)",
     color: dark ? " " : "black",
   };
 
-  const clearFunc = (e) => {
-    if (e.target.value === "_") e.target.value = "";
+  const handleInputValueChange = (index, e) => {
+    const { value } = e.target;
+    console.log("value", value);
+    setInputValues({
+      ...inputValues,
+      [index]: value,
+    });
   };
 
-  const fillFunc = (e) => {
-    if (e.target.value === "") e.target.value = "_";
+  const handleChangeFocus = (index, e) => {
+    const value = e.target.value;
+    const el = inputRef.current.children;
+    if (index >= 0 && index < 5 && value.length === 1 && e.keyCode !== 8)
+      el[index + 1].focus();
+    else if (index > 0 && index <= 5 && value.length === 0 && e.keyCode === 8)
+      el[index - 1].focus();
   };
+
+  useEffect(() => {
+    let value = "";
+    Object.values(inputValues).map((item) => {
+      value += item;
+    });
+    setVerfyCode(value);
+    console.log("verifyCode", verifyCode);
+  }, [Object.values(inputValues)]);
 
   return (
-    <div id="containerRef" className={st.container}>
-      <input
-        type="text"
-        style={fields}
-        onFocusCapture={fillFunc}
-        onFocus={clearFunc}
-        name="code"
-        defaultValue="_"
-        className="code_input"
-      />
-
-      <input
-        type="text"
-        style={fields}
-        onFocusCapture={fillFunc}
-        onFocus={clearFunc}
-        name="code"
-        defaultValue="_"
-        className="code_input"
-      />
-
-      <input
-        type="text"
-        style={fields}
-        onFocusCapture={fillFunc}
-        onFocus={clearFunc}
-        name="code"
-        defaultValue="_"
-        className="code_input"
-      />
-
-      <input
-        type="text"
-        style={fields}
-        onFocusCapture={fillFunc}
-        onFocus={clearFunc}
-        name="code"
-        defaultValue="_"
-        className="code_input"
-      />
-
-      <input
-        type="text"
-        style={fields}
-        onFocusCapture={fillFunc}
-        onFocus={clearFunc}
-        name="code"
-        defaultValue="_"
-        className="code_input"
-      />
-
-      <input
-        type="text"
-        style={fields}
-        onFocusCapture={fillFunc}
-        onFocus={clearFunc}
-        name="code"
-        defaultValue="_"
-        className="code_input"
-      />
+    <div ref={inputRef} id="containerRef" className={st.container}>
+      {Object.keys(inputValues).map((input, index) => (
+        <input
+          type="text"
+          onKeyUp={(e) => handleChangeFocus(index, e)}
+          onChange={(e) => {
+            handleInputValueChange(index, e);
+          }}
+          value={inputValues[input]}
+          style={fields}
+          className="code_input"
+          maxLength="1"
+        />
+      ))}
     </div>
   );
 }

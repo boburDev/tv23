@@ -1,55 +1,55 @@
-import Button from "../../elements/button/button"
-import st from "./verifyphone.module.css"
-import goBack from "../../../assets/image/goBack.png"
-import VerifyInput from "../../elements/verifyInput/verifyInput"
-import { useTheme } from "../../../context/theme"
-import { useEffect, useState } from "react"
-import { useLogin } from "../../../context/login"
-import firebase from "../../../context/firebase"
+import Button from "../../elements/button/button";
+import st from "./verifyphone.module.css";
+import goBack from "../../../assets/image/goBack.png";
+import VerifyInput from "../../elements/verifyInput/verifyInput";
+import { useTheme } from "../../../context/theme";
+import { useEffect, useState } from "react";
+import { useLogin } from "../../../context/login";
+import firebase from "../../../context/firebase";
 // import { useApi } from "../../../context/api"
 // import axios from "axios"
 
 export default function VerifyPhone() {
-  const [dark] = useTheme()
-  const [userState] = useLogin()
+  const [dark] = useTheme();
+  const [userState] = useLogin();
   // const [api] = useApi()
-  const [isSendSms] = useState(true)
+  const [isSendSms] = useState(true);
+  const [verifyCode, setVerfyCode] = useState({});
 
   const setupReCaptcha = () => {
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
       "recaptcha-container",
       {
         size: "invisible",
-        callback: (response) => {
-          // reCAPTCHA solved, allow signInWithPhoneNumber.
-          console.log("setupReCaptcha")
-          //   onSignInOnSubmit()
-        },
+        callback: (response) => {},
       }
-    )
-  }
+    );
+  };
 
   const onSignInOnSubmit = async () => {
-    setupReCaptcha()
-    const appVerifier = window.recaptchaVerifier
+    setupReCaptcha();
+    const appVerifier = window.recaptchaVerifier;
+    const phoneNumber = userState.user.phone;
     try {
       const confirmationResult = await firebase
         .auth()
-        .signInWithPhoneNumber("+998998616951", appVerifier)
-
-      const code = window.prompt("codni kiriting")
-      try {
-        const result = await confirmationResult.confirm(code)
-        console.log("result", result)
-      } catch (err) {
-        console.log("err", err.message)
-      }
-      window.confirmationResult = confirmationResult
+        .signInWithPhoneNumber(phoneNumber, appVerifier);
+      window.confirmationResult = confirmationResult;
+      console.log(confirmationResult);
     } catch (err) {
       // sms sent err
-      console.log("err", err.message)
+      console.log("err", err.message);
     }
-  }
+  };
+
+  const checkVerification = async () => {
+    try {
+      const { user } = await window.confirmationResult.confirm(verifyCode);
+      console.log("user", user);
+    } catch (err) {
+      console.log("err", err.message);
+    }
+  };
 
   //   const onSignInOnSubmit = async () => {
   //     setupReCaptcha()
@@ -101,14 +101,11 @@ export default function VerifyPhone() {
         // history.push('/sign-up/password')
       }
     }
-  }, [userState])
+  }, [userState]);
 
-
-  useEffect(()=>{
-	onSignInOnSubmit()
-  })
-
-
+  useEffect(() => {
+    onSignInOnSubmit();
+  });
 
   return (
     <div>
@@ -122,9 +119,9 @@ export default function VerifyPhone() {
             Введите код отправленный на ваш номер телефона
           </div>
 
-          <VerifyInput onkeyup={'ok'} />
+          <VerifyInput verifyCode={verifyCode} setVerfyCode={setVerfyCode} />
           <div className={st.buttonLink}>Восстановить пароль</div>
-          <div onClick={()=>{console.log('ok')}}>
+          <div onClick={checkVerification}>
             <Button style={{ width: "100%", marginTop: "10px" }}>
               Подтвердить
             </Button>
@@ -136,7 +133,7 @@ export default function VerifyPhone() {
           <div
             onClick={() => {
               // onSignInOnSubmit
-              console.log("commentni och onSignInOnSubmit")
+              console.log("commentni och onSignInOnSubmit");
             }}
           >
             <Button style={{ width: "100%", marginTop: "10px" }}>
@@ -146,5 +143,5 @@ export default function VerifyPhone() {
         </>
       )}
     </div>
-  )
+  );
 }

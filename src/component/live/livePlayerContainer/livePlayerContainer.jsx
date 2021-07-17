@@ -153,7 +153,7 @@ export default function LivePlayerContainer({ api }) {
             Сейчас в эфире
             <b>
               <span style={{ color: "red" }}>&#183;</span>
-            </b>{" "}
+            </b>
           </h3>
         </div>
       </div>
@@ -166,7 +166,13 @@ export default function LivePlayerContainer({ api }) {
           id="consultingRoom"
           style={{ display: isVideo ? "flex" : "none", width: "100%" }}
         >
-          <video id="livePlayer" width="100%" height="100%" autoPlay></video>
+          <video
+            id="livePlayer"
+            width="100%"
+            height="100%"
+            autoPlay
+            style={{ objectFit: "cover" }}
+          ></video>
         </div>
 
         <div
