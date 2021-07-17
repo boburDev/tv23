@@ -47,12 +47,9 @@ export default function SignIn() {
                 <div  style={{color:dark ? '' : 'black'}}>Войти</div>
                 <Link to={`/${language.lang || 'ru'}/sign-up`} className={st.regLink}>Регистрация</Link>
             </div>
-
-            <InputProfile onChange={handleOnChange} isCorrect={!error.isError} reference={phoneRef}  label='Телефон номер'/>
-            <InputProfile  onChange={handleOnChange}  isCorrect={!error.isError} reference={passRef} label='Пароль' isPass={true} type='password'/>
-
+                <InputProfile onChange={handleOnChange} isCorrect={!error.isError} reference={phoneRef}  label='Телефон номер'/>
+                <InputProfile  onChange={handleOnChange}  isCorrect={!error.isError} reference={passRef} label='Пароль' isPass={true} type='password'/>
             <div style={{color:'red'}}>{error.isError ? error.message  :' '}</div>
-            
             <div onClick={handleSignIn}>
                 <Button style={{width:'100%', marginTop:'30px'}}>Войти</Button>
             </div>
