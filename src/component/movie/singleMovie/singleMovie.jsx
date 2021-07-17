@@ -20,6 +20,8 @@ export default function SignleMovie() {
   const [similarMovie, setSimilarMovie] = useState([]);
 
   async function Movie(api, params) {
+    console.log(params && params.movieid)
+
     const movie = await axios.get(api + "/movie-one", {
       headers: {
         Authorization: localStorage.getItem("Authorization") || 1,
@@ -28,8 +30,7 @@ export default function SignleMovie() {
         movieId: params && params.movieid,
       },
     });
-    setMovie(movie.data.data);
-    // console.log(movie.data.data)
+    setMovie(movie.data.data)
   }
 
   async function getActors(api, params) {
@@ -67,6 +68,7 @@ export default function SignleMovie() {
     getActors(api, params);
     getDirector(api, params);
   }, [params, api]);
+
 
   return (
     <>

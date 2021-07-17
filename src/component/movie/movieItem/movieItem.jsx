@@ -16,7 +16,7 @@ export default function MovieItem({ movie = {}, caregoryId }) {
       if (window.innerWidth <= 720) setShowAllGenre(false);
       else setShowAllGenre(true);
     });
-  }, []);
+  }, [])
 
   return (
     <>

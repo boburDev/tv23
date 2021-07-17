@@ -13,10 +13,6 @@ export default function MovieInfo({ movie, api }) {
     height: !collapseDesc ? 48 + "px" : "auto",
   };
   const setCollapse = () => setCollapseDesc(!collapseDesc);
-
-  //
-  // movie_length
-
   return (
     <div
       className={st.movieWrapper}
