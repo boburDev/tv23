@@ -3,12 +3,15 @@ import st from "./profile.module.css";
 import profileImage from "../../../assets/image/profileImage.png";
 import InputProfile from "../../../component/elements/inputProfile/inputProfile";
 import { useTheme } from "../../../context/theme";
+import logout from "../../../assets/image/logoutred.png";
+import { useParams } from "react-router-dom";
 
 export default function Profile({ data }) {
   const inputRef = useRef();
   const [dark] = useTheme();
   const [isEdit, setIsEdit] = useState(false);
   const [IsOpenPass, setIsOpenPass] = useState(false);
+  const language = useParams();
 
   const handleTest = () => {
     console.log(inputRef.current.value);
@@ -57,17 +60,27 @@ export default function Profile({ data }) {
           <div className={st.pairs}>
             <div className={st.key}>23TV ID number: </div>
             <div style={{ color: dark ? "#fff" : "#000" }} className={st.val}>
-              {" "}
               00101
             </div>
           </div>
-          <div
-            onClick={() => {
-              setIsEdit((x) => !x);
-            }}
-            className={st.buttonLink}
-          >
-            Редактировать профиль
+          <div>
+            <div
+              onClick={() => {
+                setIsEdit((x) => !x);
+              }}
+              className={st.buttonLink}
+            >
+              Редактировать профиль
+            </div>
+            <div
+              className={st.logoutBtn}
+              onClick={() => {
+                localStorage.removeItem("Authorization");
+                window.location.href = `/${language.lang || "ru"}/login`;
+              }}
+            >
+              <img src={logout} alt="logout" /> Выход
+            </div>
           </div>
         </div>
       </div>
