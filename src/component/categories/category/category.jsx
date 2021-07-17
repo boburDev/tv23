@@ -21,6 +21,7 @@ export default function Category({
   const counts = Math.ceil(
     movies.length / visibled > 5 ? 5 : movies.length / visibled
   );
+
   const [current, setCurrent] = useState(0);
   const categoryId = link && link.category_name;
   return (
@@ -60,7 +61,11 @@ export default function Category({
               (item, key) =>
                 current * visibled <= key &&
                 (current + 1) * visibled > key && (
-                  <MovieItem caregoryId={categoryId} key={Math.random() * Math.random()} movie={item} />
+                  <MovieItem
+                    caregoryId={categoryId}
+                    key={Math.random() * Math.random()}
+                    movie={item}
+                  />
                 )
             )
           )}

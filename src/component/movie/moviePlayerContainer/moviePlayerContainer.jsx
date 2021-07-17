@@ -214,7 +214,7 @@ export default function MoviePlayerContainer({ movie, api }) {
                 src={isFavourite ? favourStart : unSelectedStart}
                 alt="favourite"
               />
-              В избранное
+              <p> В избранное </p>
             </Button>
           </div>
           <div
@@ -245,7 +245,7 @@ export default function MoviePlayerContainer({ movie, api }) {
                 }
                 alt="favourite"
               />
-              Отправить
+              <p> Отправить </p>
             </Button>
           </div>
         </div>
