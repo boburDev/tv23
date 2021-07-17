@@ -31,7 +31,7 @@ export default function TrailerPlayer({ src, api , isActive}) {
     {
       src && <video
         style={{width:'100%', height:"100%"}}
-        controls={true}
+        controls={false}
         onLoadStart={()=>{setIsLoadedVideo(false)}}
         onPlay={()=>{SetIsPlay(true)}}
         onPause={()=>{SetIsPlay(false)}}
