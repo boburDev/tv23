@@ -1,48 +1,36 @@
-import MovieInfo from "../movieInfo/movieInfo";
-import MoviePlayerContainer from "../moviePlayerContainer/moviePlayerContainer";
-import Actor from "../../actors/actor";
-import Ads from "../../ads/ads";
-import Category from "../../categories/category/category";
-import Comments from "../../comments/comments";
-import { useSharing } from "../../../context/shareLink";
-import ShareLink from "../../shareMovie/shareMovie";
-import { useApi } from "../../../context/api";
-import { useParams } from "react-router-dom";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import MovieInfo from "../movieInfo/movieInfo"
+import MoviePlayerContainer from "../moviePlayerContainer/moviePlayerContainer"
+import Actor from "../../actors/actor"
+import Ads from "../../ads/ads"
+import Category from "../../categories/category/category"
+import Comments from "../../comments/comments"
+import { useSharing } from "../../../context/shareLink"
+import ShareLink from "../../shareMovie/shareMovie"
+import { useApi } from "../../../context/api"
+import { useParams } from "react-router-dom"
+import axios from "axios"
+import { useEffect, useState } from "react"
 export default function SignleMovie() {
-  const [api] = useApi();
-  const [openModal] = useSharing();
-  const params = useParams();
-  const [movie, setMovie] = useState({});
-  const [actors, setActors] = useState([]);
-  const [directors, setDirectors] = useState([]);
-  const [similarMovie, setSimilarMovie] = useState([]);
-
-  async function Movie(api, params) {
-    const movie = await axios.get(api + "/movie-one", {
-      headers: {
-        Authorization: localStorage.getItem("Authorization") || 1,
-      },
-      params: {
-        movieId: params && params.movieid,
-      }
-    });
-    setMovie(movie.data.data)
-  }
+  const [api] = useApi()
+  const [openModal] = useSharing()
+  const params = useParams()
+  const [movie, setMovie] = useState({})
+  const [actors, setActors] = useState([])
+  const [directors, setDirectors] = useState([])
+  const [similarMovie, setSimilarMovie] = useState([])
 
   async function getActors(api, params) {
     const res = await axios.get(
       `${api}/movie-actors?movieId=${params && params.movieid}`
-    );
-    setActors(res.data.data);
+    )
+    setActors(res.data.data)
   }
 
   async function getDirector(api, params) {
     const res = await axios.get(
       `${api}/movie-directors?movieId=${params && params.movieid}`
-    );
-    setDirectors(res.data.data);
+    )
+    setDirectors(res.data.data)
   }
 
   async function getMovies(api, params, movie) {
@@ -51,23 +39,38 @@ export default function SignleMovie() {
         movieId: params && params.movieid,
         categoryName: movie && movie.category_name,
       },
-    });
-    setSimilarMovie(res.data.data);
+    })
+    setSimilarMovie(res.data.data)
   }
+
+  async function MovieDetail(api, params) {
+    const movies = await axios.get(api + "/movie-one", {
+      headers: {
+        Authorization: localStorage.getItem("Authorization") || 1,
+      },
+      params: {
+        movieId: params && params.movieid,
+      }
+    })
+    setMovie(movies.data.data)
+    console.log(movies.data.data)
+  }
+
 
   useEffect(() => {
     if (movie && movie.category_id) {
-      getMovies(api, params, movie);
+      getMovies(api, params, movie)
     }
-  }, [movie, params, api]);
+  }, [movie, params, api])
 
   useEffect(() => {
     if (api) {
-      Movie(api, params);
-    getActors(api, params);
-    getDirector(api, params);
+		console.log(api)
+      MovieDetail(api, params)
+      getActors(api, params)
+      getDirector(api, params)
     }
-  }, [params, api]);
+  }, [params, api])
 
 
   return (
@@ -84,5 +87,5 @@ export default function SignleMovie() {
       <Comments />
       {openModal && <ShareLink />}
     </>
-  );
+  )
 }
