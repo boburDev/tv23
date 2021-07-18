@@ -14,12 +14,12 @@ import { useResolution } from "../../../context/resolution"
 import { useTheme } from "../../../context/theme"
 import { useSharing } from "../../../context/shareLink"
 import { useAuth } from '../../../context/user'
-
+import { useParams } from 'react-router-dom'
 export default function MoviePlayerContainer({ movie, api }) {
   const [resolution, setResolution] = useResolution()
-  const [playerType, setPlayerType] = useState(
-    localStorage.getItem("player_type") || "Триллеры"
-  )
+//   const [playerType, setPlayerType] = useState(
+//     localStorage.getItem("player_type") || "Триллеры"
+//   )
   const [dark] = useTheme()
   const [triller,settriller] = useState(true)
   const [playerHeight, setPlayerHeight] = useState("")
@@ -29,6 +29,8 @@ export default function MoviePlayerContainer({ movie, api }) {
   const [sendLink, setSendLink] = useState(false)
   const [openModal, setOpenModal] = useSharing()
   const [userData] = useAuth()
+  const [isLogged,setIsLogged] = useState(false)
+  const language = useParams()
   const settingSize = () => {
     var playerRef = document.getElementById("playerRef")
     setPlayerHeight((playerRef.offsetWidth * 480) / 854)
@@ -73,7 +75,9 @@ export default function MoviePlayerContainer({ movie, api }) {
 
 
   useEffect(()=>{
-	  console.log(userData)
+	  if (typeof userData === 'object' && userData) {
+		setIsLogged(true)
+	}
   },[userData])
 
   return (
@@ -84,7 +88,7 @@ export default function MoviePlayerContainer({ movie, api }) {
       <div className={st.topBar}>
         <div className={st.configures}>
           <div className={st.dropdown} style={ligthMode}>
-            <DropDown
+            {/* <DropDown
               activeText={`Плеер ${playerType && playerType}`}
               style={ligthMode}
             >
@@ -123,7 +127,7 @@ export default function MoviePlayerContainer({ movie, api }) {
                   </DropDownItem>
                 </>
               )}
-            </DropDown>
+            </DropDown> */}
           </div>
           <div className={st.dropdown} style={ligthMode}>
             <DropDown activeText={resolution} style={ligthMode}>
@@ -192,7 +196,18 @@ export default function MoviePlayerContainer({ movie, api }) {
           <div className={st.cover}>
             <img src={`${api}/${movie.movie_screen}`} alt="video_cover" />
             <div className={st.controlBtn}>
-              <div onClick={() => setIsVideo(true)}>
+              <div onClick={() => {
+				  if (isLogged) {
+					  setIsVideo(true)
+				  } else {
+						const confirmation = window.confirm('Do you want to logIn')
+						if (confirmation) {
+							window.location.href = `/${language.lang || 'ru'}/login`
+						}else {
+							// window.alert('Unda uzr kino kuromisiz')
+						}
+				  }
+				}}>
                 <Button style={coverBtnStyle}>Смотреть по подписке</Button>
               </div>
               {

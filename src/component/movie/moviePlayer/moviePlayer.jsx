@@ -53,7 +53,6 @@ export default function VideoPlayer({ movie, api }) {
 	}
 	
 	useEffect(()=>{
-		console.log(movie && movie)
 		if (movie && movie.movie_id) {
 			setData({
 				path: movie.movie_path,

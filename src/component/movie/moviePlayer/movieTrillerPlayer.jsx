@@ -59,7 +59,6 @@ export default function TrillerVideoPlayer({ movie, api }) {
 				movie_thumnail_path: movie.movie_thumnail_path
 			})
 		}
-		
 	},[movie])
 	
 	useEffect(()=>{
