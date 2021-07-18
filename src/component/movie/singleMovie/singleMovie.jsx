@@ -34,7 +34,7 @@ export default function SignleMovie() {
   }
 
   async function getMovies(api, params, movie) {
-    const res = await axios.get(`${api}/similar-movies`, {
+    const res = await axios.get(`${api}/similar-movies/`, {
       params: {
         movieId: params && params.movieid,
         categoryName: movie && movie.category_name,
@@ -44,16 +44,21 @@ export default function SignleMovie() {
   }
 
   async function MovieDetail(api, params) {
-    const movies = await axios.get(api + "/movie-one", {
-      headers: {
-        Authorization: localStorage.getItem("Authorization") || 1,
-      },
-      params: {
-        movieId: params && params.movieid,
-      }
-    })
-    setMovie(movies.data.data)
-    console.log(movies.data.data)
+    try {
+		// console.log(params && params.movieid)
+		// console.log(localStorage.getItem("Authorization") || 1)
+		const movies = await axios.get(api + "/movie-one", {
+			params: {
+				movieId: params && params.movieid,
+			},
+			headers: {
+				Authorization: localStorage.getItem("Authorization") || 1,
+			},
+			})
+		setMovie(movies.data.data)
+	} catch (error) {
+		
+	}
   }
 
 
@@ -65,7 +70,6 @@ export default function SignleMovie() {
 
   useEffect(() => {
     if (api) {
-		console.log(api)
       MovieDetail(api, params)
       getActors(api, params)
       getDirector(api, params)

@@ -21,7 +21,7 @@ const parseHMS=(value)=>{
 	return hours + ':' + minutes + ':' + seconds; // Return is HH : MM : SS
 }
 
-export default function VideoPlayer({ movie, api }) {
+export default function VideoPlayer({ movie, api, triller }) {
 	const [resolution] = useResolution()
 	const { movieid } = useParams()
 	const videoRef = useRef()
@@ -53,10 +53,21 @@ export default function VideoPlayer({ movie, api }) {
 	}
 	
 	useEffect(()=>{
-		if (movie && movie.movie_id) {
-			setData(movie)
+		if (movie && movie.movie_id && triller) {
+			console.log(movie)
+			setData({
+				path: movie.triller_path,
+				movie_thumnail_path: movie.movie_thumnail_path
+			})
+		} else if (movie && movie.movie_id) {
+			console.log(movie)
+			setData({
+				path: movie.movie_path,
+				movie_thumnail_path: movie.movie_thumnail_path
+			})
 		}
-	},[movie])
+		
+	},[movie,triller])
 	
 	useEffect(()=>{
 		var container = document.getElementById('videoContainer')
@@ -64,11 +75,15 @@ export default function VideoPlayer({ movie, api }) {
 	}, [])
 	
 	useEffect(()=>{
-		videoRef.current.currentTime = window.localStorage.getItem('movie_id') === movieid ? parseFloat(window.localStorage.getItem('movie_current_time')) : 0
+		if (videoRef.current) {
+			videoRef.current.currentTime = window.localStorage.getItem('movie_id') === movieid ? parseFloat(window.localStorage.getItem('movie_current_time')) : 0
+		}
 	}, [movieid])
 	
 	useEffect(() => {
-		isPlay ? videoRef.current.play() : videoRef.current.pause()
+		if (videoRef.current) {
+			isPlay ? videoRef.current.play() : videoRef.current.pause()
+		}
 	}, [isPlay]);
 	
 	useEffect(()=>{
@@ -194,7 +209,8 @@ export default function VideoPlayer({ movie, api }) {
 			</div>
 		</div>
 
-		<video ref={videoRef} id='video'
+		{
+			data && data.path !== undefined && <video ref={videoRef} id='video'
 			style={{width:width, maxHeight:isFullScreen ? '100vh' : '90vh'}}
 			onTimeUpdate={timeUpdate}
 			onLoadedMetadata ={onLoadedMetaInfo}
@@ -202,8 +218,9 @@ export default function VideoPlayer({ movie, api }) {
 			onLoadedData={()=>setIsLoad(true)}
 			preload={`${api}/${data.movie_thumnail_path}`}
 			controlsList="nodownload">
-			<source src={`${api}/stream/movie/${(data && data.movie_id) && data.movie_path}/${resolution}`} type="video/mp4" />
-		</video>
+			<source src={`${api}/stream/movie/${data.path}/${resolution}`} type="video/mp4" />
+		</video>	
+		}
 		</div>
 		)
 	}

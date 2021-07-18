@@ -1,13 +1,15 @@
-import st from "./footer.module.css";
-import { Link } from "react-router-dom";
-import telegram from "../../assets/logo/telegram_logo.svg";
-import instagram from "../../assets/logo/instagram_logo.svg";
-import facebook from "../../assets/logo/facebook_logo.svg";
-import appStore from "../../assets/img/app-store.png";
-import googlePlay from "../../assets/img/google-play.png";
-import { useTheme } from "../../context/theme";
+import st from "./footer.module.css"
+import { Link, useParams } from "react-router-dom"
+import telegram from "../../assets/logo/telegram_logo.svg"
+import instagram from "../../assets/logo/instagram_logo.svg"
+import facebook from "../../assets/logo/facebook_logo.svg"
+import appStore from "../../assets/img/app-store.png"
+import googlePlay from "../../assets/img/google-play.png"
+import { useTheme } from "../../context/theme"
+
 function Footer() {
-  const [dark] = useTheme();
+  const [dark] = useTheme()
+  const language = useParams()
   return (
     <>
       <footer className={st.footer}>
@@ -66,16 +68,16 @@ function Footer() {
               <div className={st.wrapper_footer}>
                 <ul className={`${st.categories} ${!dark ? st.dark : ""}`}>
                   <li className={st.category_item}>
-                    <Link to="#">Фильмы</Link>
+                    <Link to={`/${language.lang || "ru"}/categories/фильмы`}>Фильмы</Link>
                   </li>
                   <li className={st.category_item}>
-                    <Link to="#">Сериалы</Link>
+                    <Link to={`/${language.lang || "ru"}/categories/сериалы`}>Сериалы</Link>
                   </li>
                   <li className={st.category_item}>
-                    <Link to="#">Все категории</Link>
+                    <Link to={`/${language.lang || "ru"}/categories`}>Все категории</Link>
                   </li>
                   <li className={st.category_item}>
-                    <Link to="#" className={st.live}>
+                    <Link to={`/${language.lang || "ru"}/live`} className={st.live}>
                       LIVE{" "}
                       <b>
                         <span style={{ color: "red" }}>&#183;</span>
@@ -83,7 +85,7 @@ function Footer() {
                     </Link>
                   </li>
                   <li className={st.category_item}>
-                    <Link to="#">Избранные</Link>
+                    <Link to={`/${language.lang || "ru"}/favourites`}>Избранные</Link>
                   </li>
                 </ul>
 
@@ -139,7 +141,7 @@ function Footer() {
         </div>
       </footer>
     </>
-  );
+  )
 }
 
-export default Footer;
+export default Footer

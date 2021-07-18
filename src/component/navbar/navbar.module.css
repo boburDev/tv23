@@ -48,6 +48,7 @@
 }
 
 .user_tools {
+  width: 100%;
   display: flex;
   align-items: center;
   margin-right: 15px;
@@ -380,6 +381,21 @@
     max-width: 400px;
     padding: 0;
     padding-right: 5px;
+  }
+
+  .user_tools {
+    width: 9%;
+    margin-left: 0;
+  }
+  .search_tool {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .search_icon {
+    margin-right: 5px;
   }
 }
 

@@ -25,10 +25,10 @@ export default function Navbar({ data, type, text }) {
             {type === "genres"
               ? data &&
                 data.map((val, key) => (
-                  <Link
-                    to={`/${
-                      language.lang || "ru"
-                    }/genres/${val.genre_name.toLowerCase()}`}
+                  <Link to={"#"}
+                    // to={`/${
+                    //   language.lang || "ru"
+                    // }/genres/${val.genre_name.toLowerCase()}`}
                     id={val.genre_id}
                     onClick={(e) => setActive(e.target.id)}
                     key={key}
