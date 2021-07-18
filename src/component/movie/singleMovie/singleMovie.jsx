@@ -45,8 +45,6 @@ export default function SignleMovie() {
 
   async function MovieDetail(api, params) {
     try {
-		// console.log(params && params.movieid)
-		// console.log(localStorage.getItem("Authorization") || 1)
 		const movies = await axios.get(api + "/movie-one", {
 			params: {
 				movieId: params && params.movieid,

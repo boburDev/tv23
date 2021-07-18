@@ -38,10 +38,7 @@ export default function MovieInfo({ movie, api }) {
         <div className={st.filmBio}>
           <div className={st.moviePicture}>
             <div className={st.film_img}>
-              <img
-                src={`${api}/${movie && movie.movie_thumnail_path}`}
-                alt="film_picture"
-              />
+              <img src={`${api}/${movie && movie.movie_thumnail_path}`} alt="film_picture" />
               <div className={st.img_rate}>
                 <p className={st.info_text}>Рейтинг:</p>
                 <img src={rateStars} alt="rate" height="5" />
