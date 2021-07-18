@@ -21,7 +21,7 @@ const parseHMS=(value)=>{
 	return hours + ':' + minutes + ':' + seconds; // Return is HH : MM : SS
 }
 
-export default function VideoPlayer({ movie, api }) {
+export default function TrillerVideoPlayer({ movie, api }) {
 	const [resolution] = useResolution()
 	const { movieid } = useParams()
 	const videoRef = useRef()
@@ -53,10 +53,9 @@ export default function VideoPlayer({ movie, api }) {
 	}
 	
 	useEffect(()=>{
-		console.log(movie && movie)
-		if (movie && movie.movie_id) {
+		if (movie && movie.triller_path) {
 			setData({
-				path: movie.movie_path,
+				path: movie.triller_path,
 				movie_thumnail_path: movie.movie_thumnail_path
 			})
 		}
@@ -212,7 +211,7 @@ export default function VideoPlayer({ movie, api }) {
 			onLoadedData={()=>setIsLoad(true)}
 			preload={`${api}/${data.movie_thumnail_path}`}
 			controlsList="nodownload">
-			<source src={`${api}/stream/movie/${data.path}/${resolution}`} type="video/mp4" />
+			<source src={`${api}/stream/triller/${data.path}/${resolution}`} type="video/mp4" />
 		</video>	
 		}
 		</div>

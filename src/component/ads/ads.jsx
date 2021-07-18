@@ -27,7 +27,7 @@ export default function Ads() {
       style={{ background: dark ? "#0C0C0D" : "#F8F9FC" }}
     >
       <div className={st.container}>
-        <a href={`/${ads.ads_link}`}>
+        <a href={`${ads.ads_link}`}>
           <img src={`${api}/${ads.ads_path}`} alt="" height="20" />
         </a>
       </div>

@@ -2,10 +2,11 @@ import st from "./trillerItem.module.css";
 import Button from "../../elements/button/button";
 import TrailarPlayer from "../trillerPlayer/player";
 import { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom'
 
 export default function TrailerItem({ isActive, data, api }) {
   const [showAllGenre, setShowAllGenre] = useState(true);
-
+  const language = useParams()
   useEffect(() => {
     window.addEventListener("resize", () => {
       if (window.innerWidth <= 720) setShowAllGenre(false);
@@ -46,7 +47,9 @@ export default function TrailerItem({ isActive, data, api }) {
               <div className={st.rating}>
                 <h6 className={st.title}>Рейтинг:</h6>
               </div>
-              <div className={st.button}>
+              <div className={st.button} onClick={()=>{
+				  window.location.href = `/${language.lang || 'ru'}/categories/recomented/${data.movie_id}`
+			  }}>
                 <Button>Смотреть по подписке</Button>
               </div>
             </div>
