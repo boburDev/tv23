@@ -1,66 +1,67 @@
-import { useCallback, useEffect, useState } from "react";
-import st from "./moviePlayerContainer.module.css";
-import Button from "../../elements/button/button";
-import DropDown from "../../elements/dropDown/dropDown";
-import DropDownItem from "../../elements/dropDown/dropDownItem/dropDownItem";
-import unSelectedStart from "../../../assets/logo/unselected_start.svg";
-import favourStart from "../../../assets/logo/rate_and_favour.svg";
-import sendIcon from "../../../assets/logo/send_icon.svg";
-import sendSelectedIcon from "../../../assets/logo/send_icon_selected.svg";
-import sendSelectedBlackIcon from "../../../assets/logo/send_icon_selected_black.svg";
-import VideoPlayer from "../moviePlayer/moviePlayer";
-import { useResolution } from "../../../context/resolution";
-import { useTheme } from "../../../context/theme";
-import { useSharing } from "../../../context/shareLink";
+import { useCallback, useEffect, useState } from "react"
+import st from "./moviePlayerContainer.module.css"
+import Button from "../../elements/button/button"
+import DropDown from "../../elements/dropDown/dropDown"
+import DropDownItem from "../../elements/dropDown/dropDownItem/dropDownItem"
+import unSelectedStart from "../../../assets/logo/unselected_start.svg"
+import favourStart from "../../../assets/logo/rate_and_favour.svg"
+import sendIcon from "../../../assets/logo/send_icon.svg"
+import sendSelectedIcon from "../../../assets/logo/send_icon_selected.svg"
+import sendSelectedBlackIcon from "../../../assets/logo/send_icon_selected_black.svg"
+import VideoPlayer from "../moviePlayer/moviePlayer"
+import { useResolution } from "../../../context/resolution"
+import { useTheme } from "../../../context/theme"
+import { useSharing } from "../../../context/shareLink"
 
 export default function MoviePlayerContainer({ movie, api }) {
-  const [resolution, setResolution] = useResolution();
+  const [resolution, setResolution] = useResolution()
   const [playerType, setPlayerType] = useState(
     localStorage.getItem("player_type") || "Триллеры"
-  );
-  const [dark] = useTheme();
+  )
+  const [dark] = useTheme()
 
-  const [playerHeight, setPlayerHeight] = useState("");
-  const [isVideo, setIsVideo] = useState(false);
-  const [isFavourite, setIsFavourite] = useState(false);
-  const [sendLink, setSendLink] = useState(false);
-  const [openModal, setOpenModal] = useSharing();
+  const [playerHeight, setPlayerHeight] = useState("")
+  const [isVideo, setIsVideo] = useState(false)
+  const [isVideoTriller, setIsVideoTriler] = useState(false)
+  const [isFavourite, setIsFavourite] = useState(false)
+  const [sendLink, setSendLink] = useState(false)
+  const [openModal, setOpenModal] = useSharing()
 
   const settingSize = () => {
-    var playerRef = document.getElementById("playerRef");
-    setPlayerHeight((playerRef.offsetWidth * 480) / 854);
-  };
+    var playerRef = document.getElementById("playerRef")
+    setPlayerHeight((playerRef.offsetWidth * 480) / 854)
+  }
 
   const changeResolution = (resolution) => {
-    window.localStorage.setItem("video_resolution", resolution);
-    setResolution(resolution);
-    window.location.reload();
-  };
+    window.localStorage.setItem("video_resolution", resolution)
+    setResolution(resolution)
+    window.location.reload()
+  }
 
   useCallback(() => {
-    window.addEventListener("load", settingSize);
-    window.addEventListener("resize", settingSize);
+    window.addEventListener("load", settingSize)
+    window.addEventListener("resize", settingSize)
     return () => {
-      window.addEventListener("load", settingSize);
-      window.addEventListener("resize", settingSize);
-    };
-  }, []);
+      window.addEventListener("load", settingSize)
+      window.addEventListener("resize", settingSize)
+    }
+  }, [])
 
   const coverBtnStyle = {
     marginBottom: "20px",
     width: "200px",
-  };
+  }
 
   const ligthMode = {
     background: dark ? "rgb(35 35 39)" : "#fff",
     color: dark ? "#fff" : "#777",
-  };
+  }
 
   useEffect(() => {
     if (movie && !movie.triller_id) {
-      localStorage.setItem("player_type", "Фильмы");
+      localStorage.setItem("player_type", "Фильмы")
     }
-  }, [movie]);
+  }, [movie])
 
   return (
     <div
@@ -79,8 +80,8 @@ export default function MoviePlayerContainer({ movie, api }) {
                   <DropDownItem
                     style={{ borderBottom: "none" }}
                     onClick={() => {
-                      localStorage.setItem("player_type", "Фильмы");
-                      setPlayerType("Фильмы");
+                      localStorage.setItem("player_type", "Фильмы")
+                      setPlayerType("Фильмы")
                     }}
                   >
                     Фильмы
@@ -92,8 +93,8 @@ export default function MoviePlayerContainer({ movie, api }) {
                 <>
                   <DropDownItem
                     onClick={() => {
-                      localStorage.setItem("player_type", "Фильмы");
-                      setPlayerType("Фильмы");
+                      localStorage.setItem("player_type", "Фильмы")
+                      setPlayerType("Фильмы")
                     }}
                   >
                     Фильмы
@@ -101,8 +102,8 @@ export default function MoviePlayerContainer({ movie, api }) {
                   <DropDownItem
                     style={{ borderBottom: "none" }}
                     onClick={() => {
-                      localStorage.setItem("player_type", "Триллеры");
-                      setPlayerType("Триллеры");
+                      localStorage.setItem("player_type", "Триллеры")
+                      setPlayerType("Триллеры")
                     }}
                   >
                     Триллеры
@@ -115,14 +116,14 @@ export default function MoviePlayerContainer({ movie, api }) {
             <DropDown activeText={resolution} style={ligthMode}>
               <DropDownItem
                 onClick={() => {
-                  changeResolution("360p");
+                  changeResolution("360p")
                 }}
               >
                 360p
               </DropDownItem>
               <DropDownItem
                 onClick={() => {
-                  changeResolution("720p");
+                  changeResolution("720p")
                 }}
               >
                 720p
@@ -131,7 +132,7 @@ export default function MoviePlayerContainer({ movie, api }) {
                 <DropDownItem
                   style={{ borderBottom: "none" }}
                   onClick={() => {
-                    changeResolution("HD");
+                    changeResolution("HD")
                   }}
                 >
                   HD(1080)
@@ -142,7 +143,7 @@ export default function MoviePlayerContainer({ movie, api }) {
                 <>
                   <DropDownItem
                     onClick={() => {
-                      changeResolution("HD");
+                      changeResolution("HD")
                     }}
                   >
                     HD(1080)
@@ -150,7 +151,7 @@ export default function MoviePlayerContainer({ movie, api }) {
                   <DropDownItem
                     style={{ borderBottom: "none" }}
                     onClick={() => {
-                      changeResolution("HD");
+                      changeResolution("HD")
                     }}
                   >
                     4K
@@ -170,14 +171,18 @@ export default function MoviePlayerContainer({ movie, api }) {
           <>
             {movie && movie.movie_id && <VideoPlayer api={api} movie={movie} />}
           </>
-        ) : (
+        ) : isVideoTriller ? (<>
+			{
+				movie && movie.movie_id && <VideoPlayer api={api} movie={movie} triller={true} />
+			}
+		</>) : (
           <div className={st.cover}>
             <img src={`${api}/${movie.movie_screen}`} alt="video_cover" />
             <div className={st.controlBtn}>
               <div onClick={() => setIsVideo(true)}>
                 <Button style={coverBtnStyle}>Смотреть по подписке</Button>
               </div>
-              <div>
+              <div onClick={()=>setIsVideoTriler(true)}>
                 <Button style={{ background: "#111112", ...coverBtnStyle }}>
                   Смотреть трейлер
                 </Button>
@@ -197,7 +202,7 @@ export default function MoviePlayerContainer({ movie, api }) {
         <div className={`${st.additional_functions} ${dark ? "" : st.black}`}>
           <div
             onClick={() => {
-              setIsFavourite(!isFavourite);
+              setIsFavourite(!isFavourite)
             }}
             className={st.favourite}
           >
@@ -219,8 +224,8 @@ export default function MoviePlayerContainer({ movie, api }) {
           </div>
           <div
             onClick={() => {
-              setSendLink(!sendLink);
-              setOpenModal(!openModal);
+              setSendLink(!sendLink)
+              setOpenModal(!openModal)
             }}
             className={st.favourite}
           >
@@ -251,5 +256,5 @@ export default function MoviePlayerContainer({ movie, api }) {
         </div>
       </div>
     </div>
-  );
+  )
 }

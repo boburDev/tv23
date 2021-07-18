@@ -31,6 +31,17 @@ export default function Actors({
   const changeType = (val) => setActiveType(val);
 
   const [current, setCurrent] = useState(0);
+
+  const profetionStyle = {
+	width: "100%",
+	height: "200px",
+	display: "flex",
+	justifyContent: "center",
+	alignItems: "center",
+	color: "white",
+  }
+
+
   return (
     <div
       className={st.container}
@@ -65,7 +76,9 @@ export default function Actors({
         {activeType === types.actor &&
           actors &&
           (actors.length === 0
-            ? "No found"
+            ? <div style={profetionStyle} className={st.notFount}>
+			{"No found"}
+		  </div>
             : actors.map(
                 (item, key) =>
                   current * visibled <= key &&
@@ -82,18 +95,8 @@ export default function Actors({
         {activeType === types.creator &&
           creator &&
           (creator.length === 0 ? (
-            <div
-              style={{
-                width: "100%",
-                height: "200px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                color: "white",
-              }}
-            >
-              {" "}
-              No found
+            <div style={profetionStyle} className={st.notFount}>
+              {"No found"}
             </div>
           ) : (
             creator.map(

@@ -1,0 +1,166 @@
+export const Uz = {
+    auth: {
+       createAccout: {
+           accoutToCreate: 'Akkaunt yaratish',
+           enter: 'Kirish',
+           phoneNumber: 'Telefon raqam',
+           userName: 'Foydalanuvchining ismi',
+           age: 'Yosh',
+           nextStep: `Keyingi bosqichga o'tish`
+       },
+       enterPassword: {
+           createPassword: `Parol o'ylab toping`,
+           securePassword: `Xavfsizlik sababli parolingiz 6 yoki undan ortiq belgidan iborat bo'lishi kerak`,
+           passwordLabel: 'Parol',
+           passwordAgainLabel: 'Parolni qaytaring',
+           register: `Ro'yxatdan o'tish`,
+           validateMessage1: `Parol maydoni bo'sh bo'lishi mumkin emas!`,
+           validateMessage2: `Parollar bir xil emas`,
+       },
+       login: {
+            signInMessage: 'Login yoki parol xato',
+            enter: 'Kirish',
+            register: `Ro'yxatdan o'tish`,
+            labelPhone: 'Telefon raqam',
+            labePassword: 'Parol',
+            restorePassword: 'Parolni tiklash'
+       },
+       verifyPhone: {
+           sentPassword: 'Telefon raqamingizga yuborilgan kodni kiriting',
+           restorePassword: 'Parolni tiklash',
+           confirm: 'Tasdiqlash',
+           sendSms: `SMS jo'natish`
+       }
+    },
+    categories: {
+        categoryHeader: {
+            categories: 'Bo`limlar'
+        }
+    },
+    comments: {
+        commentItem: {
+            noComment: 'Hech qanday izox qoldirilmagan',
+        },
+        comments: {
+            comments: 'Izoxlar',
+            leaveComment: `Fikringizni qoldiring yoki boshqalarga yordam berish uchun sharh qoldiring
+            23TV foydalanuvchilari "Hobbit" ni onlayn tomosha qilish to'g'risida qaror qabul qilishadi
+            yoki yo'q.`,
+            leaveComments: 'Izox qoldirish'
+        }
+    },
+    filter: {
+        filtering: 'Filtrlash',
+        country: 'Davlat',
+        year: 'yil',
+        genre: 'Janr',
+        foundMovies: 'Topilgan kinolar'
+    },
+    footer: {
+        downloadApp: `Siz dasturni yuklab olishingiz mumkin`,
+        weOnSocial: 'Biz ijtimoiy tarmoqlarda',
+        movies: 'Filmlar',
+        serials: 'Seriallar',
+        allCategories: 'Barcha toifalar',
+        forward: 'Sevimlilar',
+        aboutUs: 'Biz haqimizda',
+        ads: 'Reklama joylashtirish',
+        forPartners: 'Hamkorlar uchun',
+        vacancies: `Bo'sh ish o'rinlari`,
+        techSupport: 'Texnik yordam',
+        leaveComment: 'Fikr-mulohaza bildirish'
+    },
+    live: {
+        livePlayContainer: {
+            nowLive: 'Hozir efirda',
+            startStream: 'Strimni boshlash'
+        },
+        userLivePlayerContainer: {
+            nowLive: 'Hozir efirda',
+            watchByFollow: `Obuna bo'yicha tomosha qilish`,
+            watchTrailer: `Trelerni ko'rish`
+        },
+        socket: {
+            startLive: 'Efirni boshlash',
+            stopLive: 'Efirni tugatish'
+        }
+    },
+    movie: {
+        movieInfo: {
+            rating: 'Reyting',
+            production: 'Ishlab chiqarilgan',
+            releaseDate: 'Premyera sanasi',
+            duration: 'Davomiyligi'
+        },
+        moviePlayerContainer: {
+            films: 'Filmlar',
+            trailers: 'Treylerlar',
+            watchTrailer: 'Treylerni ko`rish',
+            name: 'Nomlanishi',
+            toForwards: 'Sevimlilarga',
+            send: 'Jo`natish'
+        }
+    },
+    navbar: {
+        movies: 'Filmlar',
+        serials: 'Seriallar',
+        allCategories: 'Barcha yo`nalishlar',
+        forwards: 'Sevimlilar'
+    },
+    notfound: {
+        notFound: {
+            goToMainPage: 'Asosiy betga qaytish'
+        },
+        searchNotFound: 'Afsuski hech narsa topilmadi',
+        videoNotFound: 'Video topilmadi'
+    },
+    shareMovie: {
+        share: 'Ulashish',
+        copy: 'Nusxalash',
+        startAt: 'Boshlash'
+    },
+    triller: {
+        trillerCarousel: {
+            triller: 'Treyler',
+            country: 'Davlat'
+        },
+        trillerItem: {
+            country: 'Davlat',
+            rating: 'Reyting',
+            watchByFollow: `Obuna bo'yicha tomosha qilish`
+        },
+        trillerPlayer: {
+            loading: 'Video yuklanmoqda Iltimos, video yuklanguncha kuting ...'
+        }
+    },
+    user: {
+        following: {
+            actual: 'Aktual',
+            accessTv: `TV-3, NTV, Muz-TV, kabi 60 dan ortiq telekanallarga kirish huquqini qo'lga kiriting.
+            Animal Planet, Zo'r TV, Yoshlar va boshqa ko'plab boshqa mavzular
+            kanallar`,
+            chargeDays: '3 kunga 1500 so`mdan'
+        },
+        profile: {
+            nickname: 'Ism',
+            price: '0 so`m',
+            phoneNumber: 'Telefon raqam',
+            idNumber: '23TV ID raqami',
+            editProfile: 'Profilni o`zgartirish',
+            exit: 'Chiqish',
+            nameLabel: 'Ismingiz',
+            numberLabel: 'Telefon raqamingiz',
+            setNewPassword: 'Yangi parol o`rnatish',
+            labelPassword: 'Yangi parol o`ylab toping',
+            retypeNewPassword: 'Yangi parolni qaytaring',
+            save: 'Saqlash'
+        },
+        profileSidebar: {
+            accaunt: 'Akkaunt',
+            follow: 'Obuna',
+            payment: 'To`lov',
+            history: 'Tarix',
+            exit: 'Chiqish'
+        }
+    }
+}

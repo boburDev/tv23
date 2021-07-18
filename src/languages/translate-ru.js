@@ -1,0 +1,167 @@
+export const Ru = {
+    auth: {
+       createAccout: {
+           accoutToCreate: 'Создать аккаунт',
+           enter: 'Вход',
+           phoneNumber: 'Тел.номер',
+           userName: 'Имя пользователя',
+           age: 'Возраст',
+           nextStep: `Перейти дальше`
+       },
+       enterPassword: {
+           createPassword: `Придумайте пароль`,
+           securePassword: `В целях безопасности ваш пароль должен состоять из 6 или более символов.`,
+           passwordLabel: 'Пароль',
+           passwordAgainLabel: 'Повторите пароль',
+           register: 'Регистрация',
+           validateMessage1: `Поле пароля не может быть пустым!`,
+           validateMessage2: `пароли не совпадают`,
+       },
+       login: {
+            signInMessage: 'Ошибка логина или пароля',
+            enter: 'Вход',
+            register: `Регистрация`,
+            labelPhone: 'Тел.номер',
+            labePassword: 'Пароль',
+            restorePassword: 'Bосстановить парол'
+       },
+       verifyPhone: {
+           sentPassword: 'Введите код, отправленный на ваш номер телефона',
+           restorePassword: 'Bосстановить парол',
+           confirm: 'Подтверждение',
+           sendSms: `Отправить смс`
+       }
+    },
+    categories: {
+        categoryHeader: {
+            categories: 'Kатегории'
+        }
+    },
+    comments: {
+        commentItem: {
+            noComment: 'Комментариев не осталось',
+        },
+        comments: {
+            comments: 'Комментарии',
+            leaveComment: `Оставьте свое мнение или оставьте комментарий, чтобы помочь другим
+            Пользователи 23TV решили смотреть Хоббита онлайн
+            или нет.`,
+            leaveComments: 'Оставить комментарий'
+        }
+    },
+    filter: {
+        filtering: 'Фильтрация',
+        country: 'Страна',
+        year: 'год',
+        genre: 'Жанр',
+        foundMovies: 'Найденные фильмы'
+    },
+    footer: {
+        downloadApp: `Вы можете скачать программу`,
+        weOnSocial: 'Мы в социальных сетях',
+        movies: 'филми ',
+        serials: 'Сериалы',
+        allCategories: 'Все категории',
+        forward: ' Избранное',
+        aboutUs: 'O нас',
+        ads: ' Реклама',
+        forPartners: 'Партнерам',
+        vacancies: `Вакансии`,
+        techSupport: 'Tехническая поддержка',
+        leaveComment: 'Дать обратную связь'
+    },
+    live: {
+        livePlayContainer: {
+            nowLive: 'Сейчас в эфире',
+            startStream: 'Hачать трансляцию'
+        },
+        userLivePlayerContainer: {
+            nowLive: 'Сейчас в эфире',
+            watchByFollow: `Смотреть по подписке`,
+            watchTrailer: `Посмотреть трейлер`
+        },
+        socket: {
+            startLive: 'Начать трансляцию',
+            stopLive: 'Конец трансляции'
+        }
+    },
+    movie: {
+        movieInfo: {
+            rating: 'Рейтинг',
+            production: 'Произведено',
+            releaseDate: 'Дата премьеры',
+            duration: 'Продолжительность'
+        },
+        moviePlayerContainer: {
+            films: 'филми',
+            trailers: 'Трейлеры',
+            watchTrailer: 'Посмотреть трейлер',
+            name: 'Именование',
+            toForwards: 'Избранное',
+            send: 'ОТПРАВИТЬ'
+        }
+    },
+    navbar: {
+        movies: 'филми',
+        serials: 'Сериалы',
+        allCategories: 'Все категории',
+        forwards: 'Избранное'
+    },
+    notfound: {
+        notFound: {
+            goToMainPage: 'Вернуться на главную страницу'
+        },
+        searchNotFound: 'К сожалению, ничего не было найдено',
+        videoNotFound: 'Видео не найдено'
+    },
+    shareMovie: {
+        share: 'Поделиться',
+        copy: 'Копировать',
+        startAt: 'Начать'
+    },
+    triller: {
+        trillerCarousel: {
+            triller: 'Трейлер',
+            country: 'Страна'
+        },
+        trillerItem: {
+            country: 'Страна',
+            rating: 'Рейтинг',
+            watchByFollow: `
+            Смотреть по подписке`
+        },
+        trillerPlayer: {
+            loading: 'Загрузка видео Подождите, пока видео загрузится ...'
+        }
+    },
+    user: {
+        following: {
+            actual: 'Актуальное',
+            accessTv: `Получите доступ к более чем 60 телеканалам, таким как ТВ-3, НТВ, Муз-ТВ.
+            Планета животных, Perfect TV, Молодежь и многие другие темы
+            каналы`,
+            chargeDays: 'От 1500 сум за 3 дня'
+        },
+        profile: {
+            nickname: 'Имя',
+            price: '0 сyм',
+            phoneNumber: 'Телефонный номер',
+            idNumber: 'ID 23ТВ',
+            editProfile: 'редактировать профиль',
+            exit: 'Выход',
+            nameLabel: 'Твое имя',
+            numberLabel: 'Ваш номер телефона',
+            setNewPassword: 'Установите новый пароль',
+            labelPassword: 'Придумайте новый пароль',
+            retypeNewPassword: 'Повторите новый пароль',
+            save: 'Сохранить'
+        },
+        profileSidebar: {
+            accaunt: 'АККАУНТ ',
+            follow: 'подпискa',
+            payment: 'Оплата',
+            history: 'История',
+            exit: 'Выход'
+        }
+    }
+}

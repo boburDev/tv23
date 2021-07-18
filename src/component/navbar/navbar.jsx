@@ -169,11 +169,8 @@ function Navbar({ login, path }) {
                   </Link>
                 </li>
                 <li className={st.navbar_link_item}>
-                  <Link
-                    style={{ color: "red" }}
-                    to={`/${language.lang || "ru"}/live`}
-                  >
-                    LIVE
+                  <Link to={`/${language.lang || "ru"}/live`}>
+                    LIVE <span style={{color: 'red', fontWeight: 'bold'}}>&#183;</span>
                   </Link>
                 </li>
                 <li className={st.navbar_link_item}>
@@ -182,28 +179,11 @@ function Navbar({ login, path }) {
                   </Link>
                 </li>
               </ul>
-              <div
-                className={st.user_tools}
-                style={{ width: isOpenSearch ? "100%" : "100%" }}
-              >
-                <div
-                  className={st.search_tool}
-                  htmlFor="search_tool"
-                  style={{
-                    width: isOpenSearch ? " 100%" : "",
-                    marginLeft: "auto",
-                    backgroundColor: dark ? "" : "#F6F6F6",
-                  }}
-                >
-                  <input
-                    style={{ color: dark ? "" : "#888888" }}
-                    onFocus={() => {
-                      setIsOpenSearch(true);
-                    }}
-					onKeyUp={searchIngineOnKeyUpHandler}
-                    id="search_tool"
-                    type="text"
-                    placeholder=""
+              <div className={st.user_tools} style={{ width: isOpenSearch && "100%" }}>
+                <div className={st.search_tool} htmlFor="search_tool"
+                  style={{ width: isOpenSearch ? " 100%" : "", marginLeft: "auto", backgroundColor: dark ? "" : "#F6F6F6"}}>
+                  <input style={{ color: dark ? "" : "#888888" }} onFocus={() => setIsOpenSearch(true)}
+					onKeyUp={searchIngineOnKeyUpHandler} id="search_tool" type="text" placeholder=""
                   />
 
                   <div onClick={handleSearch} className={st.search_icon}>
@@ -256,14 +236,12 @@ function Navbar({ login, path }) {
                       style={{ display: login ? "none" : "" }}
                     >
                       <li className={st.navbar_link_item}>
-                        <Link to={`/${language.lang || "ru"}/categories/films`}>
+                        <Link to={`/${language.lang || "ru"}/categories/фильмы`}>
                           Фильмы
                         </Link>
                       </li>
                       <li className={st.navbar_link_item}>
-                        <Link
-                          to={`/${language.lang || "ru"}/categories/serials`}
-                        >
+                        <Link to={`/${language.lang || "ru"}/categories/сериалы`}>
                           Сериалы
                         </Link>
                       </li>
@@ -273,10 +251,7 @@ function Navbar({ login, path }) {
                         </Link>
                       </li>
                       <li className={st.navbar_link_item}>
-                        <Link
-                          to={`/${language.lang || "ru"}/live`}
-                          style={{ color: "red" }}
-                        >
+                        <Link style={{ color: "red" }} to={`/${language.lang || "ru"}/live`}>
                           LIVE
                         </Link>
                       </li>

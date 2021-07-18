@@ -1,21 +1,33 @@
 import st from "./movieInfo.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import rateStars from "../../../assets/image/rates.png";
-import adsImg from "../../../assets/image/ads_banner.svg";
 import { useTheme } from "../../../context/theme";
+import axios from "axios";
 
 export default function MovieInfo({ movie, api }) {
   const params = useParams();
   const [dark] = useTheme();
+  const [ads, setAds] = useState({})
   const [collapseDesc, setCollapseDesc] = useState(false);
   const descStyle = {
     height: !collapseDesc ? 48 + "px" : "auto",
   };
   const setCollapse = () => setCollapseDesc(!collapseDesc);
 
-  //
-  // movie_length
+
+	async function ADS(api) {
+		const res = await axios.get(api + '/ads/')
+		setAds(res.data.data)
+	}
+
+
+	useEffect(() => {
+		if (api) {
+			ADS(api)
+		}
+	},[api])
+
 
   return (
     <div
@@ -78,7 +90,7 @@ export default function MovieInfo({ movie, api }) {
           </div>
         </div>
         <div className={st.ads}>
-          <img src={adsImg} alt="ads_picture" />
+          <img src={`${api}/${ads.ads_path}`} alt="ads_picture" />
         </div>
       </div>
       <div style={descStyle} className={st.description}>

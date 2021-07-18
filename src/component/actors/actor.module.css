@@ -12,6 +12,10 @@
   margin: 0 auto;
 }
 
+.notFount {
+  font-family: "Lato", sans-serif;
+}
+
 .typeButton {
   display: flex;
   margin-bottom: 30px;
