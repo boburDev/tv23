@@ -1,9 +1,9 @@
-import st from "./actor.module.css";
-import { useState } from "react";
-import SliderCounterAdvanced from "../sliderCounter/SliderCounterAdvanced";
-import ActorItem from "./actorItem/actorItem";
-import Button from "../elements/button/button";
-import { useTheme } from "../../context/theme";
+import st from "./actor.module.css"
+import { useState } from "react"
+import SliderCounterAdvanced from "../sliderCounter/SliderCounterAdvanced"
+import ActorItem from "./actorItem/actorItem"
+import Button from "../elements/button/button"
+import { useTheme } from "../../context/theme"
 
 export default function Actors({
   actors = [],
@@ -14,10 +14,10 @@ export default function Actors({
   const types = {
     creator: "creator",
     actor: "actor",
-  };
+  }
 
-  const [activeType, setActiveType] = useState(types.actor); //creator
-  const [dark] = useTheme();
+  const [activeType, setActiveType] = useState(types.actor) //creator
+  const [dark] = useTheme()
   const counts = Math.ceil(
     activeType === "actor"
       ? actors.length / visibled > 10
@@ -26,11 +26,11 @@ export default function Actors({
       : creator.length / visibled > 10
       ? 5
       : creator.length / visibled
-  );
+  )
 
-  const changeType = (val) => setActiveType(val);
+  const changeType = (val) => setActiveType(val)
 
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(0)
 
   const profetionStyle = {
 	width: "100%",
@@ -43,18 +43,13 @@ export default function Actors({
 
 
   return (
-    <div
-      className={st.container}
-      style={{ background: dark ? "#0C0C0D" : "#F8F9FC" }}
-    >
+    <div className={st.container} style={{ background: dark ? "#0C0C0D" : "#F8F9FC" }}>
       <div className={st.typeButton}>
         <div onClick={() => changeType(types.actor)}>
-          <Button
-            style={{
+          <Button style={{
               background: activeType === types.actor ? "" : "#111112",
               color: activeType === types.actor ? "#fff" : "#777",
-            }}
-          >
+            }}>
             Актеры
           </Button>
         </div>
@@ -62,12 +57,10 @@ export default function Actors({
           style={{ marginLeft: "10px" }}
           onClick={() => changeType(types.creator)}
         >
-          <Button
-            style={{
+          <Button style={{
               background: activeType === types.creator ? "" : "#111112",
-              color: activeType === types.actor ? "#777" : "",
-            }}
-          >
+              color: activeType === types.actor ? "#777" : ""
+            }}>
             Создатели
           </Button>
         </div>
@@ -123,5 +116,5 @@ export default function Actors({
         />
       </div>
     </div>
-  );
+  )
 }

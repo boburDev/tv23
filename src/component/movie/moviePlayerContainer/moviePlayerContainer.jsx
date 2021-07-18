@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react"
 import st from "./moviePlayerContainer.module.css"
+import stMovieItem from "../movieItem/movieItem.module.css"
 import Button from "../../elements/button/button"
 import DropDown from "../../elements/dropDown/dropDown"
 import DropDownItem from "../../elements/dropDown/dropDownItem/dropDownItem"
@@ -15,13 +16,15 @@ import { useTheme } from "../../../context/theme"
 import { useSharing } from "../../../context/shareLink"
 import { useAuth } from '../../../context/user'
 import { useParams } from 'react-router-dom'
-export default function MoviePlayerContainer({ movie, api }) {
+import axios from "axios"
+import SliderCounterAdvanced from "../../sliderCounter/SliderCounterAdvanced";
+export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) {
   const [resolution, setResolution] = useResolution()
-//   const [playerType, setPlayerType] = useState(
-//     localStorage.getItem("player_type") || "Триллеры"
-//   )
+//   const [playerType, setPlayerType] = useState(localStorage.getItem("player_type") || "Триллеры")
   const [dark] = useTheme()
   const [triller,settriller] = useState(true)
+  const [current, setCurrent] = useState(0);
+  const [serials,setSerials] = useState([])
   const [playerHeight, setPlayerHeight] = useState("")
   const [isVideo, setIsVideo] = useState(false)
   const [isVideoTriller, setIsVideoTriler] = useState(false)
@@ -31,10 +34,13 @@ export default function MoviePlayerContainer({ movie, api }) {
   const [userData] = useAuth()
   const [isLogged,setIsLogged] = useState(false)
   const language = useParams()
+
   const settingSize = () => {
     var playerRef = document.getElementById("playerRef")
     setPlayerHeight((playerRef.offsetWidth * 480) / 854)
   }
+
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const changeResolution = (resolution) => {
     window.localStorage.setItem("video_resolution", resolution)
@@ -80,55 +86,49 @@ export default function MoviePlayerContainer({ movie, api }) {
 	}
   },[userData])
 
+
+  async function GetSerials(api,movieId) {
+	const res = await axios.get(api+ '/serials', {
+		params: {
+			movieId: movieId
+		}
+	})
+	setSerials(res.data.data)
+  }
+
+
+  useEffect(()=>{
+	if (movie && movie.movie_serial_is) {
+		GetSerials(api,movie.movie_id)
+	}
+  }, [movie,api])
+
+  useEffect(()=>{
+	  if (serials) {
+		//   setCounts(Math.ceil(serials.length / visibled > 5 ? 5 : serials.length / visibled))
+	  }
+  }, [serials,visibled])
+
+
+  function changeToTime(time) {
+	const minutInHours = (time - 0) / 3600
+	const minutInMinuts = ((minutInHours) - Math.floor(minutInHours)) * 60
+	const hours = Math.floor(minutInHours)
+	const minuts = Math.floor(minutInMinuts) 
+	const seconds = Math.floor((minutInMinuts - minuts) * 60)
+
+	const t = `${hours > 10 ? hours : '0' + hours} : ${minuts > 10 ? minuts : '0'+ minuts} : ${seconds > 10 ? seconds : '0' + seconds}`
+	return t
+  }
+
+  function pagination(val) {
+	return Math.ceil(val.length / visibled > 5 ? 5 : val.length / visibled)
+  }
+
   return (
-    <div
-      className={st.container}
-      style={{ background: dark ? "#0C0C0D" : "#F8F9FC" }}
-    >
+    <div className={st.container} style={{ background: dark ? "#0C0C0D" : "#F8F9FC" }}>
       <div className={st.topBar}>
         <div className={st.configures}>
-          <div className={st.dropdown} style={ligthMode}>
-            {/* <DropDown
-              activeText={`Плеер ${playerType && playerType}`}
-              style={ligthMode}
-            >
-              {movie && !movie.triller_id && (
-                <>
-                  <DropDownItem
-                    style={{ borderBottom: "none" }}
-                    onClick={() => {
-                      localStorage.setItem("player_type", "Фильмы")
-                      setPlayerType("Фильмы")
-                    }}
-                  >
-                    Фильмы
-                  </DropDownItem>
-                </>
-              )}
-
-              {movie && movie.triller_id && (
-                <>
-                  <DropDownItem
-                    onClick={() => {
-                      localStorage.setItem("player_type", "Фильмы")
-                      setPlayerType("Фильмы")
-                    }}
-                  >
-                    Фильмы
-                  </DropDownItem>
-                  <DropDownItem
-                    style={{ borderBottom: "none" }}
-                    onClick={() => {
-                      localStorage.setItem("player_type", "Триллеры")
-                      setPlayerType("Триллеры")
-                    }}
-                  >
-                    Триллеры
-                  </DropDownItem>
-                </>
-              )}
-            </DropDown> */}
-          </div>
           <div className={st.dropdown} style={ligthMode}>
             <DropDown activeText={resolution} style={ligthMode}>
               <DropDownItem
@@ -179,11 +179,7 @@ export default function MoviePlayerContainer({ movie, api }) {
           </div>
         </div>
       </div>
-      <div
-        style={{ height: playerHeight }}
-        id="playerRef"
-        className={st.playerArea}
-      >
+      <div style={{ height: playerHeight }} id="playerRef" className={st.playerArea}>
         {isVideo ? (
           <div className={st.cover}>
             {movie && movie.movie_id && <VideoPlayer api={api} movie={movie} />}
@@ -221,44 +217,29 @@ export default function MoviePlayerContainer({ movie, api }) {
           </div>
         )}
       </div>
-      <div className={st.topBar}>
-        <div
-          style={{ color: dark ? "#fff" : "#000" }}
-          className={`${st.title_films} ${dark ? "" : st.black}`}
-        >
+      
+	  <div className={st.topBar}>
+        <div style={{ color: dark ? "#fff" : "#000" }} className={`${st.title_films} ${dark ? "" : st.black}`}>
           <p>Название: </p>
           <h3>{movie && movie.movie_name}</h3>
         </div>
         <div className={`${st.additional_functions} ${dark ? "" : st.black}`}>
-          <div
-            onClick={() => {
-              setIsFavourite(!isFavourite)
-            }}
-            className={st.favourite}
-          >
+          <div onClick={() => setIsFavourite(!isFavourite)}className={st.favourite}>
             <Button
               className={st.btn}
               style={{
                 background: dark ? "rgb(35 35 39)" : "#fff",
                 color: dark ? isFavourite && "#fff" : isFavourite ? "#000" : "",
-              }}
-            >
-              <img
-                width="20px"
-                className={st.icon}
-                src={isFavourite ? favourStart : unSelectedStart}
-                alt="favourite"
-              />
+              }}>
+              <img width="20px" className={st.icon}
+                src={isFavourite ? favourStart : unSelectedStart} alt="favourite" />
               <p> В избранное </p>
             </Button>
           </div>
-          <div
-            onClick={() => {
+          <div onClick={() => {
               setSendLink(!sendLink)
               setOpenModal(!openModal)
-            }}
-            className={st.favourite}
-          >
+            }} className={st.favourite}>
             <Button
               className={st.btn}
               style={{
@@ -280,11 +261,52 @@ export default function MoviePlayerContainer({ movie, api }) {
                 }
                 alt="favourite"
               />
-              <p> Отправить </p>
+              <p>Отправить</p>
             </Button>
           </div>
         </div>
       </div>
-    </div>
+	
+	<div style={{width: '100%'}}>
+	{
+		serials && serials.serials && 
+		<>
+			<div className={st.serialItems}>
+			{
+			serials.serials.map((val,key) => current * visibled <= key &&
+			(current + 1) * visibled > key && 
+			
+			<div key={key} className={stMovieItem.container}>
+				<div className={`${stMovieItem.imgBox} ${movie && imageLoaded ? "" : stMovieItem.animate}`}>
+				<img onLoad={() => setImageLoaded(true)}
+					src={`${api}/${val.movie_thumnail_path}`} style={{ visibility: movie && imageLoaded ? "" : "" }} alt=""/>
+				</div>
+				<div className={`${stMovieItem.description} ${movie ? "" : stMovieItem.animate}`}
+				style={{ color: dark ? " " : "black", display: "flex", justifyContent: 'space-between', width: '100%', fontSize: '16px' }}>
+				<p style={{ fontWeight: "bold" }}>{val.movie_seria}</p>
+				<p style={{ fontWeight: "bold", color: '#777' }}>{changeToTime(val.movie_length)}</p>
+				</div>
+			</div>
+			)
+			}
+			</div>
+			
+			<div className={st.bottom}>
+				<div className={st.pagination} style={{ width: '100%', justifyContent: "space-between" }}>
+					<SliderCounterAdvanced
+						max={pagination(serials.serials) > 6 ? 5 : pagination(serials.serials)}
+						current={current}
+						setCurrent={setCurrent}
+						mode={dark}
+					/>
+				</div>
+			</div>
+			
+		</>
+	}
+	</div>
+	  
+
+	</div>
   )
 }
