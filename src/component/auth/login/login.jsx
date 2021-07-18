@@ -7,6 +7,8 @@ import { useTheme } from '../../../context/theme'
 import { Link, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { useApi } from '../../../context/api'
+import Language from '../../../languages'
+import { useLang } from '../../../context/lanuage.jsx'
 
 export default function SignIn() {
     const [dark] = useTheme()
@@ -18,6 +20,7 @@ export default function SignIn() {
         isError:false,
         message:null
     })
+    const [ til ] = useLang()
 
     async function handleSignIn() {
         try {
@@ -44,16 +47,16 @@ export default function SignIn() {
                 <img src={goBack} alt=""/>
             </div>
             <div className={st.title}>
-                <div  style={{color:dark ? '' : 'black'}}>Войти</div>
-                <Link to={`/${language.lang || 'ru'}/sign-up`} className={st.regLink}>Регистрация</Link>
+                <div  style={{color:dark ? '' : 'black'}}>{Language[til].auth.login.enter}</div>
+                <Link to={`/${language.lang || 'ru'}/sign-up`} className={st.regLink}>{Language[til].auth.login.register}</Link>
             </div>
-                <InputProfile onChange={handleOnChange} isCorrect={!error.isError} reference={phoneRef}  label='Телефон номер'/>
-                <InputProfile  onChange={handleOnChange}  isCorrect={!error.isError} reference={passRef} label='Пароль' isPass={true} type='password'/>
+                <InputProfile onChange={handleOnChange} isCorrect={!error.isError} reference={phoneRef}  label={Language[til].auth.login.labelPhone}/>
+                <InputProfile  onChange={handleOnChange}  isCorrect={!error.isError} reference={passRef} label={Language[til].auth.login.labelPassword} isPass={true} type='password'/>
             <div style={{color:'red'}}>{error.isError ? error.message  :' '}</div>
             <div onClick={handleSignIn}>
-                <Button style={{width:'100%', marginTop:'30px'}}>Войти</Button>
+                <Button style={{width:'100%', marginTop:'30px'}}>{Language[til].auth.login.enter}</Button>
             </div>
-            <div className={st.buttonLink}>Восстановить пароль</div>
+            <div className={st.buttonLink}>{Language[til].auth.login.restorePassword}</div>
         </div>
     )
 }

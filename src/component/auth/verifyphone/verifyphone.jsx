@@ -6,6 +6,8 @@ import { useTheme } from "../../../context/theme";
 import { useEffect, useState } from "react";
 import { useLogin } from "../../../context/login";
 import firebase from "../../../context/firebase";
+import Language from '../../../languages'
+import { useLang } from '../../../context/lanuage.jsx'
 // import { useApi } from "../../../context/api"
 // import axios from "axios"
 
@@ -15,6 +17,7 @@ export default function VerifyPhone() {
   // const [api] = useApi()
   const [isSendSms] = useState(true);
   const [verifyCode, setVerfyCode] = useState({});
+  const [ til ] = useLang()
 
   const setupReCaptcha = () => {
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
@@ -116,14 +119,14 @@ export default function VerifyPhone() {
       {isSendSms ? (
         <>
           <div style={{ color: dark ? "" : "black" }} className={st.title}>
-            Введите код отправленный на ваш номер телефона
+            {Language[til].auth.verifyPhone.sentPassword}
           </div>
 
           <VerifyInput verifyCode={verifyCode} setVerfyCode={setVerfyCode} />
-          <div className={st.buttonLink}>Восстановить пароль</div>
+          <div className={st.buttonLink}>{Language[til].auth.verifyPhone.restorePassword}</div>
           <div onClick={checkVerification}>
             <Button style={{ width: "100%", marginTop: "10px" }}>
-              Подтвердить
+              {Language[til].auth.verifyPhone.confirm}
             </Button>
           </div>
         </>
@@ -137,7 +140,7 @@ export default function VerifyPhone() {
             }}
           >
             <Button style={{ width: "100%", marginTop: "10px" }}>
-              SMS Jo'natish
+              {Language[til].auth.verifyPhone.sendSms}
             </Button>
           </div>
         </>

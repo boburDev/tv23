@@ -1,4 +1,4 @@
-export const Ru = {
+const ru = {
     auth: {
        createAccout: {
            accoutToCreate: 'Создать аккаунт',
@@ -22,7 +22,7 @@ export const Ru = {
             enter: 'Вход',
             register: `Регистрация`,
             labelPhone: 'Тел.номер',
-            labePassword: 'Пароль',
+            labelPassword: 'Пароль',
             restorePassword: 'Bосстановить парол'
        },
        verifyPhone: {
@@ -33,6 +33,9 @@ export const Ru = {
        }
     },
     categories: {
+        category: {
+            all: 'Bce'
+        },
         categoryHeader: {
             categories: 'Kатегории'
         }
@@ -46,7 +49,8 @@ export const Ru = {
             leaveComment: `Оставьте свое мнение или оставьте комментарий, чтобы помочь другим
             Пользователи 23TV решили смотреть Хоббита онлайн
             или нет.`,
-            leaveComments: 'Оставить комментарий'
+            leaveComments: 'Оставить комментарий',
+            addComment: 'Добавить'
         }
     },
     filter: {
@@ -73,12 +77,14 @@ export const Ru = {
     live: {
         livePlayContainer: {
             nowLive: 'Сейчас в эфире',
-            startStream: 'Hачать трансляцию'
+            startStream: 'Hачать трансляцию',
+            open: 'Oткрыть'
         },
         userLivePlayerContainer: {
             nowLive: 'Сейчас в эфире',
             watchByFollow: `Смотреть по подписке`,
-            watchTrailer: `Посмотреть трейлер`
+            watchTrailer: `Посмотреть трейлер`,
+            open: 'Oткрыть'
         },
         socket: {
             startLive: 'Начать трансляцию',
@@ -90,22 +96,36 @@ export const Ru = {
             rating: 'Рейтинг',
             production: 'Произведено',
             releaseDate: 'Дата премьеры',
-            duration: 'Продолжительность'
+            duration: 'Продолжительность',
+            year: 'г',
+            min: 'мин',
+            open: 'Oткрыть'
         },
         moviePlayerContainer: {
             films: 'филми',
             trailers: 'Трейлеры',
             watchTrailer: 'Посмотреть трейлер',
+            watchByFollow: `Смотреть по подписке`,
             name: 'Именование',
             toForwards: 'Избранное',
             send: 'ОТПРАВИТЬ'
+        },
+        movieItem: {
+            genre: 'Жанры'
         }
     },
     navbar: {
         movies: 'филми',
         serials: 'Сериалы',
         allCategories: 'Все категории',
-        forwards: 'Избранное'
+        forwards: 'Избранное',
+        settings: 'Размеры шрифта',
+        shrift: 'Размеры шрифта',
+        smallShrift: 'Маленькие',
+        mediumShrift: 'Средние',
+        bigShrift: 'Крупные',
+        lightMode: 'Светлый режим',
+        darkMode: 'Темный режим'
     },
     notfound: {
         notFound: {
@@ -144,6 +164,7 @@ export const Ru = {
         },
         profile: {
             nickname: 'Имя',
+            balans: 'Баланс',
             price: '0 сyм',
             phoneNumber: 'Телефонный номер',
             idNumber: 'ID 23ТВ',
@@ -165,3 +186,5 @@ export const Ru = {
         }
     }
 }
+
+export default ru

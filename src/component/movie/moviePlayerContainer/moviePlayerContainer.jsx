@@ -12,8 +12,11 @@ import VideoPlayer from "../moviePlayer/moviePlayer";
 import { useResolution } from "../../../context/resolution";
 import { useTheme } from "../../../context/theme";
 import { useSharing } from "../../../context/shareLink";
+import Language from '../../../languages'
+import { useLang } from '../../../context/lanuage'
 
 export default function MoviePlayerContainer({ movie, api }) {
+  const [ til ] = useLang()
   const [resolution, setResolution] = useResolution();
   const [playerType, setPlayerType] = useState(
     localStorage.getItem("player_type") || "Триллеры"
@@ -83,7 +86,7 @@ export default function MoviePlayerContainer({ movie, api }) {
                       setPlayerType("Фильмы");
                     }}
                   >
-                    Фильмы
+                    {Language[til].movie.moviePlayerContainer.films}
                   </DropDownItem>
                 </>
               )}
@@ -96,7 +99,7 @@ export default function MoviePlayerContainer({ movie, api }) {
                       setPlayerType("Фильмы");
                     }}
                   >
-                    Фильмы
+                    {Language[til].movie.moviePlayerContainer.films}
                   </DropDownItem>
                   <DropDownItem
                     style={{ borderBottom: "none" }}
@@ -105,7 +108,7 @@ export default function MoviePlayerContainer({ movie, api }) {
                       setPlayerType("Триллеры");
                     }}
                   >
-                    Триллеры
+                    {Language[til].movie.moviePlayerContainer.trailers}
                   </DropDownItem>
                 </>
               )}
@@ -175,11 +178,11 @@ export default function MoviePlayerContainer({ movie, api }) {
             <img src={`${api}/${movie.movie_screen}`} alt="video_cover" />
             <div className={st.controlBtn}>
               <div onClick={() => setIsVideo(true)}>
-                <Button style={coverBtnStyle}>Смотреть по подписке</Button>
+                <Button style={coverBtnStyle}>{Language[til].movie.moviePlayerContainer.watchByFollow}</Button>
               </div>
               <div>
                 <Button style={{ background: "#111112", ...coverBtnStyle }}>
-                  Смотреть трейлер
+                  {Language[til].movie.moviePlayerContainer.watchTrailer}
                 </Button>
               </div>
             </div>
@@ -191,7 +194,7 @@ export default function MoviePlayerContainer({ movie, api }) {
           style={{ color: dark ? "#fff" : "#000" }}
           className={`${st.title_films} ${dark ? "" : st.black}`}
         >
-          <p>Название: </p>
+          <p>{Language[til].movie.moviePlayerContainer.name}: </p>
           <h3>{movie && movie.movie_name}</h3>
         </div>
         <div className={`${st.additional_functions} ${dark ? "" : st.black}`}>
@@ -214,7 +217,7 @@ export default function MoviePlayerContainer({ movie, api }) {
                 src={isFavourite ? favourStart : unSelectedStart}
                 alt="favourite"
               />
-              <p> В избранное </p>
+              <p> {Language[til].movie.moviePlayerContainer.toForwards} </p>
             </Button>
           </div>
           <div
@@ -245,7 +248,7 @@ export default function MoviePlayerContainer({ movie, api }) {
                 }
                 alt="favourite"
               />
-              <p> Отправить </p>
+              <p> {Language[til].movie.moviePlayerContainer.send} </p>
             </Button>
           </div>
         </div>

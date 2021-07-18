@@ -1,4 +1,4 @@
-export const Uz = {
+const uz = {
     auth: {
        createAccout: {
            accoutToCreate: 'Akkaunt yaratish',
@@ -22,7 +22,7 @@ export const Uz = {
             enter: 'Kirish',
             register: `Ro'yxatdan o'tish`,
             labelPhone: 'Telefon raqam',
-            labePassword: 'Parol',
+            labelPassword: 'Parol',
             restorePassword: 'Parolni tiklash'
        },
        verifyPhone: {
@@ -33,6 +33,9 @@ export const Uz = {
        }
     },
     categories: {
+        category: {
+            all: 'Hammasi'
+        },
         categoryHeader: {
             categories: 'Bo`limlar'
         }
@@ -46,13 +49,14 @@ export const Uz = {
             leaveComment: `Fikringizni qoldiring yoki boshqalarga yordam berish uchun sharh qoldiring
             23TV foydalanuvchilari "Hobbit" ni onlayn tomosha qilish to'g'risida qaror qabul qilishadi
             yoki yo'q.`,
-            leaveComments: 'Izox qoldirish'
+            leaveComments: 'Izox qoldirish',
+            addComment: 'Qo`shish'
         }
     },
     filter: {
         filtering: 'Filtrlash',
         country: 'Davlat',
-        year: 'yil',
+        year: 'Yil',
         genre: 'Janr',
         foundMovies: 'Topilgan kinolar'
     },
@@ -73,12 +77,14 @@ export const Uz = {
     live: {
         livePlayContainer: {
             nowLive: 'Hozir efirda',
-            startStream: 'Strimni boshlash'
+            startStream: 'Strimni boshlash',
+            open: 'Ochish'
         },
         userLivePlayerContainer: {
             nowLive: 'Hozir efirda',
             watchByFollow: `Obuna bo'yicha tomosha qilish`,
-            watchTrailer: `Trelerni ko'rish`
+            watchTrailer: `Trelerni ko'rish`,
+            open: 'Ochish'
         },
         socket: {
             startLive: 'Efirni boshlash',
@@ -90,22 +96,36 @@ export const Uz = {
             rating: 'Reyting',
             production: 'Ishlab chiqarilgan',
             releaseDate: 'Premyera sanasi',
-            duration: 'Davomiyligi'
+            year: 'yil',
+            duration: 'Davomiyligi',
+            min: 'min',
+            open: 'Ochish'
         },
         moviePlayerContainer: {
             films: 'Filmlar',
             trailers: 'Treylerlar',
             watchTrailer: 'Treylerni ko`rish',
+            watchByFollow: `Obuna bo'yicha tomosha qilish`,
             name: 'Nomlanishi',
             toForwards: 'Sevimlilarga',
             send: 'Jo`natish'
+        },
+        movieItem: {
+            genre: 'Janr'
         }
     },
     navbar: {
         movies: 'Filmlar',
         serials: 'Seriallar',
         allCategories: 'Barcha yo`nalishlar',
-        forwards: 'Sevimlilar'
+        forwards: 'Sevimlilar',
+        settings: 'Akkaunt sozlamalari',
+        shrift: 'Shrift o`lchamlari',
+        smallShrift: 'Kichkina',
+        mediumShrift: 'O`rtacha',
+        bigShrift: 'Yirik',
+        lightMode: 'Yoru`g',
+        darkMode: 'Qorong`u'
     },
     notfound: {
         notFound: {
@@ -143,6 +163,7 @@ export const Uz = {
         },
         profile: {
             nickname: 'Ism',
+            balans: 'Hisob',
             price: '0 so`m',
             phoneNumber: 'Telefon raqam',
             idNumber: '23TV ID raqami',
@@ -164,3 +185,5 @@ export const Uz = {
         }
     }
 }
+
+export default uz

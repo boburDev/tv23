@@ -6,6 +6,8 @@ import SliderCounterAdvanced from "../../sliderCounter/SliderCounterAdvanced";
 import SliderCounterBasic from "../../sliderCounter/sliderCounterBasic";
 import NoFoundVideos from "../../notFound/videoNotFound/notFount";
 import { useTheme } from "../../../context/theme";
+import Language from '../../../languages'
+import { useLang } from '../../../context/lanuage.jsx'
 
 export default function Category({
   title,
@@ -23,6 +25,7 @@ export default function Category({
   );
 
   const [current, setCurrent] = useState(0);
+  const [ til ] = useLang()
   const categoryId = link && link.category_name;
   return (
     <div className={st.container}>
@@ -37,7 +40,7 @@ export default function Category({
             </h1>
             {showAllLinkText && (
               <Link to={link} className={st.title}>
-                Все
+                {Language[til].categories.category.all}
               </Link>
             )}
           </div>

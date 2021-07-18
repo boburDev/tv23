@@ -4,11 +4,15 @@ import SliderCounterAdvanced from "../sliderCounter/SliderCounterAdvanced";
 import { useEffect, useRef, useState } from "react";
 import CommentItem from "./commentItem/commentItem";
 import { useTheme } from "../../context/theme";
+import Language from '../../languages'
+import { useLang } from '../../context/lanuage.jsx'
 
 export default function Commenting({ film_id, api }) {
   const bodyRef = useRef();
   const [dark] = useTheme();
   const [comments] = useState([]);
+  const [ til ] = useLang()
+
   // useEffect(()=>{
   //     setComments(backendComments)
   // }, [])
@@ -36,12 +40,10 @@ export default function Commenting({ film_id, api }) {
       <div className={st.commentContainer}>
         <div className={st.comments}>
           <div style={{ color: dark ? "" : "black" }} className={st.title}>
-            Комментарии:
+            {Language[til].comments.comments.comments}
           </div>
           <div className={st.description}>
-            Оставьте свой отзыв или комментарий, который поможет другим
-            пользователям 23TV решить, стоит ли смотреть фильм «Хоббит» онлайн
-            или нет.
+            {Language[til].comments.comments.leaveComment}
           </div>
           <CommentItem comment={comments[current]} />
           <div className={st.slider}>
@@ -63,7 +65,7 @@ export default function Commenting({ film_id, api }) {
         </div>
         <div className={st.addComment}>
           <div style={{ color: dark ? "" : "black" }} className={st.label}>
-            оставить Комментарий
+            {Language[til].comments.comments.leaveComments}
           </div>
 
           <textarea
@@ -82,7 +84,7 @@ export default function Commenting({ film_id, api }) {
                   paddingRight: "40px",
                 }}
               >
-                Добавить
+                {Language[til].comments.comments.addComment}
               </Button>
             </div>
           </div>

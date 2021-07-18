@@ -4,9 +4,12 @@ import stLocal from "./livePlayerContainer.module.css";
 import { useTheme } from "../../../context/theme";
 import IO from "socket.io-client";
 import cover from "../../../assets/bg/IMG_3873.JPG";
+import Language from '../../../languages'
+import { useLang } from '../../../context/lanuage'
 // import Button from "../../elements/button/button"
 
 export default function LivePlayerContainer({ api }) {
+  const [ til ] = useLang()
   const [dark] = useTheme();
   const [playerHeight, setPlayerHeight] = useState("");
   const [collapseDesc, setCollapseDesc] = useState(false);
@@ -19,7 +22,8 @@ export default function LivePlayerContainer({ api }) {
     var playerRef = document.getElementById("playerRef");
     setPlayerHeight((playerRef.offsetWidth * 480) / 854);
   };
-
+  
+  console.log(Language[til].live.livePlayContainer)
   useCallback(() => {
     window.addEventListener("load", settingSize);
     window.addEventListener("resize", settingSize);
@@ -184,7 +188,7 @@ export default function LivePlayerContainer({ api }) {
           className={`${st.title_films} ${dark ? "" : st.black}`}
         >
           <h3>
-            Сейчас в эфире
+          {Language[til].live.livePlayContainer.nowLive}
             <b>
               <span style={{ color: "red" }}>&#183;</span>
             </b>
@@ -217,7 +221,7 @@ export default function LivePlayerContainer({ api }) {
           <div className={st.controlBtn}>
             <div onClick={() => setIsVideo(true)}>
               {/* <Button style={coverBtnStyle} ref={}>Start LIVE</Button> */}
-              <button id="joinBroadcaster">Start Stream</button>
+              <button id="joinBroadcaster">{Language[til].live.livePlayContainer.startStream}</button>
             </div>
           </div>
         </div>
@@ -240,7 +244,7 @@ export default function LivePlayerContainer({ api }) {
           remaining essentially unchanged. It was popularised in ...
         </p>
         <div onClick={setCollapse} style={{ color: dark ? "" : "black" }}>
-          Ochish
+          {Language[til].live.livePlayContainer.open}
         </div>
       </div>
     </div>

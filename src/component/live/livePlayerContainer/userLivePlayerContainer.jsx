@@ -8,8 +8,11 @@ import { useTheme } from "../../../context/theme";
 import cover from "../../../assets/bg/client.JPG";
 import Button from "../../elements/button/button";
 import IO from "socket.io-client";
+import Language from '../../../languages'
+import { useLang } from '../../../context/lanuage'
 
 export default function UserLivePlayerContainer({ movie, api }) {
+  const [ til ] = useLang()
   const [dark] = useTheme();
   const [isVideo, setIsVideo] = useState(false);
   const [playerHeight, setPlayerHeight] = useState("");
@@ -173,7 +176,7 @@ export default function UserLivePlayerContainer({ movie, api }) {
           className={`${st.title_films} ${dark ? "" : st.black}`}
         >
           <h3>
-            Сейчас в эфире
+            {Language[til].live.userLivePlayerContainer.nowLive}
             <b>
               <span style={{ color: "red" }}>&#183;</span>
             </b>
@@ -197,11 +200,11 @@ export default function UserLivePlayerContainer({ movie, api }) {
           <img src={cover} alt="video_cover" />
           <div className={st.controlBtn}>
             <div onClick={() => setIsVideo(true)}>
-              <Button style={coverBtnStyle}>Смотреть по подписке</Button>
+              <Button style={coverBtnStyle}>{Language[til].live.userLivePlayerContainer.watchByFollow}</Button>
             </div>
             <div>
               <Button style={{ background: "#111112", ...coverBtnStyle }}>
-                Смотреть трейлер
+                {Language[til].live.userLivePlayerContainer.watchTrailer}
               </Button>
             </div>
           </div>

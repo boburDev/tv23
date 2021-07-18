@@ -3,11 +3,14 @@ import st from "./movieItem.module.css";
 import { Link, useParams } from "react-router-dom";
 import { useTheme } from "../../../context/theme";
 import { useApi } from "../../../context/api";
+import Language from '../../../languages'
+import { useLang } from '../../../context/lanuage'
 
 export default function MovieItem({ movie = {}, caregoryId }) {
   const language = useParams();
   const [dark] = useTheme();
   const [api] = useApi();
+  const [ til ] = useLang()
   const [imageLoaded, setImageLoaded] = useState(false);
   const [showAllGenre, setShowAllGenre] = useState(true);
 
@@ -50,7 +53,7 @@ export default function MovieItem({ movie = {}, caregoryId }) {
             flexWrap: "wrap",
           }}
         >
-          <p style={{ fontWeight: "bold" }}>Janri: &nbsp; &nbsp; </p>
+          <p style={{ fontWeight: "bold" }}>{Language[til].movie.movieItem.genre}: &nbsp; &nbsp; </p>
           {movie &&
             movie?.movie_genre &&
             movie.movie_genre

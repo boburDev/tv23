@@ -1,6 +1,8 @@
 import st from "./shareMovie.module.css";
 import { useTheme } from "../../context/theme";
 import { useSharing } from "../../context/shareLink";
+import Language from '../../languages'
+import { useLang } from '../../context/lanuage'
 
 import {
   FacebookMessengerShareButton,
@@ -33,6 +35,7 @@ import {
 export default function ShareLink() {
   const [dark] = useTheme();
   const [setSharing] = useSharing(true);
+  const [ til ] = useLang()
 
   function copyLink() {
     var copyText = document.getElementById("movie_link_read");
@@ -50,7 +53,7 @@ export default function ShareLink() {
         >
           <div className={st.modal_body}>
             <div className={st.modal_header}>
-              <p style={{ color: !dark ? "#fff" : "#000" }}>Share</p>
+              <p style={{ color: !dark ? "#fff" : "#000" }}>{Language[til].shareMovie.share}</p>
               <button
                 className={st.close_button}
                 onClick={() => setSharing(false)}
@@ -195,7 +198,7 @@ export default function ShareLink() {
                     round={true}
                   ></FacebookMessengerIcon>
                 </FacebookMessengerShareButton>
-                <p>Messager</p>
+                <p>Messanger</p>
               </div>
               <div className={st.share_item}>
                 <PinterestShareButton
@@ -243,7 +246,7 @@ export default function ShareLink() {
                 style={{ color: !dark ? "#fff" : "#000" }}
                 className={st.copy_button}
               >
-                COPY
+                {Language[til].shareMovie.copy}
               </button>
             </div>
 
@@ -254,7 +257,7 @@ export default function ShareLink() {
                 htmlFor="startAt"
                 style={{ color: !dark ? "#fff" : "#000" }}
               >
-                Start at
+                {Language[til].shareMovie.startAt}
                 <input
                   type="text"
                   maxLength="5"

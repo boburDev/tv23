@@ -10,6 +10,8 @@ import { useApi } from '../../context/api'
 import axios from 'axios'
 import MovieItem from '../movie/movieItem/movieItem'
 import SearchNotFound from '../notFound/SearchNotFound/notFound'
+import Language from '../../languages'
+import { useLang } from '../../context/lanuage.jsx'
 
 export default function FilterConfigure() {
 const [api] = useApi()
@@ -24,6 +26,7 @@ const [selectedGenreId, setselectedGenreId] = useState([])
 const [selectedCountryId, setSelectedCountryId] = useState([])
 const [selectedYear, setSelectedYear] = useState([])
 const [loading, setLoading] = useState(false)
+const [ til ] = useLang()
 useEffect(()=>{
     ;(async()=>{
         try {
@@ -137,7 +140,7 @@ return (
     <div style={{...containerStyle, ...{background: dark ? '' : 'rgba(255, 255, 255, 0.98)'}}} className={st.container}>
     <div className={st.containerTitle} style={{borderBottom:dark ? ' ' :' 1px solid rgba(119, 119, 119, 0.2)'}}>
     <div style={{color:dark ? '' : 'black'}} className={st.title}>
-    Фильтрация
+    {Language[til].filter.filtering}
     </div>
     <div onClick={()=>{setIsOpen(false)}} className={st.favourites}>
     <img src={dark ? exitIcon : exitIconForLight} alt="" />
@@ -145,13 +148,13 @@ return (
     </div>
     <div className={st.navigation}>
     <div onClick={()=>{setTab('country')}} className={st.tab_item} >
-    <Button  className={tab==='country' ?'' : st.buttonInActive}> Страна</Button>
+    <Button  className={tab==='country' ?'' : st.buttonInActive}> {Language[til].filter.country}</Button>
     </div>
     <div  onClick={()=>{setTab('year')}} className={st.tab_item}>
-    <Button className={tab==='year' ? '' : st.buttonInActive}> год</Button>
+    <Button className={tab==='year' ? '' : st.buttonInActive}> {Language[til].filter.year}</Button>
     </div>
     <div  onClick={()=>{setTab('genre')}}  className={st.tab_item}>
-    <Button className={tab==='genre' ?'' : st.buttonInActive}> жанр</Button>
+    <Button className={tab==='genre' ?'' : st.buttonInActive}>{Language[til].filter.genre}</Button>
     </div>
     </div>
         <div className={st.filterArea} style={{display: tab === 'country' ? 'flex' : 'none'}}>
@@ -182,12 +185,12 @@ return (
                 </div>)
             }
         </div>
-        <div onClick={sendSearchData}><Button>Filtrlash</Button></div>
+        <div onClick={sendSearchData}><Button>{Language[til].filter.filtering}</Button></div>
             { 
             
                 result.length ? (result.length > 0 ?
                     <>
-                    <div style={resultStyle}>Topilgan kinolar</div>
+                    <div style={resultStyle}>{Language[til].filter.foundMovies}</div>
                     <div className={st.result}>
                         {
                             result.map((x, key) => {

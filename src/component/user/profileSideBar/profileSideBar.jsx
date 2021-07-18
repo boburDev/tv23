@@ -2,9 +2,12 @@ import { NavLink, useParams } from "react-router-dom";
 import logout from "../../../assets/image/logout.png";
 import { useTheme } from "../../../context/theme";
 import st from "./profileSideBar.module.css";
+import Language from '../../../languages'
+import { useLang } from '../../../context/lanuage'
 
 export default function ProfileSideBar() {
   const [dark] = useTheme();
+  const [ til ] = useLang()
   const language = useParams();
   return (
     <div
@@ -18,7 +21,7 @@ export default function ProfileSideBar() {
             className={dark ? st.sideLink : st.sideLinkLight}
             to={`/${language.lang || "ru"}/settings/profile`}
           >
-            Аккаунт
+            {Language[til].user.profileSidebar.accaunt}
           </NavLink>
         </li>
         <li>
@@ -27,7 +30,7 @@ export default function ProfileSideBar() {
             className={st.sideLink}
             to={`/${language.lang || "ru"}/settings/follow`}
           >
-            Подписки
+            {Language[til].user.profileSidebar.follow}
           </NavLink>
         </li>
         <li>
@@ -36,7 +39,7 @@ export default function ProfileSideBar() {
             className={st.sideLink}
             to={`/${language.lang || "ru"}/settings/payment`}
           >
-            Оплата
+            {Language[til].user.profileSidebar.payment}
           </NavLink>
         </li>
         <li>
@@ -45,7 +48,7 @@ export default function ProfileSideBar() {
             className={st.sideLink}
             to={`/${language.lang || "ru"}/settings/history`}
           >
-            История
+            {Language[til].user.profileSidebar.history}
           </NavLink>
         </li>
       </ul>
@@ -57,7 +60,7 @@ export default function ProfileSideBar() {
           window.location.href = `/${language.lang || "ru"}/login`;
         }}
       >
-        <img src={logout} alt="logout" /> Выход
+        <img src={logout} alt="logout" /> {Language[til].user.profileSidebar.exit}
       </div>
     </div>
   );

@@ -5,6 +5,8 @@ import InputProfile from "../../../component/elements/inputProfile/inputProfile"
 import { useTheme } from "../../../context/theme";
 import logout from "../../../assets/image/logoutred.png";
 import { useParams } from "react-router-dom";
+import Language from '../../../languages'
+import { useLang } from '../../../context/lanuage'
 
 export default function Profile({ data }) {
   const inputRef = useRef();
@@ -12,6 +14,7 @@ export default function Profile({ data }) {
   const [isEdit, setIsEdit] = useState(false);
   const [IsOpenPass, setIsOpenPass] = useState(false);
   const language = useParams();
+  const [ til ] = useLang()
 
   const handleTest = () => {
     console.log(inputRef.current.value);
@@ -32,19 +35,19 @@ export default function Profile({ data }) {
       >
         <div className={st.mainInfo}>
           <div style={textStyle} className={st.nickName}>
-            Nickname: {data && data.userName}
+          {Language[til].user.profile.nickname}: {data && data.userName}
           </div>
           <div className={st.pairs}>
-            <div className={st.key}>Баланс:</div>
+            <div className={st.key}>{Language[til].user.profile.balans}:</div>
             <div style={textStyle} className={st.val}>
               {" "}
-              0 сум
+              {Language[til].user.profile.price} сум
             </div>
           </div>
         </div>
         <div className={st.addInfo}>
           <div className={`${st.pairs} ${st.pairsBottom}`}>
-            <div className={st.key}>Номер телефон: </div>
+            <div className={st.key}>{Language[til].user.profile.phoneNumber}: </div>
             <div className={st.val} style={textStyle}>
               {data && data.userTel}
             </div>
@@ -58,7 +61,7 @@ export default function Profile({ data }) {
         </div>
         <div className={st.actions}>
           <div className={st.pairs}>
-            <div className={st.key}>23TV ID number: </div>
+            <div className={st.key}>{Language[til].user.profile.idNumber}: </div>
             <div style={{ color: dark ? "#fff" : "#000" }} className={st.val}>
               00101
             </div>
@@ -70,7 +73,7 @@ export default function Profile({ data }) {
               }}
               className={st.buttonLink}
             >
-              Редактировать профиль
+              {Language[til].user.profile.editProfile}
             </div>
             <div
               className={st.logoutBtn}
@@ -79,7 +82,7 @@ export default function Profile({ data }) {
                 window.location.href = `/${language.lang || "ru"}/login`;
               }}
             >
-              <img src={logout} alt="logout" /> Выход
+              <img src={logout} alt="logout" /> {Language[til].user.profile.exit}
             </div>
           </div>
         </div>
@@ -93,10 +96,10 @@ export default function Profile({ data }) {
           {/* reference prop is give access input value - reference attributi inputning attributelariga kirish imkonini beradi */}
 
           <div style={{ width: "50%", paddingRight: "20px" }}>
-            <InputProfile reference={inputRef} label="Ваше имя" />
+            <InputProfile reference={inputRef} label={Language[til].user.profile.nameLabel} />
           </div>
           <div style={{ width: "50%", paddingLeft: "20px" }}>
-            <InputProfile label="Ваше номер телефона" />
+            <InputProfile label={Language[til].user.profile.numberLabel} />
           </div>
           <div style={{ width: "50%", paddingRight: "20px" }}>
             <InputProfile type="email" label="E-mail" />
@@ -117,14 +120,14 @@ export default function Profile({ data }) {
               <InputProfile
                 type="password"
                 isPass={true}
-                label="Придумайте новый пароль"
+                label={Language[til].user.profile.setNewPassword}
               />
             </div>
             <div style={{ width: "50%", paddingRight: "20px" }}>
               <InputProfile
                 type="password"
                 isPass={true}
-                label="Повторите новый пароль"
+                label={Language[til].user.profile.retypeNewPassword}
               />
             </div>
           </div>
@@ -141,7 +144,7 @@ export default function Profile({ data }) {
               marginRight: "auto",
             }}
           >
-            Установить новый пароль
+            {Language[til].user.profile.labelPassword}
           </div>
           <div
             onClick={() => {
@@ -150,7 +153,7 @@ export default function Profile({ data }) {
             }}
             className={st.buttonLink}
           >
-            Сохранить
+            {Language[til].user.profile.save}
           </div>
         </div>
       </div>

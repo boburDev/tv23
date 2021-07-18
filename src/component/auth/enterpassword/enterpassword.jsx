@@ -5,10 +5,13 @@ import Button from "../../elements/button/button";
 import { useTheme } from "../../../context/theme";
 import { useLogin } from "../../../context/login";
 import { useEffect, useRef } from "react";
+import Language from '../../../languages'
+import { useLang } from '../../../context/lanuage.jsx'
 
 export default function EnterPassword() {
   const [dark] = useTheme();
   const [userState, setUserState] = useLogin();
+  const [ til ] = useLang()
 
   useEffect(() => {
     if (userState.user.username === "" || userState.user.phone === "") {
@@ -39,13 +42,13 @@ export default function EnterPassword() {
     var isValid = false;
     var message = null;
     if (pass1 === "" || pass2 === "") {
-      message = "Parol maydoni bo'sh bo'lishi mumkin emas!";
+      message = Language[til].auth.enterPassword.validateMessage1;
     } else {
       if (pass1 === pass2) {
         isValid = true;
         message = null;
       } else {
-        message = "Parollar bir xil emas";
+        message = Language[til].auth.enterPassword.validateMessage2;
       }
     }
     return {
@@ -96,25 +99,25 @@ export default function EnterPassword() {
       </div>
       <div style={{ color: dark ? "" : "black" }} className={st.title}>
         {" "}
-        Придумайте пароль
+        {Language[til].auth.enterPassword.createPassword}
       </div>
       <div className={st.description}>
         {" "}
-        В целях безопасности ваш пароль должен состоять из 6 или более символов.
+        {Language[til].auth.enterPassword.securePassword}
       </div>
       <InputProfile
         onKeyUp={handleChange}
         reference={pass1Ref}
         type="password"
         isPass={true}
-        label="Пароль"
+        label={Language[til].auth.enterPassword.passwordLabel}
       />
       <InputProfile
         onKeyUp={handleChange}
         reference={pass2Ref}
         type="password"
         isPass={true}
-        label="Повторите пароль"
+        label={Language[til].auth.enterPassword.passwordAgainLabel}
       />
 
       <div onClick={handlePassword}>
@@ -126,7 +129,7 @@ export default function EnterPassword() {
             background: userState.error.isError ? "#e4888c" : "",
           }}
         >
-          Зарегистрироваться
+          {Language[til].auth.enterPassword.register}
         </Button>
       </div>
     </div>

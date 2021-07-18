@@ -3,6 +3,8 @@ import SliderCounterBasic from '../../sliderCounter/sliderCounterBasic'
 import TrailerPlayer from '../trillerPlayer/player'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import Language from '../../../languages'
+import { useLang } from '../../../context/lanuage'
 
 import { useTheme } from '../../../context/theme'
 
@@ -10,6 +12,7 @@ export default function TrailerCarousel({ movies = [], api }) {
     const [current, setCurrent] = useState(0)
     const [itemWidth, setItemWidth] = useState()
     const [dark] = useTheme()
+    const [ til ] = useLang()
     
     const carouselItemStyle = {
         width:itemWidth, 
@@ -75,9 +78,9 @@ export default function TrailerCarousel({ movies = [], api }) {
             {/* Navigation */}
             <div className={st.control}>
                 <div className={st.info}>
-                    <div style={{color:dark ? ' ': 'black'}}  className={st.name}>{movies && movies[current]?.triller_name}<span>ТРЕЙЛЕР</span></div>
+                    <div style={{color:dark ? ' ': 'black'}}  className={st.name}>{movies && movies[current]?.triller_name}<span>{Language[til].triller.trillerCarousel.triller}</span></div>
                     <div className={st.subInfo}>
-                        <div style={{color:dark ? ' ': 'black'}}  className={st.country}>Страна:{movies && movies[current]?.country_name}</div>
+                        <div style={{color:dark ? ' ': 'black'}}  className={st.country}>{Language[til].triller.trillerCarousel.country}:{movies && movies[current]?.country_name}</div>
                         <div className={st.genre}>
                             {
                             movies && movies[current]?.movie_genre.toString().split(',').map((x, key)=>{
