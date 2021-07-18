@@ -204,24 +204,22 @@ export default function UserLivePlayerContainer({ movie, api }) {
         >
           <img src={cover} alt="video_cover" />
           <div className={st.controlBtn}>
-            <div onClick={() => setIsVideo(true)}>
+            <div onClick={() => setIsVideo(true)} id="joinViewer">
               <Button style={coverBtnStyle}>{Language[til].live.userLivePlayerContainer.watchByFollow}</Button>
             </div>
-            <div>
+            {/* <div>
               <Button style={{ background: "#111112", ...coverBtnStyle }}>
                 {Language[til].live.userLivePlayerContainer.watchTrailer}
               </Button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
-      <button id="joinViewer" onClick={() => setIsVideo(true)}>
+      {/* <button id="joinViewer" onClick={() => setIsVideo(true)}>
         Live
-      </button>
+      </button> */}
       <div className={st.topBar}>
-        <div
-          className={`${st.additional_functions} ${dark ? "" : st.black}`}
-        ></div>
+        <div className={`${st.additional_functions} ${dark ? "" : st.black}`}></div>
       </div>
       <div style={descStyle} className={stLocal.description}>
         <p style={{ color: dark ? "" : "black" }}>

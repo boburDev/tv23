@@ -6,7 +6,7 @@ import IO from "socket.io-client";
 import cover from "../../../assets/bg/IMG_3873.JPG";
 import Language from '../../../languages'
 import { useLang } from '../../../context/lanuage'
-// import Button from "../../elements/button/button"
+import Button from "../../elements/button/button"
 
 export default function LivePlayerContainer({ api }) {
   const [ til ] = useLang()
@@ -61,7 +61,6 @@ export default function LivePlayerContainer({ api }) {
     });
 
     btnJoinBroadcaster.onclick = function () {
-      console.log("o");
       socket.connect();
       user = {
         room: "TV23",
@@ -173,10 +172,10 @@ export default function LivePlayerContainer({ api }) {
     wrtc();
   });
 
-  // const coverBtnStyle = {
-  //     marginBottom: "20px",
-  //     width: "200px",
-  // }
+  const coverBtnStyle = {
+      marginBottom: "20px",
+      width: "200px",
+  }
 
   return (
     <div
@@ -184,10 +183,7 @@ export default function LivePlayerContainer({ api }) {
       style={{ background: dark ? "#0C0C0D" : "#F8F9FC" }}
     >
       <div className={st.topBar}>
-        <div
-          style={{ color: dark ? "#fff" : "#000" }}
-          className={`${st.title_films} ${dark ? "" : st.black}`}
-        >
+        <div style={{ color: dark ? "#fff" : "#000" }} className={`${st.title_films} ${dark ? "" : st.black}`}>
           <h3>
           {Language[til].live.livePlayContainer.nowLive}
             <b>
@@ -196,61 +192,23 @@ export default function LivePlayerContainer({ api }) {
           </h3>
         </div>
       </div>
-      <div
-        style={{ height: playerHeight }}
-        id="playerRef"
-        className={st.playerArea}
-      >
-        <div
-          id="consultingRoom"
-          style={{
-            display: isVideo ? "flex" : "none",
-            width: "100% !important",
-          }}
-        >
-          <video
-            id="livePlayer"
-            width="100%"
-            height="100%"
-            autoPlay
-            style={{ objectFit: "cover" }}
-          ></video>
+      <div style={{ height: playerHeight }} id="playerRef" className={st.playerArea}>
+        <div id="consultingRoom"
+          style={{ display: isVideo ? "flex" : "none", width: "100% !important"}}>
+          <video id="livePlayer" width="100%" height="100%" autoPlay style={{ objectFit: "cover" }} ></video>
         </div>
 
-        <div
-          className={st.cover}
-          style={{ display: isVideo ? "none" : "flex" }}
-        >
+        <div className={st.cover} style={{ display: isVideo ? "none" : "flex" }}>
           <img src={cover} alt="video_cover" />
           <div className={st.controlBtn}>
             <div onClick={() => setIsVideo(true)}>
-              {/* <Button style={coverBtnStyle} ref={}>Start LIVE</Button> */}
-              <button id="joinBroadcaster">{Language[til].live.livePlayContainer.startStream}</button>
+              <button className={stLocal.btn} id="joinBroadcaster">{Language[til].live.livePlayContainer.startStream}</button>
             </div>
           </div>
         </div>
       </div>
 
-      <video
-        id="livePlayer"
-        className={st.livePlayer}
-        playsInline
-        autoPlay
-      ></video>
-      <div className={st.topBar}></div>
-      <div style={descStyle} className={stLocal.description}>
-        <p style={{ color: dark ? "" : "black" }}>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in ...
-        </p>
-        <div onClick={setCollapse} style={{ color: dark ? "" : "black" }}>
-          {Language[til].live.livePlayContainer.open}
-        </div>
-      </div>
+      <video id="livePlayer" className={st.livePlayer} playsInline autoPlay></video>
     </div>
   );
 }
