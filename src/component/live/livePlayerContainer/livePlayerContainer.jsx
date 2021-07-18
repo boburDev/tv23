@@ -50,7 +50,7 @@ export default function LivePlayerContainer({ api }) {
         { urls: "stun:stun.l.google.com:19302" },
       ],
     };
-    const streamConstraints = { audio: true, video: true }
+    const streamConstraints = { audio: true, video: true };
 
     // Let's do this 💪
     // const socket = IO('http://localhost:4000/live', { path: '/socket.io', transports: ["websocket"], autoConnect: false })
@@ -82,90 +82,91 @@ export default function LivePlayerContainer({ api }) {
     };
 
     // message handlers
-	socket.on("new viewer", function (viewer) {
-        rtcPeerConnections[viewer.id] = new RTCPeerConnection(iceServers);
+    socket.on("new viewer", function (viewer) {
+      rtcPeerConnections[viewer.id] = new RTCPeerConnection(iceServers);
 
-        const stream = videoElement.srcObject;
-        stream
-            .getTracks()
-            .forEach((track) => rtcPeerConnections[viewer.id].addTrack(track, stream));
-
-        rtcPeerConnections[viewer.id].onicecandidate = (event) => {
-            if (event.candidate) {
-            console.log("sending ice candidate");
-            socket.emit("candidate", viewer.id, {
-                type: "candidate",
-                label: event.candidate.sdpMLineIndex,
-                id: event.candidate.sdpMid,
-                candidate: event.candidate.candidate,
-            });
-            }
-        };
-
-        rtcPeerConnections[viewer.id]
-            .createOffer()
-            .then((sessionDescription) => {
-            rtcPeerConnections[viewer.id].setLocalDescription(sessionDescription);
-            socket.emit("offer", viewer.id, {
-                type: "offer",
-                sdp: sessionDescription,
-                broadcaster: user,
-            });
-            })
-            .catch((error) => {
-            console.log(error);
-            });
-        });
-
-        socket.on("candidate", function (id, event) {
-        var candidate = new RTCIceCandidate({
-            sdpMLineIndex: event.label,
-            candidate: event.candidate,
-        });
-        rtcPeerConnections[id].addIceCandidate(candidate);
-        });
-
-        socket.on("offer", function (broadcaster, sdp) {
-			
-        rtcPeerConnections[broadcaster.id] = new RTCPeerConnection(iceServers);
-
-        rtcPeerConnections[broadcaster.id].setRemoteDescription(sdp);
-
-        rtcPeerConnections[broadcaster.id]
-            .createAnswer()
-            .then((sessionDescription) => {
-            rtcPeerConnections[broadcaster.id].setLocalDescription(
-                sessionDescription
-            );
-            socket.emit("answer", {
-                type: "answer",
-                sdp: sessionDescription,
-                room: user.room,
-            });
-            });
-
-        rtcPeerConnections[broadcaster.id].ontrack = (event) => {
-            videoElement.srcObject = event.streams[0];
-        };
-
-        rtcPeerConnections[broadcaster.id].onicecandidate = (event) => {
-            if (event.candidate) {
-            console.log("sending ice candidate");
-            socket.emit("candidate", broadcaster.id, {
-                type: "candidate",
-                label: event.candidate.sdpMLineIndex,
-                id: event.candidate.sdpMid,
-                candidate: event.candidate.candidate,
-            });
-            }
-        };
-        });
-
-        socket.on("answer", function (viewerId, event) {
-        rtcPeerConnections[viewerId].setRemoteDescription(
-            new RTCSessionDescription(event)
+      const stream = videoElement.srcObject;
+      stream
+        .getTracks()
+        .forEach((track) =>
+          rtcPeerConnections[viewer.id].addTrack(track, stream)
         );
+
+      rtcPeerConnections[viewer.id].onicecandidate = (event) => {
+        if (event.candidate) {
+          console.log("sending ice candidate");
+          socket.emit("candidate", viewer.id, {
+            type: "candidate",
+            label: event.candidate.sdpMLineIndex,
+            id: event.candidate.sdpMid,
+            candidate: event.candidate.candidate,
+          });
+        }
+      };
+
+      rtcPeerConnections[viewer.id]
+        .createOffer()
+        .then((sessionDescription) => {
+          rtcPeerConnections[viewer.id].setLocalDescription(sessionDescription);
+          socket.emit("offer", viewer.id, {
+            type: "offer",
+            sdp: sessionDescription,
+            broadcaster: user,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
         });
+    });
+
+    socket.on("candidate", function (id, event) {
+      var candidate = new RTCIceCandidate({
+        sdpMLineIndex: event.label,
+        candidate: event.candidate,
+      });
+      rtcPeerConnections[id].addIceCandidate(candidate);
+    });
+
+    socket.on("offer", function (broadcaster, sdp) {
+      rtcPeerConnections[broadcaster.id] = new RTCPeerConnection(iceServers);
+
+      rtcPeerConnections[broadcaster.id].setRemoteDescription(sdp);
+
+      rtcPeerConnections[broadcaster.id]
+        .createAnswer()
+        .then((sessionDescription) => {
+          rtcPeerConnections[broadcaster.id].setLocalDescription(
+            sessionDescription
+          );
+          socket.emit("answer", {
+            type: "answer",
+            sdp: sessionDescription,
+            room: user.room,
+          });
+        });
+
+      rtcPeerConnections[broadcaster.id].ontrack = (event) => {
+        videoElement.srcObject = event.streams[0];
+      };
+
+      rtcPeerConnections[broadcaster.id].onicecandidate = (event) => {
+        if (event.candidate) {
+          console.log("sending ice candidate");
+          socket.emit("candidate", broadcaster.id, {
+            type: "candidate",
+            label: event.candidate.sdpMLineIndex,
+            id: event.candidate.sdpMid,
+            candidate: event.candidate.candidate,
+          });
+        }
+      };
+    });
+
+    socket.on("answer", function (viewerId, event) {
+      rtcPeerConnections[viewerId].setRemoteDescription(
+        new RTCSessionDescription(event)
+      );
+    });
   }
 
   useEffect(() => {
@@ -202,7 +203,10 @@ export default function LivePlayerContainer({ api }) {
       >
         <div
           id="consultingRoom"
-          style={{ display: isVideo ? "flex" : "none", width: "100%" }}
+          style={{
+            display: isVideo ? "flex" : "none",
+            width: "100% !important",
+          }}
         >
           <video
             id="livePlayer"

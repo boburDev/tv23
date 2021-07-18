@@ -1,9 +1,25 @@
-import st from "./ads.module.css";
-import AdsBanner from "../../assets/image/ads_banner.svg";
-import { useTheme } from "../../context/theme";
+import st from "./ads.module.css"
+import { useTheme } from "../../context/theme"
+import { useEffect, useState } from "react"
+import { useApi } from '../../context/api'
+import axios from "axios"
 
 export default function Ads() {
-  const [dark] = useTheme();
+	const [dark] = useTheme()
+	const [api] = useApi()
+	const [ads, setAds] = useState({})
+	
+	async function ADS(api) {
+		const res = await axios.get(api + '/ads/')
+		setAds(res.data.data)
+	}
+
+
+	useEffect(() => {
+		if (api) {
+			ADS(api)
+		}
+	},[api])
 
   return (
     <div
@@ -11,10 +27,10 @@ export default function Ads() {
       style={{ background: dark ? "#0C0C0D" : "#F8F9FC" }}
     >
       <div className={st.container}>
-        <a href="/">
-          <img style={{ width: "100%" }} src={AdsBanner} alt="" height="90" />
+        <a href={`${ads.ads_link}`}>
+          <img src={`${api}/${ads.ads_path}`} alt="" height="20" />
         </a>
       </div>
     </div>
-  );
+  )
 }

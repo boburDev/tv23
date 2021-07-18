@@ -1,9 +1,9 @@
 import Navbar from '../../../component/navbar/navbar'
 import st from '../auth.module.css'
 import MaskLogin from '../../../assets/image/MaskLogin.png'
-// import CreateAccount from '../../../component/auth/createaccaunt/createaccaunt'
-// import EnterPassword from '../../../component/auth/enterpassword/enterpassword'
-// import VerifyPhone from '../../../component/auth/verifyphone/verifyphone'
+import CreateAccount from '../../../component/auth/createaccaunt/createaccaunt'
+import EnterPassword from '../../../component/auth/enterpassword/enterpassword'
+import VerifyPhone from '../../../component/auth/verifyphone/verifyphone'
 
 import { useLogin } from '../../../context/login'
 import { useAuth } from '../../../context/user'
@@ -12,7 +12,6 @@ import { useEffect } from 'react'
 
 export default function SignUp () {
     const [login] = useLogin()
-
     const [auth] = useAuth()
     const language = useParams()
 
@@ -22,17 +21,15 @@ export default function SignUp () {
         }
     },[auth,language])
 
-
-    console.log(login && login.signUp)
     return (
         <>
         <div className={st.container}>
            <Navbar/>
            <div className={st.area}>
                <div className={st.fields}>
-                {/* {
+                {
                     (login && login.signUp === 'password') ? <EnterPassword /> : (login && login.signUp === 'verify') ? <VerifyPhone /> : <CreateAccount />
-                } */}
+                }
                </div>
                <div className={st.mask}> 
                 <img src={MaskLogin} alt=""/>

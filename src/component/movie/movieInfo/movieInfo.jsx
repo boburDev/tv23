@@ -1,21 +1,34 @@
 import st from "./movieInfo.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import rateStars from "../../../assets/image/rates.png";
-import adsImg from "../../../assets/image/ads_banner.svg";
 import { useTheme } from "../../../context/theme";
-import Language from '../../../languages'
-import { useLang } from '../../../context/lanuage'
+import axios from "axios";
 
 export default function MovieInfo({ movie, api }) {
-  const [ til ] = useLang()
   const params = useParams();
   const [dark] = useTheme();
+  const [ads, setAds] = useState({})
   const [collapseDesc, setCollapseDesc] = useState(false);
   const descStyle = {
     height: !collapseDesc ? 48 + "px" : "auto",
   };
   const setCollapse = () => setCollapseDesc(!collapseDesc);
+
+
+	async function ADS(api) {
+		const res = await axios.get(api + '/ads/')
+		setAds(res.data.data)
+	}
+
+
+	useEffect(() => {
+		if (api) {
+			ADS(api)
+		}
+	},[api])
+
+
   return (
     <div
       className={st.movieWrapper}
@@ -30,30 +43,30 @@ export default function MovieInfo({ movie, api }) {
                 alt="film_picture"
               />
               <div className={st.img_rate}>
-                <p className={st.info_text}>{Language[til].movie.movieInfo.rating}:</p>
+                <p className={st.info_text}>Рейтинг:</p>
                 <img src={rateStars} alt="rate" height="5" />
               </div>
             </div>
           </div>
           <div className={st.movieInfo}>
             <div className={st.moviData}>
-              <p className={st.info_text}>{Language[til].movie.movieInfo.production}:</p>
+              <p className={st.info_text}>Производство:</p>
               <span style={{ color: dark ? "" : "black" }}>
                 {movie && movie.country_name}
               </span>
             </div>
             <div className={st.moviData}>
-              <p className={st.info_text}>{Language[til].movie.movieInfo.releaseDate}:</p>
+              <p className={st.info_text}>Дата премьеры:</p>
               <span style={{ color: dark ? "" : "black" }}>
-                {movie && movie.movie_premeire_date} {Language[til].movie.movieInfo.year}.
+                {movie && movie.movie_premeire_date} г.
               </span>
             </div>
             <div className={st.moviData}>
-              <p className={st.info_text}>{Language[til].movie.movieInfo.duration}:</p>
-              <span style={{ color: dark ? "" : "black" }}>134 {Language[til].movie.movieInfo.min}.</span>
+              <p className={st.info_text}>Продолжительность:</p>
+              <span style={{ color: dark ? "" : "black" }}>134 мин.</span>
             </div>
             <div className={`${st.moviData} ${st.rating_film}`}>
-              <p className={st.info_text}>{Language[til].movie.movieInfo.rating}:</p>
+              <p className={st.info_text}>Рейтинг:</p>
               <div>
                 <img src={rateStars} alt="rate" />
                 <span style={{ color: dark ? "" : "black" }}>
@@ -77,7 +90,7 @@ export default function MovieInfo({ movie, api }) {
           </div>
         </div>
         <div className={st.ads}>
-          <img src={adsImg} alt="ads_picture" />
+          <img src={`${api}/${ads.ads_path}`} alt="ads_picture" />
         </div>
       </div>
       <div style={descStyle} className={st.description}>
@@ -85,7 +98,7 @@ export default function MovieInfo({ movie, api }) {
           {movie && movie.movie_body}
         </p>
         <div onClick={setCollapse} style={{ color: dark ? "" : "black" }}>
-          {Language[til].movie.movieInfo.open}
+          Ochish
         </div>
       </div>
     </div>

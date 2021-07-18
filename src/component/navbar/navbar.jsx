@@ -15,10 +15,11 @@ import SearchNotFound from '../notFound/SearchNotFound/notFound'
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { useTheme } from "../../context/theme";
+import { useLang } from "../../context/lanuage";
 import axios from "axios";
 import { useApi } from "../../context/api";
-import Language from '../../languages'
-import { useLang } from '../../context/lanuage'
+
+
 
 function Navbar({ login, path }) {
 	const [api] = useApi()
@@ -27,7 +28,6 @@ function Navbar({ login, path }) {
 	const componentRef = useRef();
 	const [dark, setDark] = useTheme();
 	const [lang, setLang] = useLang();
-  const [ til ] = useLang()
 	const [fontType, setFontType] = useState("MEDIUM");
 	const [reload, setReload] = useState(false);
 	const language = useParams();
@@ -155,55 +155,35 @@ function Navbar({ login, path }) {
               >
                 <li className={st.navbar_link_item}>
                   <Link to={`/${language.lang || "ru"}/categories/фильмы`}>
-                    {Language[til].navbar.movies}
+                    Фильмы
                   </Link>
                 </li>
                 <li className={st.navbar_link_item}>
                   <Link to={`/${language.lang || "ru"}/categories/сериалы`}>
-                  {Language[til].navbar.serials}
+                    Сериалы
                   </Link>
                 </li>
                 <li className={st.navbar_link_item}>
                   <Link to={`/${language.lang || "ru"}/categories`}>
-                  {Language[til].navbar.allCategories}
+                    Все категории
                   </Link>
                 </li>
                 <li className={st.navbar_link_item}>
-                  <Link
-                    style={{ color: "red" }}
-                    to={`/${language.lang || "ru"}/live`}
-                  >
-                    LIVE
+                  <Link to={`/${language.lang || "ru"}/live`}>
+                    LIVE <span style={{color: 'red', fontWeight: 'bold'}}>&#183;</span>
                   </Link>
                 </li>
                 <li className={st.navbar_link_item}>
                   <Link to={`/${language.lang || "ru"}/favourites`}>
-                  {Language[til].navbar.forwards}
+                    Избранные
                   </Link>
                 </li>
               </ul>
-              <div
-                className={st.user_tools}
-                style={{ width: isOpenSearch ? "100%" : "100%" }}
-              >
-                <div
-                  className={st.search_tool}
-                  htmlFor="search_tool"
-                  style={{
-                    width: isOpenSearch ? " 100%" : "",
-                    marginLeft: "auto",
-                    backgroundColor: dark ? "" : "#F6F6F6",
-                  }}
-                >
-                  <input
-                    style={{ color: dark ? "" : "#888888" }}
-                    onFocus={() => {
-                      setIsOpenSearch(true);
-                    }}
-					onKeyUp={searchIngineOnKeyUpHandler}
-                    id="search_tool"
-                    type="text"
-                    placeholder=""
+              <div className={st.user_tools} style={{ width: isOpenSearch && "100%" }}>
+                <div className={st.search_tool} htmlFor="search_tool"
+                  style={{ width: isOpenSearch ? " 100%" : "", marginLeft: "auto", backgroundColor: dark ? "" : "#F6F6F6"}}>
+                  <input style={{ color: dark ? "" : "#888888" }} onFocus={() => setIsOpenSearch(true)}
+					onKeyUp={searchIngineOnKeyUpHandler} id="search_tool" type="text" placeholder=""
                   />
 
                   <div onClick={handleSearch} className={st.search_icon}>
@@ -256,33 +236,28 @@ function Navbar({ login, path }) {
                       style={{ display: login ? "none" : "" }}
                     >
                       <li className={st.navbar_link_item}>
-                        <Link to={`/${language.lang || "ru"}/categories/films`}>
-                        {Language[til].navbar.movies}
+                        <Link to={`/${language.lang || "ru"}/categories/фильмы`}>
+                          Фильмы
                         </Link>
                       </li>
                       <li className={st.navbar_link_item}>
-                        <Link
-                          to={`/${language.lang || "ru"}/categories/serials`}
-                        >
-                          {Language[til].navbar.serials}
+                        <Link to={`/${language.lang || "ru"}/categories/сериалы`}>
+                          Сериалы
                         </Link>
                       </li>
                       <li className={st.navbar_link_item}>
                         <Link to={`/${language.lang || "ru"}/categories`}>
-                        {Language[til].navbar.allCategories}
+                          Все категории
                         </Link>
                       </li>
                       <li className={st.navbar_link_item}>
-                        <Link
-                          to={`/${language.lang || "ru"}/live`}
-                          style={{ color: "red" }}
-                        >
+                        <Link style={{ color: "red" }} to={`/${language.lang || "ru"}/live`}>
                           LIVE
                         </Link>
                       </li>
                       <li className={st.navbar_link_item}>
                         <Link to={`/${language.lang || "ru"}/favourites`}>
-                        {Language[til].navbar.forwards}
+                          Избранные
                         </Link>
                       </li>
                     </ul>
@@ -292,17 +267,17 @@ function Navbar({ login, path }) {
                       className={st.menuItem}
                     >
                       <img src={userIcon} alt="" />
-                      <div className={st.itemName}>{Language[til].navbar.settings}</div>
+                      <div className={st.itemName}>Настройки аккаунта</div>
                     </Link>
                     <div onClick={toggleDark} className={st.menuItem}>
                       <img src={dark ? sunIcon : sunIconForLight} alt="" />
                       <div className={st.itemName}>
-                        {dark ? Language[til].navbar.darkMode : Language[til].navbar.lightMode}
+                        {dark ? `Темный режим` : `Светлый режим`}
                       </div>
                     </div>
                     <div className={st.menuItem}>
                       <img src={fontIcon} alt="" />
-                      <div className={st.itemName}>{Language[til].navbar.shrift}</div>
+                      <div className={st.itemName}>Размеры шрифта</div>
                       <div className={st.itemChild}>
                         <div
                           className={`${st.childItem} ${
@@ -312,7 +287,7 @@ function Navbar({ login, path }) {
                             fontChange("SMALL");
                           }}
                         >
-                          {Language[til].navbar.smallShrift}
+                          Маленькие
                         </div>
                         <div
                           className={`${st.childItem} ${
@@ -322,7 +297,7 @@ function Navbar({ login, path }) {
                             fontChange("MEDIUM");
                           }}
                         >
-                          {Language[til].navbar.mediumShrift}
+                          Средние
                         </div>
                         <div
                           className={`${st.childItem} ${
@@ -332,7 +307,7 @@ function Navbar({ login, path }) {
                             fontChange("LARGE");
                           }}
                         >
-                          {Language[til].navbar.bigShrift}
+                          Крупные
                         </div>
                       </div>
                     </div>

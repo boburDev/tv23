@@ -24,16 +24,8 @@ function App() {
         <Route path="/:lang?/sign-up/pass" component={SignUp} exact />
         <Route path="/:lang?/categories" component={AllCategoryMovie} exact />
         <Route path="/:lang?/live" component={Live} exact />
-        <Route
-          path="/:lang?/categories/:category"
-          component={CategoryMovie}
-          exact
-        />
-        <Route
-          path="/:lang?/categories/:category/:movieid"
-          component={Movie}
-          exact
-        />
+        <Route path="/:lang?/categories/:category" component={CategoryMovie} exact />
+        <Route path="/:lang?/categories/:category/:movieid" component={Movie} exact />
         <Route path="/:lang?/genres/:genre" component={GenreMovie} exact />
         <Route path="/:lang?/settings" component={Settings} />
         <Route path="**" component={NotFound} exact />

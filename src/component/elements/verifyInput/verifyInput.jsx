@@ -38,12 +38,10 @@ export default function VerifyInput({ verifyCode, setVerfyCode }) {
 
   useEffect(() => {
     let value = "";
-    Object.values(inputValues).map((item) => {
-      value += item;
-    });
+    Object.values(inputValues).map((item) => value += item);
     setVerfyCode(value);
     console.log("verifyCode", verifyCode);
-  }, [Object.values(inputValues)]);
+  }, [inputValues, setVerfyCode, verifyCode]);
 
   return (
     <div ref={inputRef} id="containerRef" className={st.container}>

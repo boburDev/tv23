@@ -2,13 +2,11 @@ import st from "./trillerItem.module.css";
 import Button from "../../elements/button/button";
 import TrailarPlayer from "../trillerPlayer/player";
 import { useEffect, useState } from "react";
-import Language from '../../../languages'
-import { useLang } from '../../../context/lanuage'
+import { useParams } from 'react-router-dom'
 
 export default function TrailerItem({ isActive, data, api }) {
   const [showAllGenre, setShowAllGenre] = useState(true);
-  const [ til ] = useLang()
-
+  const language = useParams()
   useEffect(() => {
     window.addEventListener("resize", () => {
       if (window.innerWidth <= 720) setShowAllGenre(false);
@@ -28,7 +26,7 @@ export default function TrailerItem({ isActive, data, api }) {
           <div className={st.box}>
             <div className={st.info}>
               <h1 className={st.name}>{data.triller_name}</h1>
-              <h6 className={st.counter}>{Language[til].triller.trillerItem.country}:{data.country_name}</h6>
+              <h6 className={st.counter}>Страна:{data.country_name}</h6>
               <h6 className={st.description}>{data.movie_body}</h6>
               <div className={st.genre}>
                 {data &&
@@ -47,10 +45,12 @@ export default function TrailerItem({ isActive, data, api }) {
                   })}
               </div>
               <div className={st.rating}>
-                <h6 className={st.title}>{Language[til].triller.trillerItem.rating}:</h6>
+                <h6 className={st.title}>Рейтинг:</h6>
               </div>
-              <div className={st.button}>
-                <Button>{Language[til].triller.trillerItem.watchByFollow}</Button>
+              <div className={st.button} onClick={()=>{
+				  window.location.href = `/${language.lang || 'ru'}/categories/recomented/${data.movie_id}`
+			  }}>
+                <Button>Смотреть по подписке</Button>
               </div>
             </div>
             <div className={st.player}>

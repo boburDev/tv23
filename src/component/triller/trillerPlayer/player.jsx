@@ -1,14 +1,10 @@
 import PlayPause from "../../elements/playPause/playPause"
 import { useEffect, useRef, useState } from "react"
 import st from "./player.module.css"
-import Language from '../../../languages'
-import { useLang } from '../../../context/lanuage'
-
 export default function TrailerPlayer({ src, api , isActive}) {
   
   const [isPlay, SetIsPlay] = useState(false)
   const videoRef = useRef()
-  const [ til ] = useLang()
 
   const [isLoadedVideo, setIsLoadedVideo] = useState(false)
 
@@ -22,14 +18,19 @@ export default function TrailerPlayer({ src, api , isActive}) {
   }, [isActive])
 
   return (
-    <div className={st.container}>
+    <div className={st.container}  onClick={()=>{
+		if (isPlay) {
+			videoRef.current.pause()
+		}else {
+			videoRef.current.play()
+		}
+
+    }}>
     <div style={{display:'flex', width:'100%', height:'100%'}} onClick={()=> {
       isActive ? SetIsPlay(isPlay) : SetIsPlay(false)
     }} >
     <div  className={st.playerButton}> 
-    {isLoadedVideo ? <div onClick={()=>{
-      videoRef.current.play()
-    }}><PlayPause isPlay={isPlay} /></div> : Language[til].triller.trillerPlayer.loading}
+    {isLoadedVideo ? <div><PlayPause isPlay={isPlay} /></div> : 'Loading video Please Wait until loading the video...'}
     </div>
     
     {

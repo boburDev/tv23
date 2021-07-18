@@ -17,7 +17,6 @@ function Home() {
     try {
       setLoading(true)
       const categories = await axios.get(api + "/category-with-movies")
-      console.log(categories.data)
       setLoading(false)
       setCategories(categories.data.data)
     } catch (error) {}
@@ -27,7 +26,6 @@ function Home() {
     try {
       setLoading(true)
       const trillers = await axios.get(api + "/recommended-t")
-      console.log(trillers.data)
       setRecommendedTriller(trillers.data.data)
       setLoading(false)
     } catch (error) {}
