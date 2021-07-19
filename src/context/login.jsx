@@ -10,6 +10,7 @@ function LoginProvider({ children }) {
       age: "",
       password: "",
       code: "",
+      newPassword: "",
     },
     isloading: false,
     error: {
@@ -17,6 +18,7 @@ function LoginProvider({ children }) {
       message: null,
     },
     signUp: "",
+    recovery: '',
     accessToken: localStorage.getItem("Authorization"),
   });
 

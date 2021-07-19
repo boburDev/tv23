@@ -1,6 +1,6 @@
 import Button from "../../elements/button/button";
 import st from "./verifyphone.module.css";
-import goBack from "../../../assets/image/goBack.png";
+// import goBack from "../../../assets/image/goBack.png";
 import VerifyInput from "../../elements/verifyInput/verifyInput";
 import { useTheme } from "../../../context/theme";
 import { useEffect, useState } from "react";
@@ -59,58 +59,6 @@ export default function VerifyPhone() {
     }
   };
 
-  //   const onSignInOnSubmit = async () => {
-  //     setupReCaptcha()
-  //     const phoneNumber = userState.user.phone
-  //     const appVerifier = window.recaptchaVerifier
-  //     console.log("appVerifier", appVerifier)
-
-  // firebase
-  //   .auth()
-  //   .signInWithPhoneNumber(phoneNumber, appVerifier)
-  //   .then((confirmationResult) => {
-  //     const code = window.prompt("Kodni kirit:")
-  //     console.log("confirmationResult", confirmationResult)
-  //     confirmationResult
-  //       .confirm(code)
-  //       .then(async (result) => {
-  //         const res = await axios.post(`${api}/create-user`, {
-  //           username: userState.user.username,
-  //           password: userState.user.password,
-  //           phoneNumber: userState.user.password,
-  //         })
-  //         console.log("res", res)
-  //         if (res) {
-  //           console.log("res", res)
-  //           // window.localStorage.setItem('autorization', res.data.accessToken)
-  //           // window.localStorage.setItem('user', JSON.stringify(res.data.data))
-  //           // history.push('/')
-  //         }
-  //         const user = result.user
-  //         console.log("user", user)
-  //       })
-  //       .catch((error) => {
-  //         //not signed in
-  //         console.log(error)
-  //       })
-  //     window.confirmationResult = confirmationResult
-  //    //   ...
-  //   })
-  //   .catch((error) => {
-  //     //sms sent error
-  //   })
-  //   }
-
-  useEffect(() => {
-    if (!userState.error.isError) {
-      if (userState.user.username === "" || userState.user.phone === "") {
-        // history.push('/sign-up')
-      } else if (userState.user.password === "") {
-        // history.push('/sign-up/password')
-      }
-    }
-  }, [userState]);
-
   useEffect(() => {
     onSignInOnSubmit();
   });
@@ -118,7 +66,7 @@ export default function VerifyPhone() {
   return (
     <div>
       <div className={st.navigation}>
-        <img src={goBack} alt="" />
+        <img src={""} alt="" />
         <div id="recaptcha-container"></div>
       </div>
       {isSendSms ? (
@@ -129,7 +77,7 @@ export default function VerifyPhone() {
 
           <VerifyInput verifyCode={verifyCode} setVerfyCode={setVerfyCode} />
           <div className={st.buttonLink}>
-            {Language[til].auth.verifyPhone.restorePassword}
+            {Language[til].auth.verifyPhone.resend}
           </div>
           <div onClick={checkVerification}>
             <Button style={{ width: "100%", marginTop: "10px" }}>
