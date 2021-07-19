@@ -6,6 +6,8 @@
   font-family: "Lato", sans-serif;
 }
 
+
+
 .nav {
   position: relative;
   display: flex;
@@ -125,6 +127,37 @@
 .language > a.active {
   font-weight: 900;
 }
+
+.languageMiniDevice {
+  display: none;
+  padding: 0 10px;
+  align-items: center;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 17px;
+  color: #fff;
+  text-align: center;
+  justify-content: center;
+}
+
+.languageMiniDevice.dark a {
+  color: #fff;
+  padding: 6px 5px;
+}
+
+.languageMiniDevice > a {
+  text-decoration: none;
+  color: #000;
+  display: block;
+}
+.languageMiniDevice > a:hover {
+  cursor: pointer;
+}
+.languageMiniDevice > a.active {
+  font-weight: 900;
+}
+
 
 .toggleIcon {
   display: flex;
@@ -361,7 +394,6 @@
 
   .menu_items li a {
     text-decoration: none;
-
     color: #fff;
   }
 
@@ -372,6 +404,10 @@
   .func_button li .userSettings {
     left: -100px;
     bottom: -70px;
+  }
+
+  .languageMiniDevice {
+    display: flex;
   }
 }
 

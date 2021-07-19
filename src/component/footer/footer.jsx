@@ -6,10 +6,14 @@ import facebook from "../../assets/logo/facebook_logo.svg"
 import appStore from "../../assets/img/app-store.png"
 import googlePlay from "../../assets/img/google-play.png"
 import { useTheme } from "../../context/theme"
+import Language from '../../languages'
+import { useLang } from '../../context/lanuage'
 
 function Footer() {
   const [dark] = useTheme()
   const language = useParams()
+  const [ til ] = useLang()
+
   return (
     <>
       <footer className={st.footer}>
@@ -24,7 +28,7 @@ function Footer() {
                   className={st.download_title}
                   style={{ color: dark ? "#fff" : "#000" }}
                 >
-                  Скачать приложение вы можете через:
+                 {Language[til].footer.downloadApp}:
                 </p>
                 <div className={st.downloads}>
                   <Link className={st.download_link} to="#">
@@ -39,7 +43,7 @@ function Footer() {
                     style={{ color: dark ? "#fff" : "#000" }}
                     className={st.socialTitle}
                   >
-                    Мы в соц. сетях:{" "}
+                    {Language[til].footer.weOnSocial}:{" "}
                   </div>
                   <ul className={st.social_links}>
                     <li className={st.link_item}>
@@ -68,13 +72,13 @@ function Footer() {
               <div className={st.wrapper_footer}>
                 <ul className={`${st.categories} ${!dark ? st.dark : ""}`}>
                   <li className={st.category_item}>
-                    <Link to={`/${language.lang || "ru"}/categories/фильмы`}>Фильмы</Link>
+                    <Link to={`/${language.lang || "ru"}/categories/фильмы`}>{Language[til].footer.movies}</Link>
                   </li>
                   <li className={st.category_item}>
-                    <Link to={`/${language.lang || "ru"}/categories/сериалы`}>Сериалы</Link>
+                    <Link to={`/${language.lang || "ru"}/categories/сериалы`}>{Language[til].footer.serials}</Link>
                   </li>
                   <li className={st.category_item}>
-                    <Link to={`/${language.lang || "ru"}/categories`}>Все категории</Link>
+                    <Link to={`/${language.lang || "ru"}/categories`}>{Language[til].footer.allCategories}</Link>
                   </li>
                   <li className={st.category_item}>
                     <Link to={`/${language.lang || "ru"}/live`} className={st.live}>
@@ -85,30 +89,30 @@ function Footer() {
                     </Link>
                   </li>
                   <li className={st.category_item}>
-                    <Link to={`/${language.lang || "ru"}/favourites`}>Избранные</Link>
+                    <Link to={`/${language.lang || "ru"}/favourites`}>{Language[til].footer.forwards}</Link>
                   </li>
                 </ul>
 
                 <ul className={`${st.info_liks} ${!dark ? st.dark : ""}`}>
                   <li className={st.info_link__item}>
-                    <Link to="#">О нас</Link>
+                    <Link to="#">{Language[til].footer.aboutUs}</Link>
                   </li>
                   <li className={st.info_link__item}>
-                    <Link to="#">О компании</Link>
+                    <Link to="#">{Language[til].footer.aboutCompany}</Link>
                   </li>
                   <li className={st.info_link__item}>
-                    <Link to="#">Размещение рекламы</Link>
+                    <Link to="#">{Language[til].footer.ads}</Link>
                   </li>
                   <li className={st.info_link__item}>
-                    <Link to="#">Партнерам</Link>
+                    <Link to="#">{Language[til].footer.forPartners}</Link>
                   </li>
                   <li className={st.info_link__item}>
-                    <Link to="#">Вакансии</Link>
+                    <Link to="#">{Language[til].footer.vacancies}</Link>
                   </li>
                 </ul>
 
                 <ul className={`${st.support_links} ${!dark ? st.dark : ""}`}>
-                  <p>Техподдержка:</p>
+                  <p>{Language[til].footer.techSupport}:</p>
 
                   <li className={st.support_link__item}>
                     <Link to="#">@Supportnaming.uz</Link>
@@ -117,7 +121,7 @@ function Footer() {
                     <Link to="#">+99890 000-23-00</Link>
                   </li>
 
-                  <p className={st.leave_comment}>Оставить отзыв:</p>
+                  <p className={st.leave_comment}>{Language[til].footer.leaveComment}:</p>
 
                   <li className={st.support_link__item}>
                     <Link to="#">@infonaming.uz</Link>
