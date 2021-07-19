@@ -31,7 +31,6 @@ export default function CreateAccount() {
             })
         }
     }
-
     return (
         <div>
             <div className={st.navigation}>
@@ -39,11 +38,18 @@ export default function CreateAccount() {
             </div>
             <div className={st.title}>
                 <div >{Language[til].auth.createAccout.accoutToCreate}</div>
-                <Link to={`/${language.lang || 'ru'}/login`} className={st.regLink}>{Language[til].auth.createAccout.enter}</Link>
+                <Link 
+                to={`/${language.lang || 'ru'}/login`} 
+                className={st.regLink}>{Language[til].auth.createAccout.enter}</Link>
             </div>
-                <InputProfile reference={phoneRef} label={Language[til].auth.createAccout.phoneNumber} />
-                <InputProfile reference={usernameRef} label={Language[til].auth.createAccout.password}/>
+                <InputProfile reference={phoneRef}
+                label={Language[til].auth.createAccout.phoneNumber} />
+                
+                <InputProfile reference={usernameRef}
+                label={Language[til].auth.createAccout.userName}/>
+
                 <InputProfile reference={ageRef} label={Language[til].auth.createAccout.age}/>
+                
                 <div onClick={handleInfo}>
                     <Button style={{width:'100%', marginTop:'30px'}} >{Language[til].auth.createAccout.nextStep}</Button>
                 </div>
