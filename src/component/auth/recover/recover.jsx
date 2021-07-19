@@ -38,16 +38,18 @@ export default function Recovery() {
                 <InputProfile  onChange={handleOnChange}  isCorrect={!error.isError} reference={passRef} label={Language[til].auth.login.newLabelPassword} isPass={true} type='password'/>
             <div style={{color:'red'}}>{error.isError ? error.message  :' '}</div>
             <div onClick={()=>{
-                setLogin((state)=>{
-                    return {
-                        ...state, 
-                        user:{
-                            newPassword: passRef.current.value,
-                            phone: phoneRef.current.value
-                        },
-                        recovery: 'rocover'
-                    }
-                })
+                if (passRef.current.value && phoneRef.current.value) {
+                    setLogin((state)=>{
+                        return {
+                            ...state, 
+                            user:{
+                                newPassword: passRef.current.value,
+                                phone: phoneRef.current.value
+                            },
+                            recovery: 'rocover'
+                        }
+                    })
+                }
             }}>
                 <Button style={{width:'100%', marginTop:'30px'}}>{Language[til].auth.login.restorePassword}</Button>
             </div>
