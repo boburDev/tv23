@@ -55,7 +55,7 @@ export default function VerifyPhone() {
   };
 
   useEffect(() => {
-    onSignInOnSubmit();
+    onSignInOnSubmit()
   });
 
   return (
