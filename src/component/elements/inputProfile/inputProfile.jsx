@@ -8,7 +8,10 @@ export default function InputProfile({
     style,
     onKeyUp,
     label,
+    value,
+    placeHolder = "",
     reference,
+    disabled = false,
     type='text',
     isPass=false,
     isCorrect=true
@@ -23,10 +26,14 @@ export default function InputProfile({
             
             <div style={{position:'relative'}}>
                 <input onKeyUp={onKeyUp}
+                disabled={disabled}
+                placeholder={placeHolder}
                 style={{
                     color: isCorrect ?(dark ? '' : '#666666') : '#D7141D',
-                    background:isCorrect ? (dark ? '' : 'rgba(119, 119, 119, 0.06)') : 'rgba(215, 20, 29, 0.06)'
+                    background:isCorrect ? 
+                    (dark ? '' : 'rgba(119, 119, 119, 0.06)') : 'rgba(215, 20, 29, 0.06)'
                 }}
+                
                 type={isPasswordField}
                 ref={reference}
                 className={st.input}

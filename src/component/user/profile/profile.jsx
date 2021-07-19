@@ -1,34 +1,58 @@
 import { useState, useRef, useEffect } from "react";
 import st from "./profile.module.css";
-import profileImage from "../../../assets/image/profileImage.png";
 import InputProfile from "../../../component/elements/inputProfile/inputProfile";
 import { useTheme } from "../../../context/theme";
 import logout from "../../../assets/image/logoutred.png";
 import { useParams } from "react-router-dom";
 import Language from '../../../languages'
 import { useLang } from '../../../context/lanuage'
-
+import { useAuth } from '../../../context/user'
+import { useApi } from '../../../context/api'
+import axios from "axios";
 export default function Profile({ data }) {
   const inputRef = useRef();
   const [dark] = useTheme();
+  const [api] = useApi();
   const [isEdit, setIsEdit] = useState(false);
+  const [oldPassword, setOldPassword] = useState('')
+  const [username, setUsername] = useState('')
+  const [age, setAge] = useState('')
+  const [newPassword, setNewPassword] = useState()
+  const [update, setUpdate] = useState(false)
   const [IsOpenPass, setIsOpenPass] = useState(false);
   const language = useParams();
   const [ til ] = useLang()
+  const [userData, setUserData] = useAuth()
 
-  const handleTest = () => {
-    console.log(inputRef.current.value);
-  };
   useEffect(() => {
     setIsOpenPass(false);
-  }, [isEdit]);
+  }, [isEdit])
 
   const textStyle = {
     color: dark ? "#fff" : "#000",
-  };
+  }
+
+  async function updateUserPassword(api, data) {
+	await axios.post(api + '/update-user-password', data, {
+		headers: {
+			Authorization: localStorage.getItem('Authorization')
+		}
+	})
+  }
+  
+  async function updateUserData(api, data) {
+	const res = await axios.post(api + '/update-user-data', data, {
+		headers: {
+			Authorization: localStorage.getItem('Authorization')
+		}
+	})
+	setUserData(res.data.data)
+  }
+
   return (
     <div style={{ background: dark ? "#0C0C0D" : "" }} className={st.container}>
-      <img src={profileImage} className={st.profileImage} alt="" />
+      <img src={`${api}/${userData && userData.userPath}`} width="90"
+      className={st.profileImage} alt="" />
       <div
         className={st.mainContainer}
         style={{ display: isEdit ? "none" : "" }}
@@ -53,9 +77,9 @@ export default function Profile({ data }) {
             </div>
           </div>
           <div className={st.pairs}>
-            <div className={st.key}>E-mail: </div>
+            <div className={st.key}>{Language[til].user.profile.age}: </div>
             <div className={st.val} style={textStyle}>
-              Waiting...
+				{data && data.age}
             </div>
           </div>
         </div>
@@ -96,13 +120,22 @@ export default function Profile({ data }) {
           {/* reference prop is give access input value - reference attributi inputning attributelariga kirish imkonini beradi */}
 
           <div style={{ width: "50%", paddingRight: "20px" }}>
-            <InputProfile reference={inputRef} label={Language[til].user.profile.nameLabel} />
+            <InputProfile placeHolder={userData && userData.userName} onKeyUp={e =>{
+				setUsername(e.target.value)
+			}}
+			value={username}
+			reference={inputRef} label={Language[til].user.profile.nameLabel} />
           </div>
           <div style={{ width: "50%", paddingLeft: "20px" }}>
-            <InputProfile label={Language[til].user.profile.numberLabel} />
+            <InputProfile placeHolder={userData && userData.userTel} disabled={true}
+            label={Language[til].user.profile.numberLabel} />
           </div>
           <div style={{ width: "50%", paddingRight: "20px" }}>
-            <InputProfile type="email" label="E-mail" />
+            <InputProfile placeHolder={userData && userData.age} onKeyUp={e => {
+				setAge(e.target.value)
+			}}
+			value={age}
+            label={Language[til].user.profile.age} />
           </div>
         </div>
         <div style={{ display: IsOpenPass ? "" : "none" }}>
@@ -111,13 +144,21 @@ export default function Profile({ data }) {
               ...textStyle,
               ...{ marginTop: "20px", marginBottom: "10px" },
             }}
-            className={st.setPass}
-          >
+            className={st.setPass}>
             Установить новый пароль
           </div>
           <div className={st.setPass}>
             <div style={{ width: "50%", paddingRight: "20px" }}>
               <InputProfile
+                type="password"
+                isPass={true}
+				onKeyUp={(e)=>setOldPassword(e.target.value)}
+                label={Language[til].user.profile.oldPassword}
+              />
+            </div>
+            <div style={{ width: "50%", paddingRight: "20px" }}>
+              <InputProfile
+			  onKeyUp={e => setNewPassword(e.target.value)}
                 type="password"
                 isPass={true}
                 label={Language[til].user.profile.setNewPassword}
@@ -126,6 +167,13 @@ export default function Profile({ data }) {
             <div style={{ width: "50%", paddingRight: "20px" }}>
               <InputProfile
                 type="password"
+				onKeyUp={ e => {
+					if (e.target.value !== '') {
+						setUpdate(e.target.value === newPassword)
+					} else {
+						setUpdate(false)
+					}
+				}}
                 isPass={true}
                 label={Language[til].user.profile.retypeNewPassword}
               />
@@ -148,8 +196,24 @@ export default function Profile({ data }) {
           </div>
           <div
             onClick={() => {
-              setIsEdit((x) => !x);
-              handleTest();
+              setIsEdit((x) => !x)
+
+				if (username.length > 1 && age.length > 0 && data && data.userId) {
+					const data1 = {
+						userId: data && data.userId,
+						username,
+						userAge: age
+					}
+					updateUserData(api,data1)
+				}
+
+			  if (update) {
+				const data = {
+					newPassword: newPassword,
+					oldPassword: oldPassword
+				}
+				updateUserPassword(api, data)
+			  }
             }}
             className={st.buttonLink}
           >
