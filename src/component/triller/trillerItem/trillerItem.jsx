@@ -2,14 +2,14 @@ import st from "./trillerItem.module.css";
 import Button from "../../elements/button/button";
 import TrailarPlayer from "../trillerPlayer/player";
 import { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom'
+import { useParams } from "react-router-dom";
 
 export default function TrailerItem({ isActive, data, api }) {
   const [showAllGenre, setShowAllGenre] = useState(true);
-  const language = useParams()
+  const language = useParams();
   useEffect(() => {
     window.addEventListener("resize", () => {
-      if (window.innerWidth <= 720) setShowAllGenre(false);
+      if (window.innerWidth <= 550) setShowAllGenre(false);
       else setShowAllGenre(true);
     });
   }, []);
@@ -27,14 +27,18 @@ export default function TrailerItem({ isActive, data, api }) {
             <div className={st.info}>
               <h1 className={st.name}>{data.triller_name}</h1>
               <h6 className={st.counter}>Страна:{data.country_name}</h6>
-              <h6 className={st.description}>{data.movie_body}</h6>
+              <h6 className={st.description}>
+                {!showAllGenre
+                  ? data.movie_body.substring(0, 120) + "..."
+                  : data.movie_body}
+              </h6>
               <div className={st.genre}>
                 {data &&
                   data.movie_genre.split(",").map((x, key) => {
                     return !showAllGenre ? (
-                      key <= 5 && (
+                      key <= 2 && (
                         <div className={st.genreItem} key={key}>
-                          {key === 5 ? "..." : x}
+                          {x}
                         </div>
                       )
                     ) : (
@@ -47,9 +51,14 @@ export default function TrailerItem({ isActive, data, api }) {
               <div className={st.rating}>
                 <h6 className={st.title}>Рейтинг:</h6>
               </div>
-              <div className={st.button} onClick={()=>{
-				  window.location.href = `/${language.lang || 'ru'}/categories/recomented/${data.movie_id}`
-			  }}>
+              <div
+                className={st.button}
+                onClick={() => {
+                  window.location.href = `/${
+                    language.lang || "ru"
+                  }/categories/recomented/${data.movie_id}`;
+                }}
+              >
                 <Button>Смотреть по подписке</Button>
               </div>
             </div>
