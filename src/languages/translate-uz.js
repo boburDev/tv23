@@ -68,6 +68,7 @@ const uz = {
         allCategories: 'Barcha toifalar',
         forward: 'Sevimlilar',
         aboutUs: 'Biz haqimizda',
+        aboutCompany: 'Kompaniya haqida',
         ads: 'Reklama joylashtirish',
         forPartners: 'Hamkorlar uchun',
         vacancies: `Bo'sh ish o'rinlari`,

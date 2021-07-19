@@ -18,6 +18,9 @@ import { useAuth } from '../../../context/user'
 import { useParams } from 'react-router-dom'
 import axios from "axios"
 import SliderCounterAdvanced from "../../sliderCounter/SliderCounterAdvanced";
+import Language from '../../../languages'
+import { useLang } from '../../../context/lanuage'
+
 export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) {
   const [resolution, setResolution] = useResolution()
 //   const [playerType, setPlayerType] = useState(localStorage.getItem("player_type") || "Триллеры")
@@ -34,6 +37,7 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
   const [userData] = useAuth()
   const [isLogged,setIsLogged] = useState(false)
   const language = useParams()
+  const [ til ] = useLang()
 
   const settingSize = () => {
     var playerRef = document.getElementById("playerRef")
@@ -204,12 +208,12 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
 						}
 				  }
 				}}>
-                <Button style={coverBtnStyle}>Смотреть по подписке</Button>
+                <Button style={coverBtnStyle}>{Language[til].movie.MoviePlayerContainer.watchByFollow}</Button>
               </div>
               {
 				  triller && <div onClick={()=>setIsVideoTriler(true)}>
 					<Button style={{ background: "#111112", ...coverBtnStyle }}>
-					Смотреть трейлер
+					{Language[til].movie.MoviePlayerContainer.watchTrailer}
 					</Button>
 				</div>
 			  }
@@ -220,7 +224,7 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
       
 	  <div className={st.topBar}>
         <div style={{ color: dark ? "#fff" : "#000" }} className={`${st.title_films} ${dark ? "" : st.black}`}>
-          <p>Название: </p>
+          <p>{Language[til].movie.MoviePlayerContainer.name}: </p>
           <h3>{movie && movie.movie_name}</h3>
         </div>
         <div className={`${st.additional_functions} ${dark ? "" : st.black}`}>
@@ -233,7 +237,7 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
               }}>
               <img width="20px" className={st.icon}
                 src={isFavourite ? favourStart : unSelectedStart} alt="favourite" />
-              <p> В избранное </p>
+              <p> {Language[til].movie.MoviePlayerContainer.toForwards}</p>
             </Button>
           </div>
           <div onClick={() => {
@@ -261,7 +265,7 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
                 }
                 alt="favourite"
               />
-              <p>Отправить</p>
+              <p>{Language[til].movie.MoviePlayerContainer.send}</p>
             </Button>
           </div>
         </div>

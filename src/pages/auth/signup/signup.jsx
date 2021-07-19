@@ -24,7 +24,7 @@ export default function SignUp () {
     return (
         <>
         <div className={st.container}>
-           <Navbar/>
+           <Navbar path="auth"/>
            <div className={st.area}>
                <div className={st.fields}>
                 {

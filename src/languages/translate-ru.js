@@ -63,11 +63,12 @@ const ru = {
     footer: {
         downloadApp: `Вы можете скачать программу`,
         weOnSocial: 'Мы в социальных сетях',
-        movies: 'филми ',
+        movies: 'Фильмы',
         serials: 'Сериалы',
         allCategories: 'Все категории',
         forward: ' Избранное',
         aboutUs: 'O нас',
+        aboutCompany: 'O компании',
         ads: ' Реклама',
         forPartners: 'Партнерам',
         vacancies: `Вакансии`,
@@ -102,7 +103,7 @@ const ru = {
             open: 'Oткрыть'
         },
         moviePlayerContainer: {
-            films: 'филми',
+            films: 'Фильмы',
             trailers: 'Трейлеры',
             watchTrailer: 'Посмотреть трейлер',
             watchByFollow: `Смотреть по подписке`,
@@ -115,11 +116,11 @@ const ru = {
         }
     },
     navbar: {
-        movies: 'филми',
+        movies: 'Фильмы',
         serials: 'Сериалы',
         allCategories: 'Все категории',
         forwards: 'Избранное',
-        settings: 'Размеры шрифта',
+        settings: 'Настройки аккаунта',
         shrift: 'Размеры шрифта',
         smallShrift: 'Маленькие',
         mediumShrift: 'Средние',

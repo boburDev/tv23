@@ -15,11 +15,10 @@ import SearchNotFound from '../notFound/SearchNotFound/notFound'
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { useTheme } from "../../context/theme";
-import { useLang } from "../../context/lanuage";
 import axios from "axios";
 import { useApi } from "../../context/api";
-
-
+import Language from '../../languages'
+import { useLang } from '../../context/lanuage'
 
 function Navbar({ login, path }) {
 	const [api] = useApi()
@@ -33,6 +32,7 @@ function Navbar({ login, path }) {
 	const language = useParams();
 	const [loading, setLoading] = useState(false)
 	const [movies, setMovies] = useState([])
+    const [ til ] = useLang()
 	//toggle dark or light mode  and write localstorage
 
 	const toggleDark = () => {
@@ -155,17 +155,17 @@ function Navbar({ login, path }) {
               >
                 <li className={st.navbar_link_item}>
                   <Link to={`/${language.lang || "ru"}/categories/фильмы`}>
-                    Фильмы
+                  {Language[til].navbar.movies}
                   </Link>
                 </li>
                 <li className={st.navbar_link_item}>
                   <Link to={`/${language.lang || "ru"}/categories/сериалы`}>
-                    Сериалы
+                  {Language[til].navbar.serials}
                   </Link>
                 </li>
                 <li className={st.navbar_link_item}>
                   <Link to={`/${language.lang || "ru"}/categories`}>
-                    Все категории
+                  {Language[til].navbar.allCategories}
                   </Link>
                 </li>
                 <li className={st.navbar_link_item}>
@@ -175,7 +175,7 @@ function Navbar({ login, path }) {
                 </li>
                 <li className={st.navbar_link_item}>
                   <Link to={`/${language.lang || "ru"}/favourites`}>
-                    Избранные
+                  {Language[til].navbar.forwards}
                   </Link>
                 </li>
               </ul>
@@ -228,26 +228,50 @@ function Navbar({ login, path }) {
               </div>
 
               {/* Mini menu for mobile devices */}
+              
               <div ref={componentRef}>
                 <div style={miniMenuStyle} className={st.miniMenu}>
                   <div>
+                      <div className={`${st.languageMiniDevice} ${dark ? st.dark : ""}`}>
+                    <Link
+                      to="/ru"
+                      style={{ fontWeight: lang === "ru" ? 900 : 400 }}
+                      onClick={() => {
+                        setLang("ru");
+                        setReload(true);
+                      }}
+                    >
+                      RU
+                    </Link>
+                    <span style={{ color: !dark ? "black" : "white" }}>|</span>
+                    <Link
+                      to="/uz"
+                      style={{ fontWeight: lang === "uz" ? 900 : 400 }}
+                      onClick={() => {
+                        setLang("uz");
+                        setReload(true);
+                      }}
+                    >
+                      UZ
+                    </Link>
+                  </div>
                     <ul
                       className={st.navbar}
                       style={{ display: login ? "none" : "" }}
                     >
                       <li className={st.navbar_link_item}>
                         <Link to={`/${language.lang || "ru"}/categories/фильмы`}>
-                          Фильмы
+                          {Language[til].navbar.movies}                 
                         </Link>
                       </li>
                       <li className={st.navbar_link_item}>
                         <Link to={`/${language.lang || "ru"}/categories/сериалы`}>
-                          Сериалы
+                          {Language[til].navbar.serials}                   
                         </Link>
                       </li>
                       <li className={st.navbar_link_item}>
                         <Link to={`/${language.lang || "ru"}/categories`}>
-                          Все категории
+                          {Language[til].navbar.allCategories}
                         </Link>
                       </li>
                       <li className={st.navbar_link_item}>
@@ -257,8 +281,7 @@ function Navbar({ login, path }) {
                       </li>
                       <li className={st.navbar_link_item}>
                         <Link to={`/${language.lang || "ru"}/favourites`}>
-                          Избранные
-                        </Link>
+                         {Language[til].navbar.forwards}                      </Link>
                       </li>
                     </ul>
 
@@ -267,17 +290,17 @@ function Navbar({ login, path }) {
                       className={st.menuItem}
                     >
                       <img src={userIcon} alt="" />
-                      <div className={st.itemName}>Настройки аккаунта</div>
+                      <div className={st.itemName}>{Language[til].navbar.settings}</div>
                     </Link>
                     <div onClick={toggleDark} className={st.menuItem}>
                       <img src={dark ? sunIcon : sunIconForLight} alt="" />
                       <div className={st.itemName}>
-                        {dark ? `Темный режим` : `Светлый режим`}
+                        {dark ? Language[til].navbar.darkMode : Language[til].navbar.lightMode}
                       </div>
                     </div>
                     <div className={st.menuItem}>
                       <img src={fontIcon} alt="" />
-                      <div className={st.itemName}>Размеры шрифта</div>
+                      <div className={st.itemName}>{Language[til].navbar.shrift}</div>
                       <div className={st.itemChild}>
                         <div
                           className={`${st.childItem} ${
@@ -287,7 +310,7 @@ function Navbar({ login, path }) {
                             fontChange("SMALL");
                           }}
                         >
-                          Маленькие
+                          {Language[til].navbar.smallShrift}
                         </div>
                         <div
                           className={`${st.childItem} ${
@@ -297,7 +320,7 @@ function Navbar({ login, path }) {
                             fontChange("MEDIUM");
                           }}
                         >
-                          Средние
+                          {Language[til].navbar.mediumShrift}
                         </div>
                         <div
                           className={`${st.childItem} ${
@@ -307,7 +330,7 @@ function Navbar({ login, path }) {
                             fontChange("LARGE");
                           }}
                         >
-                          Крупные
+                          {Language[til].navbar.bigShrift}
                         </div>
                       </div>
                     </div>
