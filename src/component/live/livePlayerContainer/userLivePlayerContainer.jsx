@@ -1,10 +1,7 @@
 import { useCallback, useState, useEffect } from "react";
 import st from "../../movie/moviePlayerContainer/moviePlayerContainer.module.css";
 import stLocal from "./livePlayerContainer.module.css";
-// import Button from '../../elements/button/button'
-// import VideoPlayer from '../../movie/moviePlayer/moviePlayer'
 import { useTheme } from "../../../context/theme";
-// import { useSocket } from '../../../context/socket'
 import cover from "../../../assets/bg/client.JPG";
 import Button from "../../elements/button/button";
 import IO from "socket.io-client";
@@ -185,39 +182,19 @@ export default function UserLivePlayerContainer({ movie, api }) {
           </h3>
         </div>
       </div>
-      <div
-        style={{ height: playerHeight, width: "100% !important" }}
-        id="playerRef"
-        className={st.playerArea}
-      >
-        <video
-          id="liveVideo"
-          autoPlay
-          style={{
-            display: isVideo ? "flex" : "none",
-            width: "100% !important",
-          }}
-        ></video>
-        <div
-          className={st.cover}
-          style={{ display: isVideo ? "none" : "flex" }}
-        >
+
+      <div id="playerRef" className={stLocal.playerArea}>
+        <video className={stLocal.video} id="liveVideo" autoPlay width="100%" height="100%" style={{ display: isVideo ? "flex" : "none", objectFit: "cover" }}></video>
+        <div className={st.cover} style={{ display: isVideo ? "none" : "flex" }}>
           <img src={cover} alt="video_cover" />
           <div className={st.controlBtn}>
             <div onClick={() => setIsVideo(true)} id="joinViewer">
               <Button style={coverBtnStyle}>{Language[til].live.userLivePlayerContainer.watchByFollow}</Button>
             </div>
-            {/* <div>
-              <Button style={{ background: "#111112", ...coverBtnStyle }}>
-                {Language[til].live.userLivePlayerContainer.watchTrailer}
-              </Button>
-            </div> */}
           </div>
         </div>
       </div>
-      {/* <button id="joinViewer" onClick={() => setIsVideo(true)}>
-        Live
-      </button> */}
+
       <div className={st.topBar}>
         <div className={`${st.additional_functions} ${dark ? "" : st.black}`}></div>
       </div>

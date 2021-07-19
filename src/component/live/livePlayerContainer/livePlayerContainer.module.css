@@ -15,9 +15,29 @@
   content: "ochish";
 }
 
+.playerArea {
+  min-height: 90vh;
+  max-height: 90vh;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
 .description div:hover {
   cursor: pointer;
 }
+
+.container .video{
+  display: flex;
+  max-width: 100%;
+  min-height: 90vh;
+  max-height: 90vh;
+  height: 100%;
+}
+
+.video::-webkit-media-controls-panel{
+  width: 100%;
+}
+
 
 .btn{
   display: flex;

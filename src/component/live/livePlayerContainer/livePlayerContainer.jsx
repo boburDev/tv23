@@ -6,18 +6,12 @@ import IO from "socket.io-client";
 import cover from "../../../assets/bg/IMG_3873.JPG";
 import Language from '../../../languages'
 import { useLang } from '../../../context/lanuage'
-import Button from "../../elements/button/button"
 
 export default function LivePlayerContainer({ api }) {
   const [ til ] = useLang()
   const [dark] = useTheme();
   const [playerHeight, setPlayerHeight] = useState("");
-  const [collapseDesc, setCollapseDesc] = useState(false);
   const [isVideo, setIsVideo] = useState(false);
-  const descStyle = {
-    height: !collapseDesc ? 48 + "px" : "auto",
-  };
-  const setCollapse = () => setCollapseDesc(!collapseDesc);
   const settingSize = () => {
     var playerRef = document.getElementById("playerRef");
     setPlayerHeight((playerRef.offsetWidth * 480) / 854);
@@ -50,7 +44,7 @@ export default function LivePlayerContainer({ api }) {
         { urls: "stun:stun.l.google.com:19302" },
       ],
     };
-    const streamConstraints = { audio: true, video: true };
+    const streamConstraints = { audio: false, video: true }
 
     // Let's do this 💪
     // const socket = IO('http://localhost:4000/live', { path: '/socket.io', transports: ["websocket"], autoConnect: false })
@@ -192,10 +186,10 @@ export default function LivePlayerContainer({ api }) {
           </h3>
         </div>
       </div>
-      <div style={{ height: playerHeight }} id="playerRef" className={st.playerArea}>
+      <div id="playerRef" className={stLocal.playerArea}>
         <div id="consultingRoom"
           style={{ display: isVideo ? "flex" : "none", width: "100% !important"}}>
-          <video id="livePlayer" width="100%" height="100%" autoPlay style={{ objectFit: "cover" }} ></video>
+          <video className={stLocal.video} id="livePlayer" width="100%" height="100%" autoPlay style={{ objectFit: "cover" }}></video>
         </div>
 
         <div className={st.cover} style={{ display: isVideo ? "none" : "flex" }}>
@@ -207,8 +201,6 @@ export default function LivePlayerContainer({ api }) {
           </div>
         </div>
       </div>
-
-      <video id="livePlayer" className={st.livePlayer} playsInline autoPlay></video>
     </div>
   );
 }

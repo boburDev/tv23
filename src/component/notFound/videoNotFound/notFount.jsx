@@ -10,7 +10,7 @@ export default function NoFoundVideos() {
   return (
     <div className={st.container}>
       <div className={st.text} style={{ color: dark ? " " : "black" }}>
-      {Language[til].notfound.notFound.videoNotFound}
+      {Language[til].notfound.videoNotFound}
       </div>
     </div>
   );
