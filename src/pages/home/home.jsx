@@ -7,6 +7,8 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { useApi } from "../../context/api"
 import FilterComponent from '../../component/filter/filter'
+import Loader from '../../component/loader/loader'
+
 function Home() {
   const [api] = useApi()
   const [categories, setCategories] = useState([])
@@ -38,6 +40,9 @@ function Home() {
 
   return (
     <>
+      {
+        loading && <Loader />
+      }
       <FilterComponent />
       <Navbar />
       <Triller data={recommendedTriller} api={api} />
