@@ -20,10 +20,12 @@ const ru = {
        login: {
             signInMessage: 'Ошибка логина или пароля',
             enter: 'Вход',
+            recovery: 'Восстановить пароль',
             register: `Регистрация`,
             labelPhone: 'Тел.номер',
             labelPassword: 'Пароль',
-            restorePassword: 'Bосстановить парол'
+            newLabelPassword: 'Введите новый пароль',
+            restorePassword: 'Bосстановить пароль'
        },
        verifyPhone: {
            sentPassword: 'Введите код, отправленный на ваш номер телефона',

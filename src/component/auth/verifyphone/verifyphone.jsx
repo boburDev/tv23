@@ -54,58 +54,6 @@ export default function VerifyPhone() {
     }
   };
 
-  //   const onSignInOnSubmit = async () => {
-  //     setupReCaptcha()
-  //     const phoneNumber = userState.user.phone
-  //     const appVerifier = window.recaptchaVerifier
-  //     console.log("appVerifier", appVerifier)
-
-  // firebase
-  //   .auth()
-  //   .signInWithPhoneNumber(phoneNumber, appVerifier)
-  //   .then((confirmationResult) => {
-  //     const code = window.prompt("Kodni kirit:")
-  //     console.log("confirmationResult", confirmationResult)
-  //     confirmationResult
-  //       .confirm(code)
-  //       .then(async (result) => {
-  //         const res = await axios.post(`${api}/create-user`, {
-  //           username: userState.user.username,
-  //           password: userState.user.password,
-  //           phoneNumber: userState.user.password,
-  //         })
-  //         console.log("res", res)
-  //         if (res) {
-  //           console.log("res", res)
-  //           // window.localStorage.setItem('autorization', res.data.accessToken)
-  //           // window.localStorage.setItem('user', JSON.stringify(res.data.data))
-  //           // history.push('/')
-  //         }
-  //         const user = result.user
-  //         console.log("user", user)
-  //       })
-  //       .catch((error) => {
-  //         //not signed in
-  //         console.log(error)
-  //       })
-  //     window.confirmationResult = confirmationResult
-  //    //   ...
-  //   })
-  //   .catch((error) => {
-  //     //sms sent error
-  //   })
-  //   }
-
-  useEffect(() => {
-    if (!userState.error.isError) {
-      if (userState.user.username === "" || userState.user.phone === "") {
-        // history.push('/sign-up')
-      } else if (userState.user.password === "") {
-        // history.push('/sign-up/password')
-      }
-    }
-  }, [userState]);
-
   useEffect(() => {
     onSignInOnSubmit();
   });

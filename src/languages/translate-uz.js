@@ -20,9 +20,11 @@ const uz = {
        login: {
             signInMessage: 'Login yoki parol xato',
             enter: 'Kirish',
+            recovery: 'Parolni tiklash',
             register: `Ro'yxatdan o'tish`,
             labelPhone: 'Telefon raqam',
             labelPassword: 'Parol',
+            newLabelPassword: 'Yangi parol kiriting',
             restorePassword: 'Parolni tiklash'
        },
        verifyPhone: {
