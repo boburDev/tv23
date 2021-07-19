@@ -12,7 +12,7 @@ export default function UserLivePlayerContainer({ movie, api }) {
   const [ til ] = useLang()
   const [dark] = useTheme();
   const [isVideo, setIsVideo] = useState(false);
-  const [playerHeight, setPlayerHeight] = useState("");
+  const [, setPlayerHeight] = useState("");
   const [collapseDesc, setCollapseDesc] = useState(false);
   const descStyle = {
     height: !collapseDesc ? 48 + "px" : "auto",

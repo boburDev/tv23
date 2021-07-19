@@ -10,7 +10,7 @@ import { useLang } from '../../../context/lanuage'
 export default function LivePlayerContainer({ api }) {
   const [ til ] = useLang()
   const [dark] = useTheme();
-  const [playerHeight, setPlayerHeight] = useState("");
+  const [, setPlayerHeight] = useState("");
   const [isVideo, setIsVideo] = useState(false);
   const settingSize = () => {
     var playerRef = document.getElementById("playerRef");
@@ -164,12 +164,7 @@ export default function LivePlayerContainer({ api }) {
 
   useEffect(() => {
     wrtc();
-  });
-
-  const coverBtnStyle = {
-      marginBottom: "20px",
-      width: "200px",
-  }
+  })
 
   return (
     <div
