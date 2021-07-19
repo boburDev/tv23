@@ -24,8 +24,9 @@ export default function ProfileSideBar() {
             {Language[til].user.profileSidebar.accaunt}
           </NavLink>
         </li>
-        <li>
+        <li style={{pointerEvents: 'none'}}>
           <NavLink
+		  	
             activeClassName={dark ? st.sideLinkActive : st.sideLinkActiveDark}
             className={st.sideLink}
             to={`/${language.lang || "ru"}/settings/follow`}
@@ -33,8 +34,9 @@ export default function ProfileSideBar() {
             {Language[til].user.profileSidebar.follow}
           </NavLink>
         </li>
-        <li>
+        <li style={{pointerEvents: 'none'}}>
           <NavLink
+            
             activeClassName={dark ? st.sideLinkActive : st.sideLinkActiveDark}
             className={st.sideLink}
             to={`/${language.lang || "ru"}/settings/payment`}

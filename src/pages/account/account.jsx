@@ -3,16 +3,18 @@ import { Redirect, Route } from 'react-router'
 import Footer from '../../component/footer/footer'
 import Navbar from '../../component/navbar/navbar'
 import Profile from '../../component/user/profile/profile'
-import profileImage from '../../assets/image/profileImage.png'
 import maskProfile from '../../assets/image/maskProfile.png'
 import Following from '../../component/user/following/following'
+import History from '../../component/user/history/history'
 import ProfileSideBar from '../../component/user/profileSideBar/profileSideBar'
 import { useParams } from 'react-router-dom'
 import { useAuth } from '../../context/user'
+import { useApi } from '../../context/api'
 import { useEffect, useState } from 'react'
 export default function Settings() {
     const language = useParams()
     const [auth] = useAuth()
+    const [api] = useApi()
     const [response, setResponse] = useState({})
 
     useEffect(()=>{
@@ -30,18 +32,11 @@ export default function Settings() {
             <div className={st.mask}>
                 <img src={maskProfile} alt="" />
                 <div className={st.imageAvatar}>
-                    <div className={st.usernameBox}>USERNAME</div><img src={profileImage} alt="" />
+                    <div 
+                    className={st.usernameBox}>{auth && auth.userName}</div>
+                    <img src={`${api}/${auth && auth.userPath}`} alt="" width="50" />
                 </div>
             </div>
-            {/* <div className={st.balance}> 
-                    <div className={st.pairs}>
-                        <div className={st.key}>Баланс:</div><div className={st.val}> 0 сум</div>
-                    </div>
-                    <div className={st.pairs}>
-                        <div className={st.key}> ID number: </div><div
-                        className={st.val}> 00101</div>
-                    </div>
-            </div> */}
             <div className={st.contentContainer}>
                 <div className={st.content}>
                     <Route path='/'><Redirect to={`/${language.lang || 'ru'}/settings/profile`}/></Route>
@@ -49,6 +44,7 @@ export default function Settings() {
                         <Profile data={response} />
                     </Route>
                     <Route path={`/${language.lang || 'ru'}/settings/follow`} component={Following} />
+                    <Route path={`/${language.lang || 'ru'}/settings/history`} component={History} />
                 </div>
                 <div className={st.sidebar}>
                     <ProfileSideBar />

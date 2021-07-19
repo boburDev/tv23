@@ -14,7 +14,7 @@ export default function CommentItem({ comment, api }) {
             comment ? <>
             <div style={{color: dark ? '' : '#000'}} className={st.author}>
                 <div className={st.avatar}>
-                    <img src={avatar || `${api}/${comment.user_path}`} alt="avatar" />
+                    <img src={`${api}/${comment.user_path}` || avatar} alt="avatar" />
                 </div>
                 <div className={st.username}>
                     {comment.user_username}
