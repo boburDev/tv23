@@ -18,7 +18,7 @@ function LoginProvider({ children }) {
       message: null,
     },
     signUp: "",
-    recovery: '',
+    recovery: "",
     accessToken: localStorage.getItem("Authorization"),
   });
 

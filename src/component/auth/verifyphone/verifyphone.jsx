@@ -41,21 +41,22 @@ export default function VerifyPhone() {
       console.log(confirmationResult);
     } catch (err) {
       // sms sent err
-      console.log("err", err.message);
+      console.log("send sms err", err.message);
     }
   };
 
   const checkVerification = async () => {
     try {
-      await window.confirmationResult.confirm(verifyCode);
+      const user = await window.confirmationResult.confirm(verifyCode);
       const res = await axios.post(`${api}/create-user`, {
-        username: "Murodjon",
-        password: "123",
+        username: userState.user.username,
+        password: userState.user.password,
+        age: userState.user.age - 0,
         phoneNumber: userState.user.phone,
       });
       console.log("res", res);
     } catch (err) {
-      console.log("err", err.message);
+      console.log("create user firebase err", err.message);
     }
   };
 
@@ -74,7 +75,6 @@ export default function VerifyPhone() {
           <div style={{ color: dark ? "" : "black" }} className={st.title}>
             {Language[til].auth.verifyPhone.sentPassword}
           </div>
-
           <VerifyInput verifyCode={verifyCode} setVerfyCode={setVerfyCode} />
           <div className={st.buttonLink}>
             {Language[til].auth.verifyPhone.resend}

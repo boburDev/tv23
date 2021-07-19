@@ -38,7 +38,7 @@ export default function VerifyInput({ verifyCode, setVerfyCode }) {
 
   useEffect(() => {
     let value = "";
-    Object.values(inputValues).map((item) => value += item);
+    Object.values(inputValues).map((item) => (value += item));
     setVerfyCode(value);
     console.log("verifyCode", verifyCode);
   }, [inputValues, setVerfyCode, verifyCode]);
@@ -47,6 +47,7 @@ export default function VerifyInput({ verifyCode, setVerfyCode }) {
     <div ref={inputRef} id="containerRef" className={st.container}>
       {Object.keys(inputValues).map((input, index) => (
         <input
+          key={index}
           type="text"
           onKeyUp={(e) => handleChangeFocus(index, e)}
           onChange={(e) => {
