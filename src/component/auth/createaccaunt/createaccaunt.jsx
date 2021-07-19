@@ -42,14 +42,13 @@ export default function CreateAccount() {
                 to={`/${language.lang || 'ru'}/login`} 
                 className={st.regLink}>{Language[til].auth.createAccout.enter}</Link>
             </div>
-                <InputProfile reference={phoneRef}
-                label={Language[til].auth.createAccout.phoneNumber} />
-                
-                <InputProfile reference={usernameRef}
-                label={Language[til].auth.createAccout.userName}/>
+                <InputProfile
+                reference={phoneRef} label={Language[til].auth.createAccout.phoneNumber} />
+
+                <InputProfile reference={usernameRef} label={Language[til].auth.createAccout.userName}/>
 
                 <InputProfile reference={ageRef} label={Language[til].auth.createAccout.age}/>
-                
+
                 <div onClick={handleInfo}>
                     <Button style={{width:'100%', marginTop:'30px'}} >{Language[til].auth.createAccout.nextStep}</Button>
                 </div>
