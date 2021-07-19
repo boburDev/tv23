@@ -31,7 +31,8 @@ const uz = {
            sentPassword: 'Telefon raqamingizga yuborilgan kodni kiriting',
            restorePassword: 'Parolni tiklash',
            confirm: 'Tasdiqlash',
-           sendSms: `SMS jo'natish`
+           sendSms: `SMS jo'natish`,
+           resend: `Qayta jo'natish`,
        }
     },
     categories: {

@@ -71,7 +71,7 @@ export default function VerifyPhone() {
           </div>
 
           <VerifyInput verifyCode={verifyCode} setVerfyCode={setVerfyCode} />
-          <div className={st.buttonLink}>{Language[til].auth.verifyPhone.restorePassword}</div>
+          <div className={st.buttonLink}>{Language[til].auth.verifyPhone.resend}</div>
           <div onClick={checkVerification}>
             <Button style={{ width: "100%", marginTop: "10px" }}>
               {Language[til].auth.verifyPhone.confirm}

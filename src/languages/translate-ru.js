@@ -31,7 +31,9 @@ const ru = {
            sentPassword: 'Введите код, отправленный на ваш номер телефона',
            restorePassword: 'Bосстановить парол',
            confirm: 'Подтверждение',
-           sendSms: `Отправить смс`
+           sendSms: `Отправить смс`,
+           resend: `Переотправьте код`,
+
        }
     },
     categories: {
