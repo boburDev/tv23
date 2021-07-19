@@ -53,7 +53,7 @@ export default function VerifyPhone({ recover }) {
 
   const checkVerification = async () => {
     try {
-      const user = await window.confirmationResult.confirm(verifyCode);
+      await window.confirmationResult.confirm(verifyCode)
       const res = await axios.post(`${api}/create-user`, {
         username: userState.user.username,
         password: userState.user.password,

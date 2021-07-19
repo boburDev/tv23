@@ -75,7 +75,7 @@ export default function SignIn() {
         </Button>
       </div>
       <div className={st.buttonLink}>
-        <Link to="/ru/sign-up/recover" style={{ color: "red" }}>
+        <Link to="#" style={{ color: "red" }}>
           {Language[til].auth.login.restorePassword}
         </Link>
       </div>
