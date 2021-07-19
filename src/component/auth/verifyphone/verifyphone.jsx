@@ -1,6 +1,6 @@
 import Button from "../../elements/button/button";
 import st from "./verifyphone.module.css";
-import goBack from "../../../assets/image/goBack.png";
+// import goBack from "../../../assets/image/goBack.png";
 import VerifyInput from "../../elements/verifyInput/verifyInput";
 import { useTheme } from "../../../context/theme";
 import { useEffect, useState } from "react";
@@ -11,7 +11,7 @@ import { useLang } from '../../../context/lanuage.jsx'
 // import { useApi } from "../../../context/api"
 // import axios from "axios"
 
-export default function VerifyPhone() {
+export default function VerifyPhone() { 
   const [dark] = useTheme();
   const [userState] = useLogin();
   // const [api] = useApi()
@@ -61,7 +61,7 @@ export default function VerifyPhone() {
   return (
     <div>
       <div className={st.navigation}>
-        <img src={goBack} alt="" />
+        <img src={''} alt="" />
         <div id="recaptcha-container"></div>
       </div>
       {isSendSms ? (

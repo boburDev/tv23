@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import goBack from '../../../assets/image/goBack.png'
+// import goBack from '../../../assets/image/goBack.png'
 import st from './recover.module.css'
 import InputProfile from '../../elements/inputProfile/inputProfile'
 import Button from '../../elements/button/button'
@@ -24,7 +24,7 @@ export default function Recovery() {
     return (
         <div>
             <div className={st.navigation}>
-                <img src={goBack} alt=""/>
+                <img src={''} alt=""/>
             </div>
             <div className={st.title}>
                 <div  style={{color:dark ? '' : 'black'}}>{Language[til].auth.login.recovery}</div>
