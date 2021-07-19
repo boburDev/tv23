@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useApi } from "../../context/api";
 import { useParams } from "react-router-dom";
-
+import Loader from '../../component/loader/loader'
 export default function CategoryMovie() {
   const [api] = useApi();
   const category = useParams();
@@ -59,6 +59,9 @@ export default function CategoryMovie() {
 
   return (
     <>
+      {
+		  loading && <Loader />
+	  }
       <Navbar />
       <TrillerCarousel api={api} movies={recommendedTriller} />
       <MovieCategory

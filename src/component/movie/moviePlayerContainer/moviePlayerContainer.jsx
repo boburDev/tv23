@@ -208,12 +208,14 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
 						}
 				  }
 				}}>
-                <Button style={coverBtnStyle}>{Language[til].movie.MoviePlayerContainer.watchByFollow}</Button>
+                <Button style={coverBtnStyle}>
+                  {Language[til].movie.moviePlayerContainer.watchByFollow}
+                  </Button>
               </div>
               {
 				  triller && <div onClick={()=>setIsVideoTriler(true)}>
 					<Button style={{ background: "#111112", ...coverBtnStyle }}>
-					{Language[til].movie.MoviePlayerContainer.watchTrailer}
+					{Language[til].movie.moviePlayerContainer.watchTrailer}
 					</Button>
 				</div>
 			  }
@@ -224,7 +226,9 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
       
 	  <div className={st.topBar}>
         <div style={{ color: dark ? "#fff" : "#000" }} className={`${st.title_films} ${dark ? "" : st.black}`}>
-          <p>{Language[til].movie.MoviePlayerContainer.name}: </p>
+          <p>
+            {Language[til].movie.moviePlayerContainer.name}: 
+            </p>
           <h3>{movie && movie.movie_name}</h3>
         </div>
         <div className={`${st.additional_functions} ${dark ? "" : st.black}`}>
@@ -237,7 +241,9 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
               }}>
               <img width="20px" className={st.icon}
                 src={isFavourite ? favourStart : unSelectedStart} alt="favourite" />
-              <p> {Language[til].movie.MoviePlayerContainer.toForwards}</p>
+              <p> 
+                {Language[til].movie.moviePlayerContainer.toForwards}
+                </p>
             </Button>
           </div>
           <div onClick={() => {
@@ -265,7 +271,9 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
                 }
                 alt="favourite"
               />
-              <p>{Language[til].movie.MoviePlayerContainer.send}</p>
+              <p>
+                {/* {Language[til].movie.MoviePlayerContainer.send} */}
+                </p>
             </Button>
           </div>
         </div>
