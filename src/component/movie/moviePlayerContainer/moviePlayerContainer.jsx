@@ -31,11 +31,11 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
   const [playerHeight, setPlayerHeight] = useState("")
   const [isVideo, setIsVideo] = useState(false)
   const [isVideoTriller, setIsVideoTriler] = useState(false)
-  const [isFavourite, setIsFavourite] = useState(false)
   const [sendLink, setSendLink] = useState(false)
   const [openModal, setOpenModal] = useSharing()
   const [userData] = useAuth()
   const [isLogged,setIsLogged] = useState(false)
+  const [isFavour, setIsFavour] = useState(false)
   const language = useParams()
   const [ til ] = useLang()
 
@@ -99,6 +99,59 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
 	})
 	setSerials(res.data.data)
   }
+
+  async function UpdateFavour() {
+		if (api) {
+			try {
+				await axios.post(api + '/add-favourite', {
+					movieId: language && language.movieid
+				}, {
+					headers: {
+						Authorization: localStorage.getItem('Authorization')
+					}
+				})
+				setIsFavour(true)
+			} catch (error) {
+				
+			}
+		}
+  }
+
+  async function DeleteFavour() {
+		if (api) {
+			try {
+				await axios.post(api + '/delete-favourite', {
+					movieId: language && language.movieid
+				}, {
+					headers: {
+						Authorization: localStorage.getItem('Authorization')
+					}
+				})
+				setIsFavour(false)
+			} catch (error) {
+				
+			}
+		}
+  }
+
+  async function getFavour(api, movieId) {
+	const res = await axios.get(api + '/favorite-movie-one', {
+		headers: {
+			Authorization: localStorage.getItem('Authorization')
+		},
+		params: {
+			movieId: movieId
+		}
+	})
+
+	setIsFavour(res.data.data)
+  }
+
+  useEffect(()=>{
+	if (api) {
+		getFavour(api, language && language.movieid)
+	}
+  },[api,language])
 
 
   useEffect(()=>{
@@ -232,15 +285,21 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
           <h3>{movie && movie.movie_name}</h3>
         </div>
         <div className={`${st.additional_functions} ${dark ? "" : st.black}`}>
-          <div onClick={() => setIsFavourite(!isFavourite)}className={st.favourite}>
+          <div onClick={() => {
+			  if (isFavour) {
+				DeleteFavour()
+			  } else {
+				UpdateFavour()
+			  }
+		  }}className={st.favourite}>
             <Button
               className={st.btn}
               style={{
                 background: dark ? "rgb(35 35 39)" : "#fff",
-                color: dark ? isFavourite && "#fff" : isFavourite ? "#000" : "",
+                color: dark ? isFavour && "#fff" : isFavour ? "#000" : "",
               }}>
               <img width="20px" className={st.icon}
-                src={isFavourite ? favourStart : unSelectedStart} alt="favourite" />
+                src={isFavour ? favourStart : unSelectedStart} alt="favourite" />
               <p> 
                 {Language[til].movie.moviePlayerContainer.toForwards}
                 </p>

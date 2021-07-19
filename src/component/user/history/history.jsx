@@ -34,7 +34,7 @@ export default function History({ visibled = 4 }) {
         <div className={st.container}>
         {
             state && <>
-            <div>
+            <div style={{display: 'flex', flexWrap: 'wrap'}}>
                 {
                     state.map(
                         (item, key) =>
