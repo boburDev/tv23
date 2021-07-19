@@ -6,18 +6,18 @@ import { useTheme } from "../../../context/theme";
 import { useEffect, useState } from "react";
 import { useLogin } from "../../../context/login";
 import firebase from "../../../context/firebase";
-import Language from '../../../languages'
-import { useLang } from '../../../context/lanuage.jsx'
-// import { useApi } from "../../../context/api"
-// import axios from "axios"
+import Language from "../../../languages";
+import { useLang } from "../../../context/lanuage.jsx";
+import { useApi } from "../../../context/api";
+import axios from "axios";
 
 export default function VerifyPhone() {
   const [dark] = useTheme();
   const [userState] = useLogin();
-  // const [api] = useApi()
+  const [api] = useApi();
   const [isSendSms] = useState(true);
   const [verifyCode, setVerfyCode] = useState({});
-  const [ til ] = useLang()
+  const [til] = useLang();
 
   const setupReCaptcha = () => {
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
@@ -47,8 +47,13 @@ export default function VerifyPhone() {
 
   const checkVerification = async () => {
     try {
-      const { user } = await window.confirmationResult.confirm(verifyCode);
-      console.log("user", user);
+      await window.confirmationResult.confirm(verifyCode);
+      const res = await axios.post(`${api}/create-user`, {
+        username: "Murodjon",
+        password: "123",
+        phoneNumber: userState.user.phone,
+      });
+      console.log("res", res);
     } catch (err) {
       console.log("err", err.message);
     }
@@ -123,7 +128,9 @@ export default function VerifyPhone() {
           </div>
 
           <VerifyInput verifyCode={verifyCode} setVerfyCode={setVerfyCode} />
-          <div className={st.buttonLink}>{Language[til].auth.verifyPhone.restorePassword}</div>
+          <div className={st.buttonLink}>
+            {Language[til].auth.verifyPhone.restorePassword}
+          </div>
           <div onClick={checkVerification}>
             <Button style={{ width: "100%", marginTop: "10px" }}>
               {Language[til].auth.verifyPhone.confirm}
