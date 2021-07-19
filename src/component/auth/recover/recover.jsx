@@ -4,18 +4,13 @@ import st from './recover.module.css'
 import InputProfile from '../../elements/inputProfile/inputProfile'
 import Button from '../../elements/button/button'
 import { useTheme } from '../../../context/theme'
-import { useParams } from 'react-router-dom'
-import axios from 'axios'
-import { useApi } from '../../../context/api'
 import { useLogin } from '../../../context/login'
 import Language from '../../../languages'
 import { useLang } from '../../../context/lanuage.jsx'
 
 export default function Recovery() {
     const [dark] = useTheme()
-    const [api] = useApi()
     const [setLogin] = useLogin(true)
-    const language = useParams()
     const phoneRef = useRef()
     const passRef = useRef()
     const [error, setError] = useState({
