@@ -36,6 +36,8 @@ export default function CreateAccount() {
     }
   };
 
+  console.log(Language[til].auth.createAccout);
+
   return (
     <div>
       <div className={st.navigation}>
@@ -53,7 +55,7 @@ export default function CreateAccount() {
       />
       <InputProfile
         reference={usernameRef}
-        label={Language[til].auth.createAccout.password}
+        label={Language[til].auth.createAccout.userName}
       />
       <InputProfile
         reference={ageRef}

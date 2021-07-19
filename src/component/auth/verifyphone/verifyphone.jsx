@@ -11,7 +11,7 @@ import { useLang } from "../../../context/lanuage.jsx";
 import { useApi } from "../../../context/api";
 import axios from "axios";
 
-export default function VerifyPhone() {
+export default function VerifyPhone({ recover }) {
   const [dark] = useTheme();
   const [userState] = useLogin();
   const [api] = useApi();
@@ -45,6 +45,12 @@ export default function VerifyPhone() {
     }
   };
 
+  // if (recover) {
+  //   checkVerification()
+  // } else {
+  //   checkVerification()
+  // }
+
   const checkVerification = async () => {
     try {
       const user = await window.confirmationResult.confirm(verifyCode);
@@ -54,7 +60,11 @@ export default function VerifyPhone() {
         age: userState.user.age - 0,
         phoneNumber: userState.user.phone,
       });
-      console.log("res", res);
+      const resData = res.data.accessToken;
+      if (resData) {
+        localStorage.setItem("Authorization", resData);
+        window.location.href = "/ru";
+      }
     } catch (err) {
       console.log("create user firebase err", err.message);
     }
