@@ -28,7 +28,7 @@ export default function SignIn() {
                 phoneNumber: phoneRef.current.value || '+998902121212',
                 password: passRef.current.value || '1'
             })
-            console.log(res.data);
+            console.log(res.data)
             if(res.data && res.data.accessToken) {
                 localStorage.setItem('Authorization', res.data.accessToken)
                 setError({isError:false, message:null})

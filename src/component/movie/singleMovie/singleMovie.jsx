@@ -9,6 +9,8 @@ import ShareLink from "../../shareMovie/shareMovie"
 import { useApi } from "../../../context/api"
 import { useParams } from "react-router-dom"
 import axios from "axios"
+import Loader from '../../loader/loader'
+
 import { useEffect, useState } from "react"
 export default function SignleMovie() {
   const [api] = useApi()
@@ -18,33 +20,41 @@ export default function SignleMovie() {
   const [actors, setActors] = useState([])
   const [directors, setDirectors] = useState([])
   const [similarMovie, setSimilarMovie] = useState([])
+  const [loadng, setLoading] = useState(false)
 
   async function getActors(api, params) {
+	setLoading(true)
     const res = await axios.get(
       `${api}/movie-actors?movieId=${params && params.movieid}`
     )
     setActors(res.data.data)
+	setLoading(false)
   }
 
   async function getDirector(api, params) {
+	setLoading(true)
     const res = await axios.get(
       `${api}/movie-directors?movieId=${params && params.movieid}`
     )
+	setLoading(false)
     setDirectors(res.data.data)
   }
 
   async function getMovies(api, params, movie) {
+	setLoading(true)
     const res = await axios.get(`${api}/similar-movies/`, {
       params: {
         movieId: params && params.movieid,
         categoryName: movie && movie.category_name,
       },
     })
+	setLoading(false)
     setSimilarMovie(res.data.data)
   }
 
   async function MovieDetail(api, params) {
     try {
+		setLoading(true)
 		const movies = await axios.get(api + "/movie-one", {
 			params: {
 				movieId: params && params.movieid,
@@ -53,6 +63,7 @@ export default function SignleMovie() {
 				Authorization: localStorage.getItem("Authorization") || 1,
 			},
 			})
+		setLoading(false)
 		setMovie(movies.data.data)
 	} catch (error) {
 		
@@ -77,6 +88,9 @@ export default function SignleMovie() {
 
   return (
     <>
+    {
+      loadng && <Loader />
+    }
       <MoviePlayerContainer movie={movie && movie} api={api} />
       <MovieInfo movie={movie} api={api} />
       <Ads />
@@ -86,7 +100,7 @@ export default function SignleMovie() {
         title="Похожие сериалы"
         movies={similarMovie}
       />
-      <Comments />
+      <Comments api={api} film_id={params && params.movieid} />
       {openModal && <ShareLink />}
     </>
   )

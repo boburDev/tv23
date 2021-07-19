@@ -6,16 +6,16 @@ import CommentItem from "./commentItem/commentItem";
 import { useTheme } from "../../context/theme";
 import Language from '../../languages'
 import { useLang } from '../../context/lanuage.jsx'
+import axios from "axios";
+import { useAuth } from '../../context/user'
 
 export default function Commenting({ film_id, api }) {
   const bodyRef = useRef();
   const [dark] = useTheme();
-  const [comments] = useState([]);
+  const [comments, setComments] = useState([])
   const [ til ] = useLang()
+  const [user] = useAuth()
 
-  // useEffect(()=>{
-  //     setComments(backendComments)
-  // }, [])
   const [current, setCurrent] = useState(0);
   const settingSize = () => {
     setWidth(window.innerWidth);
@@ -34,6 +34,32 @@ export default function Commenting({ film_id, api }) {
     if (e.target.value === "") setIsValid(false);
     else setIsValid(true);
   };
+
+  const clearHandle =()=>{
+		bodyRef.current.value = ''
+		setIsValid(false)
+	}
+
+
+
+	const addComment =async(e)=>{
+	e.preventDefault()
+	const res = await axios.post(`${api}/add-comment`, {
+		movieId: film_id,
+		commentBody:bodyRef.current.value,
+		userId:user && user.userId
+	})
+	if(res)clearHandle(); else window.alert('Error while commenting!!!')
+
+	}
+
+	useEffect(()=>{
+	;(async()=>{
+		const res = await axios.get(api + '/comments?movieId='+ film_id)
+		setComments(res.data.data)
+	})()
+	}, [api, film_id])
+
 
   return (
     <div className={st.container}>
@@ -76,7 +102,7 @@ export default function Commenting({ film_id, api }) {
             rows="10"
           ></textarea>
           <div className={st.button}>
-            <div>
+            <div onClick={isValid ? addComment : ()=>{console.log("Error")}}>
               <Button
                 style={{
                   backgroundColor: !isValid ? "#de7b80" : "",
