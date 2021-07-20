@@ -1,6 +1,5 @@
 import st from './commentItem.module.css'
 import { useTheme } from '../../../context/theme'
-import avatar from '../../../assets/image/avatar.png'
 import Language from '../../../languages'
 import { useLang } from '../../../context/lanuage.jsx'
 
@@ -14,7 +13,7 @@ export default function CommentItem({ comment, api }) {
             comment ? <>
             <div style={{color: dark ? '' : '#000'}} className={st.author}>
                 <div className={st.avatar}>
-                    <img src={`${api}/${comment.user_path}` || avatar} alt="avatar" />
+                    <img src={`${api}/${comment.user_path || 'users/user-default.png'}`} alt="avatar" width="45" />
                 </div>
                 <div className={st.username}>
                     {comment.user_username}

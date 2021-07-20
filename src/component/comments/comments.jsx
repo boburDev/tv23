@@ -15,12 +15,14 @@ export default function Commenting({ film_id, api }) {
   const [comments, setComments] = useState([])
   const [ til ] = useLang()
   const [user] = useAuth()
-
   const [current, setCurrent] = useState(0);
+
   const settingSize = () => {
     setWidth(window.innerWidth);
   };
+
   const [width, setWidth] = useState(window.innerWidth);
+
   useEffect(() => {
     settingSize();
     window.addEventListener("resize", settingSize);
@@ -42,22 +44,33 @@ export default function Commenting({ film_id, api }) {
 
 
 
-	const addComment =async(e)=>{
+	const addComment = async(e)=>{
 	e.preventDefault()
-	const res = await axios.post(`${api}/add-comment`, {
-		movieId: film_id,
-		commentBody:bodyRef.current.value,
-		userId:user && user.userId
-	})
-	if(res)clearHandle(); else window.alert('Error while commenting!!!')
+		try {
+			const res = await axios.post(`${api}/add-comment`, {
+				movieId: film_id,
+				commentBody:bodyRef.current.value,
+				userId:user && user.userId
+			})
+			if(res)clearHandle(); else window.alert('Error while commenting!!!')
+		} catch (error) {
+			
+		}
+	}
 
+	async function GetComment(api, film_id){
+		const res = await axios.get(api + '/comments?movieId='+ film_id)
+		setComments(res.data.data)
 	}
 
 	useEffect(()=>{
-	;(async()=>{
-		const res = await axios.get(api + '/comments?movieId='+ film_id)
-		setComments(res.data.data)
-	})()
+		try {
+			if (api && film_id) {
+				GetComment(api, film_id)	
+			}
+		} catch (error) {
+			
+		}
 	}, [api, film_id])
 
 
@@ -71,7 +84,7 @@ export default function Commenting({ film_id, api }) {
           <div className={st.description}>
             {Language[til].comments.comments.leaveComment}
           </div>
-          <CommentItem comment={comments[current]} />
+          <CommentItem api={api} comment={comments[current]} />
           <div className={st.slider}>
             <SliderCounterAdvanced
               buttonNextStyle={{
@@ -102,7 +115,7 @@ export default function Commenting({ film_id, api }) {
             rows="10"
           ></textarea>
           <div className={st.button}>
-            <div onClick={isValid ? addComment : ()=>{console.log("Error")}}>
+            <div onClick={isValid ? addComment : ()=>{}}>
               <Button
                 style={{
                   backgroundColor: !isValid ? "#de7b80" : "",

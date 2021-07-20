@@ -7,7 +7,6 @@ import { useParams } from "react-router-dom";
 export default function Categories(props) {
   const language = useParams();
   const [dark] = useTheme();
-  // console.log(props)
   return (
     <>
       {props.what === "category" ? (

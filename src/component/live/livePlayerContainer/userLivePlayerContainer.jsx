@@ -84,7 +84,6 @@ export default function UserLivePlayerContainer({ movie, api }) {
 
       rtcPeerConnections[viewer.id].onicecandidate = (event) => {
         if (event.candidate) {
-          console.log("sending ice candidate");
           socket.emit("candidate", viewer.id, {
             type: "candidate",
             label: event.candidate.sdpMLineIndex,
@@ -105,7 +104,6 @@ export default function UserLivePlayerContainer({ movie, api }) {
           });
         })
         .catch((error) => {
-          console.log(error);
         });
     });
 
@@ -141,7 +139,6 @@ export default function UserLivePlayerContainer({ movie, api }) {
 
       rtcPeerConnections[broadcaster.id].onicecandidate = (event) => {
         if (event.candidate) {
-          console.log("sending ice candidate");
           socket.emit("candidate", broadcaster.id, {
             type: "candidate",
             label: event.candidate.sdpMLineIndex,

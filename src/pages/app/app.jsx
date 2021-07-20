@@ -5,6 +5,7 @@ import AllCategoryMovie from "../allCategoryMovie/categoryMovie";
 import CategoryMovie from "../categoryMovie/categoryMovie";
 import GenreMovie from "../genreMovie/genreMovie";
 import Movie from "../movie/movie";
+import Serial from "../movie/serial";
 import Live from "../live/live";
 import Login from "../auth/login/login";
 import SignUp from "../auth/signup/signup";
@@ -29,6 +30,7 @@ function App() {
         <Route path="/:lang?/favourites" component={Favourites} exact />
         <Route path="/:lang?/categories/:category" component={CategoryMovie} exact />
         <Route path="/:lang?/categories/:category/:movieid" component={Movie} exact />
+        <Route path="/:lang?/categories/:category/:movieid/:serialid" component={Serial} exact />
         <Route path="/:lang?/genres/:genre" component={GenreMovie} exact />
         <Route path="/:lang?/settings" component={Settings} />
         <Route path="**" component={NotFound} exact />

@@ -38,10 +38,10 @@ export default function VerifyPhone({ recover }) {
         .auth()
         .signInWithPhoneNumber(phoneNumber, appVerifier);
       window.confirmationResult = confirmationResult;
-      console.log(confirmationResult);
+
     } catch (err) {
       // sms sent err
-      console.log("send sms err", err.message);
+
     }
   };
 
@@ -66,7 +66,7 @@ export default function VerifyPhone({ recover }) {
         window.location.href = "/ru";
       }
     } catch (err) {
-      console.log("create user firebase err", err.message);
+
     }
   };
 
@@ -101,7 +101,7 @@ export default function VerifyPhone({ recover }) {
           <div
             onClick={() => {
               // onSignInOnSubmit
-              console.log("commentni och onSignInOnSubmit");
+
             }}
           >
             <Button style={{ width: "100%", marginTop: "10px" }}>

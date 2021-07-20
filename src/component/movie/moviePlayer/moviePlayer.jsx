@@ -33,7 +33,7 @@ export default function VideoPlayer({ movie, api }) {
 	const [isPlay, setIsPlay] = useState(false)
 	const [duration, setDuration] = useState('--:--:--')
 	const [isMuted, setIsMuted] = useState(false)
-	const [volume, setVolume] = useState(0.5)
+	const [volume, setVolume] = useState(1)
 	
 	
 	const localFilmID = window.localStorage.getItem('movie_id')

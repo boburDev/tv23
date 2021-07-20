@@ -10,8 +10,12 @@ export default function Ads() {
 	const [ads, setAds] = useState({})
 	
 	async function ADS(api) {
-		const res = await axios.get(api + '/ads/')
-		setAds(res.data.data)
+		try {
+      const res = await axios.get(api + '/ads/')
+		  setAds(res.data.data)
+    } catch (error) {
+      
+    }
 	}
 
 

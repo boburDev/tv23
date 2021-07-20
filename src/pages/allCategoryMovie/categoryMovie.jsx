@@ -19,7 +19,6 @@ function MovieCategory() {
 			const categories = await axios.get(api + '/category-with-movies')
 			setLoading(false)
 			setCategories(categories.data.data)
-			console.log(categories.data.data)
 		} catch (error) {
 		}
 	}

@@ -15,7 +15,6 @@ export default function History({ visibled = 4 }) {
                 Authorization: localStorage.getItem('Authorization')
             }
         })
-        console.log(res.data.data)
         setState(res.data.data)
     }
 

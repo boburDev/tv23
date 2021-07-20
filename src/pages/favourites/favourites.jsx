@@ -14,6 +14,7 @@ export default function Favourites() {
     const [favourMovies,setFavourMovies] = useState([])
 
     async function getFavourMovie(api) {
+       try {
         setLoading(true)
         const res = await axios.get(api + '/favorite-movie', {
             headers: {
@@ -22,6 +23,9 @@ export default function Favourites() {
         })
         setLoading(false)
         setFavourMovies(res.data.data)
+       } catch (error) {
+            setLoading(false)
+       }
     }
 
     useEffect(()=>{

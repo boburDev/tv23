@@ -17,7 +17,6 @@ export default function LivePlayerContainer({ api }) {
     setPlayerHeight((playerRef.offsetWidth * 480) / 854);
   };
   
-  console.log(Language[til].live.livePlayContainer)
   useCallback(() => {
     window.addEventListener("load", settingSize);
     window.addEventListener("resize", settingSize);
@@ -70,7 +69,6 @@ export default function LivePlayerContainer({ api }) {
           socket.emit("register as broadcaster", user.room);
         })
         .catch(function (err) {
-          console.log("An error ocurred when accessing media devices", err);
         });
     };
 
@@ -87,7 +85,6 @@ export default function LivePlayerContainer({ api }) {
 
       rtcPeerConnections[viewer.id].onicecandidate = (event) => {
         if (event.candidate) {
-          console.log("sending ice candidate");
           socket.emit("candidate", viewer.id, {
             type: "candidate",
             label: event.candidate.sdpMLineIndex,
@@ -108,7 +105,6 @@ export default function LivePlayerContainer({ api }) {
           });
         })
         .catch((error) => {
-          console.log(error);
         });
     });
 
@@ -144,7 +140,6 @@ export default function LivePlayerContainer({ api }) {
 
       rtcPeerConnections[broadcaster.id].onicecandidate = (event) => {
         if (event.candidate) {
-          console.log("sending ice candidate");
           socket.emit("candidate", broadcaster.id, {
             type: "candidate",
             label: event.candidate.sdpMLineIndex,

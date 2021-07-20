@@ -20,7 +20,6 @@ export default function VerifyInput({ verifyCode, setVerfyCode }) {
 
   const handleInputValueChange = (index, e) => {
     const { value } = e.target;
-    console.log("value", value);
     setInputValues({
       ...inputValues,
       [index]: value,
@@ -40,7 +39,6 @@ export default function VerifyInput({ verifyCode, setVerfyCode }) {
     let value = "";
     Object.values(inputValues).map((item) => (value += item));
     setVerfyCode(value);
-    console.log("verifyCode", verifyCode);
   }, [inputValues, setVerfyCode, verifyCode]);
 
   return (

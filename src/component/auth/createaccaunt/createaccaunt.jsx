@@ -15,7 +15,7 @@ export default function CreateAccount() {
   const ageRef = useRef();
   const language = useParams();
   const [til] = useLang();
-  console.log(til);
+
   const handleInfo = () => {
     if (
       phoneRef.current.value &&
@@ -36,7 +36,7 @@ export default function CreateAccount() {
     }
   };
 
-  console.log(Language[til].auth.createAccout);
+
 
   return (
     <div>

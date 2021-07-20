@@ -15,7 +15,7 @@ import { useResolution } from "../../../context/resolution"
 import { useTheme } from "../../../context/theme"
 import { useSharing } from "../../../context/shareLink"
 import { useAuth } from '../../../context/user'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import axios from "axios"
 import SliderCounterAdvanced from "../../sliderCounter/SliderCounterAdvanced";
 import Language from '../../../languages'
@@ -36,15 +36,14 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
   const [userData] = useAuth()
   const [isLogged,setIsLogged] = useState(false)
   const [isFavour, setIsFavour] = useState(false)
+  const [imageLoaded, setImageLoaded] = useState(false);
   const language = useParams()
   const [ til ] = useLang()
 
   const settingSize = () => {
     var playerRef = document.getElementById("playerRef")
     setPlayerHeight((playerRef.offsetWidth * 480) / 854)
-  }
-
-  const [imageLoaded, setImageLoaded] = useState(false);
+  }  
 
   const changeResolution = (resolution) => {
     window.localStorage.setItem("video_resolution", resolution)
@@ -61,15 +60,95 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
     }
   }, [])
 
-  const coverBtnStyle = {
-    marginBottom: "20px",
-    width: "200px",
+  async function GetSerials(api,movieId) {
+	try {
+		const res = await axios.get(api+ '/serials', {
+			params: {
+				movieId: movieId
+			}
+		})
+		setSerials(res.data.data)
+		// console.log(res.data.data)
+	} catch (error) {
+		
+	}
   }
 
-  const ligthMode = {
-    background: dark ? "rgb(35 35 39)" : "#fff",
-    color: dark ? "#fff" : "#777",
+  async function UpdateFavour() {
+	if (api) {
+		try {
+			await axios.post(api + '/add-favourite', {
+				movieId: language && language.movieid
+			}, {
+				headers: {
+					Authorization: localStorage.getItem('Authorization')
+				}
+			})
+			setIsFavour(true)
+		} catch (error) {
+			
+		}
+	}
   }
+
+  async function DeleteFavour() {
+	if (api) {
+		try {
+			await axios.post(api + '/delete-favourite', {
+				movieId: language && language.movieid
+			}, {
+				headers: {
+					Authorization: localStorage.getItem('Authorization')
+				}
+			})
+			setIsFavour(false)
+		} catch (error) {
+			
+		}
+	}
+  }
+
+  async function getFavour(api, movieId) {
+	try {
+		const res = await axios.get(api + '/favorite-movie-one', {
+			headers: {
+				Authorization: localStorage.getItem('Authorization')
+			},
+			params: {
+				movieId: movieId
+			}
+		})
+		setIsFavour(res.data.data)
+	} catch (error) {
+		
+	}
+  }
+
+  function changeToTime(time) {
+	const minutInHours = (time - 0) / 3600
+	const minutInMinuts = ((minutInHours) - Math.floor(minutInHours)) * 60
+	const hours = Math.floor(minutInHours)
+	const minuts = Math.floor(minutInMinuts) 
+	const seconds = Math.floor((minutInMinuts - minuts) * 60)
+	const t = `${hours > 10 ? hours : '0' + hours} : ${minuts > 10 ? minuts : '0'+ minuts} : ${seconds > 10 ? seconds : '0' + seconds}`
+	return t
+  }
+
+  function pagination(val) {
+	return Math.ceil(val.length / visibled > 5 ? 5 : val.length / visibled)
+  }
+
+  useEffect(()=>{
+	if (api) {
+		getFavour(api, language && language.movieid)
+	}
+  },[api,language])
+
+  useEffect(()=>{
+	if (movie && movie.movie_serial_is) {
+		GetSerials(api,movie.movie_id)
+	}
+  }, [movie,api])
 
   useEffect(() => {
     if (movie && !movie.triller_id) {
@@ -91,95 +170,15 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
   },[userData])
 
 
-  async function GetSerials(api,movieId) {
-	const res = await axios.get(api+ '/serials', {
-		params: {
-			movieId: movieId
-		}
-	})
-	setSerials(res.data.data)
+
+  const coverBtnStyle = {
+    marginBottom: "20px",
+    width: "200px",
   }
 
-  async function UpdateFavour() {
-		if (api) {
-			try {
-				await axios.post(api + '/add-favourite', {
-					movieId: language && language.movieid
-				}, {
-					headers: {
-						Authorization: localStorage.getItem('Authorization')
-					}
-				})
-				setIsFavour(true)
-			} catch (error) {
-				
-			}
-		}
-  }
-
-  async function DeleteFavour() {
-		if (api) {
-			try {
-				await axios.post(api + '/delete-favourite', {
-					movieId: language && language.movieid
-				}, {
-					headers: {
-						Authorization: localStorage.getItem('Authorization')
-					}
-				})
-				setIsFavour(false)
-			} catch (error) {
-				
-			}
-		}
-  }
-
-  async function getFavour(api, movieId) {
-	const res = await axios.get(api + '/favorite-movie-one', {
-		headers: {
-			Authorization: localStorage.getItem('Authorization')
-		},
-		params: {
-			movieId: movieId
-		}
-	})
-
-	setIsFavour(res.data.data)
-  }
-
-  useEffect(()=>{
-	if (api) {
-		getFavour(api, language && language.movieid)
-	}
-  },[api,language])
-
-
-  useEffect(()=>{
-	if (movie && movie.movie_serial_is) {
-		GetSerials(api,movie.movie_id)
-	}
-  }, [movie,api])
-
-  useEffect(()=>{
-	  if (serials) {
-		//   setCounts(Math.ceil(serials.length / visibled > 5 ? 5 : serials.length / visibled))
-	  }
-  }, [serials,visibled])
-
-
-  function changeToTime(time) {
-	const minutInHours = (time - 0) / 3600
-	const minutInMinuts = ((minutInHours) - Math.floor(minutInHours)) * 60
-	const hours = Math.floor(minutInHours)
-	const minuts = Math.floor(minutInMinuts) 
-	const seconds = Math.floor((minutInMinuts - minuts) * 60)
-
-	const t = `${hours > 10 ? hours : '0' + hours} : ${minuts > 10 ? minuts : '0'+ minuts} : ${seconds > 10 ? seconds : '0' + seconds}`
-	return t
-  }
-
-  function pagination(val) {
-	return Math.ceil(val.length / visibled > 5 ? 5 : val.length / visibled)
+  const ligthMode = {
+    background: dark ? "rgb(35 35 39)" : "#fff",
+    color: dark ? "#fff" : "#777",
   }
 
   return (
@@ -330,9 +329,9 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
                 }
                 alt="favourite"
               />
-              <p>
-                {/* {Language[til].movie.MoviePlayerContainer.send} */}
-                </p>
+              	<p>
+				{/* {Language[til].movie.MoviePlayerContainer.send} */}
+				</p>
             </Button>
           </div>
         </div>
@@ -344,10 +343,12 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
 		<>
 			<div className={st.serialItems}>
 			{
-			serials.serials.map((val,key) => current * visibled <= key &&
-			(current + 1) * visibled > key && 
+			serials.serials.map((val,key) => (current * visibled) <= key &&
+			((current + 1) * visibled) > key && val.movie_path &&
 			
-			<div key={key} className={stMovieItem.container}>
+			<Link
+			to={`/${language.lang || 'ru'}/categories/${serials.serial_data && serials.serial_data.category_name.toLowerCase()}/${language && language.movieid}${ '1 серия' !== val.movie_seria ? `/${val.movie_serial_id}` : ''}`}
+			key={key} className={stMovieItem.container}>
 				<div className={`${stMovieItem.imgBox} ${movie && imageLoaded ? "" : stMovieItem.animate}`}>
 				<img onLoad={() => setImageLoaded(true)}
 					src={`${api}/${val.movie_thumnail_path}`} style={{ visibility: movie && imageLoaded ? "" : "" }} alt=""/>
@@ -357,7 +358,7 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
 				<p style={{ fontWeight: "bold" }}>{val.movie_seria}</p>
 				<p style={{ fontWeight: "bold", color: '#777' }}>{changeToTime(val.movie_length)}</p>
 				</div>
-			</div>
+			</Link>
 			)
 			}
 			</div>

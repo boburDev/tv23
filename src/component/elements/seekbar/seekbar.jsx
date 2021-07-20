@@ -3,9 +3,7 @@ import st from './seekbar.module.css'
 export default function Seekbar({ currentSecond, setCurrentSecond }) {
     const filledRef = useRef()
     const changeRange=(e)=>{
-        console.log(e.target.value)
         const goSecond = (e.target.value*currentSecond.duration)/100
-        console.log(goSecond, currentSecond.duration)
         setCurrentSecond(goSecond)
       }
     const filledStyle = {

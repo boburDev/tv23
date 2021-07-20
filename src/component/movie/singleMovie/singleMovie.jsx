@@ -12,7 +12,7 @@ import axios from "axios"
 import Loader from '../../loader/loader'
 
 import { useEffect, useState } from "react"
-export default function SignleMovie() {
+export default function SignleMovie({ serial }) {
   const [api] = useApi()
   const [openModal] = useSharing()
   const params = useParams()
@@ -69,6 +69,19 @@ export default function SignleMovie() {
 		
 	}
   }
+  
+  async function MovieSerialDetail(api, params) {
+    try {
+		const movies = await axios.get(api + "/serial-one", {
+			params: {
+				movieId: params && params.serialid,
+			}
+			})
+		setMovie(movies.data.data)
+	} catch (error) {
+		
+	}
+  }
 
 
   useEffect(() => {
@@ -79,11 +92,15 @@ export default function SignleMovie() {
 
   useEffect(() => {
     if (api) {
-      MovieDetail(api, params)
       getActors(api, params)
       getDirector(api, params)
+	  if (serial) {
+		MovieSerialDetail(api, params)
+	  } else {
+		MovieDetail(api, params)
+	  }
     }
-  }, [params, api])
+  }, [params, api, serial])
 
 
   return (
