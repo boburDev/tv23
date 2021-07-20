@@ -134,8 +134,7 @@ const resultStyle = {
     color:"white",
     marginTop:'20px',
     textAlign:'center'
-}
-
+}   
 return (
     <div style={{...containerStyle, ...{background: dark ? '' : 'rgba(255, 255, 255, 0.98)'}}} className={st.container}>
     <div className={st.containerTitle} style={{borderBottom:dark ? ' ' :' 1px solid rgba(119, 119, 119, 0.2)'}}>

@@ -2,8 +2,9 @@ import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 
 const Context = createContext();
+
 const LangProvider = ({ children }) => {
-  const [state, setState] = useState(localStorage.getItem("lang"));
+  const [state, setState] = useState(localStorage.getItem("lang") || 'ru')
 
   useEffect(() => {
     if (state) {
