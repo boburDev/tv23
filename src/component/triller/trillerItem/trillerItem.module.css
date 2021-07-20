@@ -127,7 +127,7 @@
   }
   .button {
     margin: 0px auto;
-    transform: translatey(20px);
+    transform: translateY(0px) !important;
   }
 }
 
@@ -171,18 +171,21 @@
   }
 }
 
-@media screen and (max-width: 510px) {
+@media screen and (max-width: 425px) {
   .container {
     padding: 0 30px;
-    padding-bottom: 100px;
   }
 
   .box .info > h1.name {
     font-size: 30px;
   }
 
+  .box .info > h6.counter {
+    font-size: 18px;
+  }
+
   .box .info > h6.description {
-    font-size: 15px;
+    font-size: 18px;
   }
 
   .box .info .genre .genreItem {

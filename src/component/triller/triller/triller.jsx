@@ -42,11 +42,7 @@ export default function Trailer(props) {
             max={props.data && props.data.length}
           />
         </div>
-        <div
-          style={carouselWayStyle}
-          id="carouselWay"
-          className={st.carouselWay}
-        >
+        <div style={carouselWayStyle} id="carouselWay" className={st.carouselWay}>
           {props.data && props.data.length > 0 ? (
             props.data.map((item, key) => {
               return (

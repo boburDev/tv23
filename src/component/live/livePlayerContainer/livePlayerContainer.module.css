@@ -16,7 +16,7 @@
 }
 
 .playerArea {
-  min-height: 90vh;
+  /* min-height: 90vh; */
   max-height: 90vh;
   overflow: hidden;
   border-radius: 10px;

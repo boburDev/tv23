@@ -3,6 +3,10 @@
   width: 100%;
 }
 
+.ads {
+  margin-bottom: 20px;
+}
+
 .ads a {
   width: 100%;
   display: flex;
@@ -49,6 +53,10 @@
     composes: container from "../../pages/app/app.css";
     padding: 0 15px !important;
   }
+  .ads {
+    margin: 0;
+    padding: 0;
+  }
 }
 
 @media only screen and (max-width: 375px) {
@@ -61,6 +69,6 @@
 @media only screen and (max-width: 320px) {
   .container {
     composes: container from "../../pages/app/app.css";
-    padding: 0 15px !important;
+    padding: 0 15px;
   }
 }

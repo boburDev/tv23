@@ -13,6 +13,7 @@
   background-color: #121213;
   padding: 30px;
 }
+
 .footer_body {
   width: 100%;
   display: flex;
@@ -22,6 +23,7 @@
 .download_title {
   margin-bottom: 20px;
   color: #fff;
+  font-size: 16px;
 }
 .download_link img {
   width: 110px;
@@ -72,6 +74,10 @@
 .info_liks .info_link__item a {
   color: #fff;
   text-decoration: none;
+}
+
+.boxBottom1 {
+  display: none;
 }
 
 .info_liks.dark .info_link__item a {
@@ -181,7 +187,7 @@
   }
 
   .download_title {
-    font-size: 14px;
+    font-size: 16px;
   }
   .download_link img {
     width: 110px;
@@ -244,7 +250,7 @@
   }
 
   .download_title {
-    font-size: 12px;
+    font-size: 16px;
   }
 
   .download_link img {
@@ -321,22 +327,110 @@
   }
 }
 
-@media only screen and (max-width: 360px) {
-  .container {
-    padding: 0;
+@media only screen and (max-width: 425px) {
+  .footer_main {
+    background-color: #121213;
+    padding: 0 30px;
+  }
+
+  .download_title {
+    font-size: 16px;
+  }
+
+  .boxBottom {
+    display: none;
   }
 
   .downloads {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
     width: 100%;
   }
 
   .downloads a img {
-    text-align: center;
     width: 120px;
     height: 40px;
+    margin-left: 10px;
+  }
+
+  .downloads a img:first-child {
+    margin-left: 0;
+  }
+
+  .categories .category_item a {
+    font-size: 16px;
+  }
+
+  .info_liks .info_link__item a {
+    font-size: 16px;
+  }
+
+  .support_links {
+    margin-top: 20px;
+  }
+
+  .support_links p {
+    font-size: 16px;
+    margin-left: 0;
+  }
+
+  .support_links {
+    width: 100%;
+  }
+
+  .support_link__item_media {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .support_links .support_link__item a {
+    font-size: 16px;
+  }
+
+  .author {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .support_link__item_media p {
+    font-size: 14px;
+  }
+
+  .support_link__item_media .support_link__item a {
+    font-style: 14px;
+  }
+
+  .boxBottom1 .socialTitle {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .container {
+    padding: 0;
+  }
+
+  .footer_main {
+    background-color: #121213;
+    padding: 0px;
+  }
+
+  .download_title {
+    font-size: 16px;
+  }
+
+  .downloads {
+    width: 100%;
+  }
+
+  .downloads a img {
+    width: 120px;
+    height: 40px;
+    margin-left: 10px;
+  }
+
+  .downloads a img:first-child {
+    margin-left: 0;
   }
 
   .categories .category_item a {

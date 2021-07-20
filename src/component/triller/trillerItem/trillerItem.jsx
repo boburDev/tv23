@@ -1,28 +1,25 @@
-import st from "./trillerItem.module.css";
-import Button from "../../elements/button/button";
-import TrailarPlayer from "../trillerPlayer/player";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import st from "./trillerItem.module.css"
+import Button from "../../elements/button/button"
+import TrailarPlayer from "../trillerPlayer/player"
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
+import rateStars from "../../../assets/image/rates.png";
 
 export default function TrailerItem({ isActive, data, api }) {
-  const [showAllGenre, setShowAllGenre] = useState(true);
-  const language = useParams();
+  const [showAllGenre, setShowAllGenre] = useState(true)
+  const language = useParams()
   useEffect(() => {
     window.addEventListener("resize", () => {
-      if (window.innerWidth <= 550) setShowAllGenre(false);
-      else setShowAllGenre(true);
-    });
-  }, []);
+      if (window.innerWidth <= 550) setShowAllGenre(false)
+      else setShowAllGenre(true)
+    })
+  }, [])
 
   return (
     <>
       {
         <div className={st.container}>
-          <img
-            className={st.bg_image}
-            src={`${api}/${data.movie_screen}`}
-            alt="triller_img"
-          />
+          <img className={st.bg_image} src={`${api}/${data.movie_screen}`} alt="triller_img" />
           <div className={st.box}>
             <div className={st.info}>
               <h1 className={st.name}>{data.triller_name}</h1>
@@ -45,20 +42,17 @@ export default function TrailerItem({ isActive, data, api }) {
                       <div className={st.genreItem} key={key}>
                         {x}
                       </div>
-                    );
+                    )
                   })}
               </div>
               <div className={st.rating}>
-                <h6 className={st.title}>Рейтинг:</h6>
+                <h6 className={st.title}>Рейтинг: &nbsp;<img width="90" src={rateStars} alt="rate" /> </h6>
               </div>
-              <div
-                className={st.button}
-                onClick={() => {
+              <div className={st.button} onClick={() => {
                   window.location.href = `/${
                     language.lang || "ru"
-                  }/categories/recomented/${data.movie_id}`;
-                }}
-              >
+                  }/categories/recomented/${data.movie_id}`
+                }}>
                 <Button>Смотреть по подписке</Button>
               </div>
             </div>
@@ -73,5 +67,5 @@ export default function TrailerItem({ isActive, data, api }) {
         </div>
       }
     </>
-  );
+  )
 }

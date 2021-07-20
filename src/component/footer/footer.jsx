@@ -24,11 +24,8 @@ function Footer() {
           <div className={st.container}>
             <div className={st.footer_body}>
               <div className={st.app_downloading}>
-                <p
-                  className={st.download_title}
-                  style={{ color: dark ? "#fff" : "#000" }}
-                >
-                 {Language[til].footer.downloadApp}:
+                <p className={st.download_title} style={{ color: dark ? "#fff" : "#000" }}>
+                 {Language[til].footer.downloadApp}
                 </p>
                 <div className={st.downloads}>
                   <Link className={st.download_link} to="#">
@@ -95,7 +92,7 @@ function Footer() {
 
                 <ul className={`${st.info_liks} ${!dark ? st.dark : ""}`}>
                   <li className={st.info_link__item}>
-                    <Link to="#">{Language[til].footer.aboutUs}</Link>
+                    <Link style={{color: '#777'}} to="#">{Language[til].footer.aboutUs}</Link>
                   </li>
                   <li className={st.info_link__item}>
                     <Link to="#">{Language[til].footer.aboutCompany}</Link>
@@ -113,7 +110,6 @@ function Footer() {
 
                 <ul className={`${st.support_links} ${!dark ? st.dark : ""}`}>
                   <p>{Language[til].footer.techSupport}:</p>
-
                   <li className={st.support_link__item}>
                     <Link to="#">@Supportnaming.uz</Link>
                   </li>
@@ -121,11 +117,38 @@ function Footer() {
                     <Link to="#">+99890 000-23-00</Link>
                   </li>
 
-                  <p className={st.leave_comment}>{Language[til].footer.leaveComment}:</p>
+                  <div className={st.support_link__item_media}>
+					<div>
+					<p className={st.leave_comment}>{Language[til].footer.leaveComment}:</p>
+					<li className={`${st.support_link__item}`}>
+					<Link to="#">@infonaming.uz</Link>
+					</li>
+					</div>
 
-                  <li className={st.support_link__item}>
-                    <Link to="#">@infonaming.uz</Link>
-                  </li>
+					<div className={st.boxBottom1}>
+						<div style={{ color: dark ? "#fff" : "#000" }} className={st.socialTitle}>
+							{Language[til].footer.weOnSocial}:{" "}
+						</div>
+						<ul className={st.social_links}>
+							<li className={st.link_item}>
+							<a
+								href="https://www.instagram.com/23_tv.uz/" rel="noreferrer" target="_blank">
+								<img src={instagram} alt="instagram_logo" />
+							</a>
+							</li>
+							<li className={st.link_item}>
+							<Link to="#">
+								<img src={facebook} alt="facebook_logo" />
+							</Link>
+							</li>
+							<li className={st.link_item}>
+							<Link to="#">
+								<img src={telegram} alt="telegram_logo" />
+							</Link>
+							</li>
+						</ul>
+					</div>
+				  </div>
                 </ul>
               </div>
             </div>

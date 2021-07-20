@@ -26,10 +26,7 @@ export default function Ads() {
 	},[api])
 
   return (
-    <div
-      className={st.ads}
-      style={{ background: dark ? "#0C0C0D" : "#F8F9FC" }}
-    >
+    <div className={st.ads} style={{ background: dark ? "#0C0C0D" : "#F8F9FC" }}>
       <div className={st.container}>
         <a href={`${ads.ads_link}`}>
           <img src={`${api}/${ads.ads_path}`} alt="" height="20" />

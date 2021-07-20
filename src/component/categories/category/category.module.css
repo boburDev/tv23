@@ -153,6 +153,13 @@
   }
 }
 
+@media only screen and (max-width: 425px) {
+  .container {
+    composes: container from "../../../pages/app/app.css";
+    padding: 0 10px !important;
+  }
+}
+
 @media only screen and (max-width: 375px) {
   .container {
     composes: container from "../../../pages/app/app.css";

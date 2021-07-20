@@ -55,7 +55,7 @@ export default function Category({
                 <MovieItem />
                 <MovieItem />
                 <MovieItem />
-              </>
+              </> 
             ) : (
               <NoFoundVideos />
             )

@@ -65,7 +65,7 @@ const ru = {
         foundMovies: 'Найденные фильмы'
     },
     footer: {
-        downloadApp: `Вы можете скачать программу`,
+        downloadApp: `Скачать приложение вы можете через:`,
         weOnSocial: 'Мы в социальных сетях',
         movies: 'Фильмы',
         serials: 'Сериалы',
@@ -77,7 +77,7 @@ const ru = {
         forPartners: 'Партнерам',
         vacancies: `Вакансии`,
         techSupport: 'Tехническая поддержка',
-        leaveComment: 'Дать обратную связь'
+        leaveComment: 'Оставить отзыв'
     },
     live: {
         livePlayContainer: {
