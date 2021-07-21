@@ -13,22 +13,14 @@ export default function Navbar({ data, type, text }) {
         style={{ background: dark ? "#0C0C0D" : "#F8F9FC" }}
       >
         <div className={st.container}>
-          <div
-            className={st.items}
-            style={{
-              borderTop:
-                type === "genres" && dark
-                  ? "1px solid #777777"
-                  : "1px solid #1111113f",
-            }}
-          >
+          <div className={st.items}>
             {type === "genres"
               ? data &&
                 data.map((val, key) => (
-                  <Link to={"#"}
-                    // to={`/${
-                    //   language.lang || "ru"
-                    // }/genres/${val.genre_name.toLowerCase()}`}
+                  <Link
+                    to={`/${
+                      language.lang || "ru"
+                    }/genres/${val.genre_id}`}
                     id={val.genre_id}
                     onClick={(e) => setActive(e.target.id)}
                     key={key}

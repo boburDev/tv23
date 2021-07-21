@@ -11,6 +11,7 @@ import { useParams } from 'react-router-dom'
 import { useAuth } from '../../context/user'
 import { useApi } from '../../context/api'
 import { useEffect, useState } from 'react'
+import axios from 'axios'
 export default function Settings() {
     const language = useParams()
     const [auth] = useAuth()
@@ -26,6 +27,24 @@ export default function Settings() {
         }
     },[auth,language])
 
+    async function updateUserPic(e) {
+        try {
+          if(window.confirm('Do you want to update avatar')) {
+              let data = new FormData()
+              data.append('file', e.target.files[0])
+              const res = await axios.post(api + '/update-user-ava', data, {
+                  headers: {
+                  Authorization: localStorage.getItem('Authorization')
+                  }
+              })
+              setResponse(res.data.data)
+              window.location.reload()
+          }
+        } catch (error) {
+            
+        }
+    }
+
     return (
         <>
             <Navbar />
@@ -34,7 +53,11 @@ export default function Settings() {
                 <div className={st.imageAvatar}>
                     <div 
                     className={st.usernameBox}>{auth && auth.userName}</div>
-                    <img src={`${api}/${auth && auth.userPath}`} alt="" width="50" />
+                    <label htmlFor="uploadUser" style={{cursor: 'pointer'}}>
+                        <img style={{borderRadius: '50%'}}
+                        src={`${api}/${auth && auth.userPath}`} alt="" width="50" height="50" />
+                    </label>
+                    <input onChange={updateUserPic} type="file" accept="image/*" name="" id="uploadUser" hidden />
                 </div>
             </div>
             <div className={st.contentContainer}>

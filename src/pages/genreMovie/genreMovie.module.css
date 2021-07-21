@@ -1,0 +1,13 @@
+.container {
+    composes: container from "../app/app.css";
+    display: flex;
+    position: relative;
+    font-family: "Lato", sans-serif;
+    margin-top: 20px;
+}
+
+.result {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}

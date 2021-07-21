@@ -149,6 +149,7 @@
 
 .social_links .link_item a {
   margin-right: 20px;
+
 }
 
 .author {
@@ -165,6 +166,22 @@
 .app_downloading .boxBottom {
   margin-top: 10px;
 }
+
+.social_links {
+  display: flex;
+  align-items: center;
+}
+
+.social_links .link_item img{
+  width: 30px;
+  height: 30px;
+}
+
+.social_links .link_item .istagram{
+  width: 35px;
+  height: 35px;
+}
+
 .socialTitle {
   padding: 20px 0;
   margin-bottom: 0px;

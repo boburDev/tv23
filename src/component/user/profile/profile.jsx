@@ -49,14 +49,34 @@ export default function Profile({ data }) {
 	setUserData(res.data.data)
   }
 
+  async function updateUserPic(e) {
+	  try {
+		if(window.confirm('Do you want to update avatar')) {
+			let data = new FormData()
+			data.append('file', e.target.files[0])
+			const res = await axios.post(api + '/update-user-ava', data, {
+				headers: {
+				Authorization: localStorage.getItem('Authorization')
+				}
+			})
+			setUserData(res.data.data)
+			window.location.reload()
+		}
+	  } catch (error) {
+		  
+	  }
+  }
+
+
+
   return (
     <div style={{ background: dark ? "#0C0C0D" : "" }} className={st.container}>
-      <img src={`${api}/${userData && userData.userPath}`} width="90"
-      className={st.profileImage} alt="" />
-      <div
-        className={st.mainContainer}
-        style={{ display: isEdit ? "none" : "" }}
-      >
+		<label htmlFor="updateUser" style={{cursor: 'pointer'}}>
+      	<img style={{borderRadius: '50%'}}
+		  src={`${api}/${userData && userData.userPath}`} width="90" height="90" className={st.profileImage} alt="" />
+		</label>
+		<input onChange={updateUserPic} type="file" accept="image/*" name="" id="updateUser" hidden />
+      <div className={st.mainContainer} style={{ display: isEdit ? "none" : "" }}>
         <div className={st.mainInfo}>
           <div style={textStyle} className={st.nickName}>
           {Language[til].user.profile.nickname}: {data && data.userName}

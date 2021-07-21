@@ -49,7 +49,7 @@ function Footer() {
                         rel="noreferrer"
                         target="_blank"
                       >
-                        <img src={instagram} alt="instagram_logo" />
+                        <img className={st.istagram} src={instagram} alt="instagram_logo" />
                       </a>
                     </li>
                     <li className={st.link_item}>
@@ -133,7 +133,7 @@ function Footer() {
 							<li className={st.link_item}>
 							<a
 								href="https://www.instagram.com/23_tv.uz/" rel="noreferrer" target="_blank">
-								<img src={instagram} alt="instagram_logo" />
+								<img className={st.istagram} src={instagram} alt="instagram_logo" />
 							</a>
 							</li>
 							<li className={st.link_item}>
@@ -161,7 +161,7 @@ function Footer() {
           <div className={st.container}>
             <div className={st.social_links_and_author}>
               <p className={`${st.author} ${!dark ? st.dark : ""}`}>
-                © ООО Naming cinema 2021 inc
+                Разработала команда <a style={{color: dark ? "#fff" : "#000", marginLeft: '10px'}} href="http://supersite.uz/">Supersite.uz</a>
               </p>
             </div>
           </div>
