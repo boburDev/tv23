@@ -16,14 +16,16 @@ function MovieCategory() {
 	async function getMovies (api){
 		try {
 			setLoading(true)
-			const categories = await axios.get(api + '/category-with-movies')
+			const categories = await axios.get(api + '/category-with-movies', {
+				headers: {
+					Authorization: localStorage.getItem('Authorization')
+				}
+			})
 			setLoading(false)
 			setCategories(categories.data.data)
 		} catch (error) {
 		}
 	}
-
-
 
 	// vse kategorini kurib chiq yaxshilab
 
@@ -37,8 +39,6 @@ function MovieCategory() {
 			
 		}
 	}
-
-
 
 	async function recommendedTrillers(api) {
 		try {

@@ -9,9 +9,8 @@ const AuthorizetionProvider = ({ children }) => {
 
   async function Auth(api) {
     try {
-      axios.defaults.headers.common["Authorization"] =
-        localStorage.getItem("Authorization") || "";
-      const res = await axios.get(api + "/user-data");
+      axios.defaults.headers.common["Authorization"] = localStorage.getItem("Authorization") || ""
+      const res = await axios.get(api + "/user-data")
       setState(res.data.data)
     } catch (error) {
       setState(error.response && error.response.status)

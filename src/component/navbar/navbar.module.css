@@ -145,6 +145,11 @@
   justify-content: center;
 }
 
+.resultContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .languageMiniDevice.dark a {
   color: #fff;
   padding: 6px 5px;

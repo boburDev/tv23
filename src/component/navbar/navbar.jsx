@@ -128,9 +128,9 @@ function Navbar({ login, path }) {
 					}
 				})
 				setMovies(res.data.data)
+				console.log(res.data.data)
 			} catch (err) {
 			}
-
 			setLoading(false)
 
 		} else {
@@ -361,13 +361,13 @@ function Navbar({ login, path }) {
       </div>
       {isOpenSearch ? (movies.length > 0 ?
 		<div className={st.container}>
-			{
-				movies.map((x, key) => {
-					return <MovieItem key={key} movie={x} />
-				})
-			}
-
-
+			<div className={st.resultContainer}>
+				{
+					movies.map((x, key) => {
+						return <MovieItem key={key} movie={x} />
+					})
+				}
+			</div>
 		</div>
 		:  <SearchNotFound loading={loading} />)  : ''}
     </section>

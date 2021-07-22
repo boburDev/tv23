@@ -36,9 +36,14 @@ export default function CategoryMovie() {
   async function getCategories(api) {
     try {
       setLoading(true);
-      const categories = await axios.get(api + "/categories");
+      const categories = await axios.get(api + "/categories", {
+		  headers: {
+			Authorization: localStorage.getItem('Authorization')
+		  }
+	  })
       const data = categories.data.data;
       setCategories(data);
+      console.log(data)
       setLoading(false);
     } catch (error) {}
   }
@@ -60,7 +65,7 @@ export default function CategoryMovie() {
   return (
     <>
       {
-		  loading && <Loader />
+			loading && <Loader />
 	  }
       <Navbar />
       <TrillerCarousel api={api} movies={recommendedTriller} />
