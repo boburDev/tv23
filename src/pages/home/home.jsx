@@ -25,7 +25,6 @@ function Home() {
       })
       setLoading(false)
       setCategories(categories.data.data)
-      console.log(categories.data.data)
     } catch (error) {}
   }
 
