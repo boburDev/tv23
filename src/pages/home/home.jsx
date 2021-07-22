@@ -18,9 +18,14 @@ function Home() {
   async function getMovies(api) {
     try {
       setLoading(true)
-      const categories = await axios.get(api + "/category-with-movies")
+      const categories = await axios.get(api + "/category-with-movies", {
+        headers: {
+          Authorization: localStorage.getItem('Authorization')
+        }
+      })
       setLoading(false)
       setCategories(categories.data.data)
+      console.log(categories.data.data)
     } catch (error) {}
   }
 
