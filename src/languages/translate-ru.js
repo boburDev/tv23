@@ -101,6 +101,7 @@ const ru = {
             rating: 'Рейтинг',
             production: 'Произведено',
             releaseDate: 'Дата премьеры',
+            countOfMovie: 'Кол-во серий:',
             duration: 'Продолжительность',
             year: 'г',
             min: 'мин',

@@ -1,15 +1,14 @@
-import Button from "../../elements/button/button";
-import st from "./verifyphone.module.css";
-// import goBack from "../../../assets/image/goBack.png";
-import VerifyInput from "../../elements/verifyInput/verifyInput";
-import { useTheme } from "../../../context/theme";
-import { useEffect, useState } from "react";
-import { useLogin } from "../../../context/login";
-import firebase from "../../../context/firebase";
-import Language from "../../../languages";
-import { useLang } from "../../../context/lanuage.jsx";
-import { useApi } from "../../../context/api";
-import axios from "axios";
+import Button from "../../elements/button/button"
+import st from "./verifyphone.module.css"
+import VerifyInput from "../../elements/verifyInput/verifyInput"
+import { useTheme } from "../../../context/theme"
+import { useEffect, useState } from "react"
+import { useLogin } from "../../../context/login"
+import firebase from "../../../context/firebase"
+import Language from "../../../languages"
+import { useLang } from "../../../context/lanuage.jsx"
+import { useApi } from "../../../context/api"
+import axios from "axios"
 
 export default function VerifyPhone({ recover }) {
   const [dark] = useTheme();

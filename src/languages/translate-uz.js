@@ -100,6 +100,7 @@ const uz = {
             rating: 'Reyting',
             production: 'Ishlab chiqarilgan',
             releaseDate: 'Premyera sanasi',
+            countOfMovie: 'Serial soni',
             year: 'yil',
             duration: 'Davomiyligi',
             min: 'min',

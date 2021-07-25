@@ -31,7 +31,6 @@ export default function MovieInfo({ movie, api }) {
 		}
 	},[api])
 
-
   return (
     <div
       className={st.movieWrapper}
@@ -65,6 +64,13 @@ export default function MovieInfo({ movie, api }) {
               <p className={st.info_text}>{Language[til].movie.movieInfo.duration}:</p>
               <span style={{ color: dark ? "" : "black" }}>134 {Language[til].movie.movieInfo.min}.</span>
             </div>
+            { movie && movie.movie_serial_is &&
+			
+				<div className={st.moviData}>
+					<p className={st.info_text}>{Language[til].movie.movieInfo.countOfMovie}:</p>
+					<span style={{ color: dark ? "" : "black" }}>{movie.serial_count}</span>
+				</div>
+			}
             <div className={`${st.moviData} ${st.rating_film}`}>
               <p className={st.info_text}>{Language[til].movie.movieInfo.rating}:</p>
               <div>
