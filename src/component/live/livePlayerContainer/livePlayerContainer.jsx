@@ -55,6 +55,7 @@ export default function LivePlayerContainer({ api }) {
 
     btnJoinBroadcaster.onclick = function () {
       socket.connect();
+      socket.emit('waiting', 'online')
       user = {
         room: "TV23",
         name: "boburmirzo",

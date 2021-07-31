@@ -58,7 +58,7 @@ export default function UserLivePlayerContainer({ movie, api }) {
     const socket = IO("https://tv23.herokuapp.com/live", {
       path: "/socket.io",
       transports: ["websocket"],
-      autoConnect: false,
+      autoConnect: true,
     });
 
     btnJoinViewer.onclick = function () {

@@ -3,6 +3,10 @@
   width: 100%;
 }
 
+.container * {
+  font-family: "Lato", sans-serif;
+}
+
 .ads {
   margin-bottom: 20px;
 }
