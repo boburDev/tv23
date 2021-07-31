@@ -5,8 +5,8 @@ import { useTheme } from "../../context/theme";
 import { useParams } from "react-router-dom";
 
 export default function Categories(props) {
-  const language = useParams();
-  const [dark] = useTheme();
+  const language = useParams()
+  const [dark] = useTheme()
   return (
     <>
       {props.what === "category" ? (
@@ -28,9 +28,7 @@ export default function Categories(props) {
                   loading={props.loading}
                   movies={val.movies}
                   title={val.category_name}
-                  link={`/${language.lang || "ru"}/categories/${
-                    val.category_name
-                  }`}
+                  link={`/${language.lang || "ru"}/categories/${val.category_name}`}
                 />
               ))}
           </div>
@@ -53,6 +51,7 @@ export default function Categories(props) {
               showAllLink={false}
               pagination="basic"
               visibled="12"
+              count={props.data && props.data.count}
               loading={props.loading}
             ></Category>
           </div>

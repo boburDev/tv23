@@ -13,6 +13,7 @@ import Recovery from "../auth/recover/recover";
 import Settings from "../account/account";
 import Favourites from "../favourites/favourites";
 import NotFound from "../notfound404/notfound404";
+import PrivacyPolicy from "../privacyPolicy/privacyPolicy";
 import { useTheme } from "../../context/theme";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
       <Switch>
         <Route path="/:lang?" component={Home} exact />
         <Route path="/:lang?/login" component={Login} exact />
+        <Route path="/:lang?/privacy" component={PrivacyPolicy} exact />
         <Route path="/:lang?/sign-up" component={SignUp} exact />
         <Route path="/:lang?/sign-up/recover" component={Recovery} exact />
         <Route path="/:lang?/categories" component={AllCategoryMovie} exact />

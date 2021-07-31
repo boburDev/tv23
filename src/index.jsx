@@ -10,6 +10,7 @@ import { ShareLinkProvider } from "./context/shareLink";
 import { LoginProvider } from "./context/login";
 import { AuthorizetionProvider } from "./context/user";
 import { FilterProvider } from "./context/filter";
+import { PaginationProvider } from "./context/pagination";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -22,7 +23,9 @@ ReactDOM.render(
                 <LoginProvider>
                   <AuthorizetionProvider>
                     <FilterProvider>
-                      <App />
+						<PaginationProvider>
+                      		<App />
+						</PaginationProvider>
                     </FilterProvider>
                   </AuthorizetionProvider>
                 </LoginProvider>

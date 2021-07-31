@@ -6,17 +6,19 @@ import MovieCategory from "../../component/categories/categories";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useApi } from "../../context/api";
+import { usePagination } from "../../context/pagination";
 import { useParams } from "react-router-dom";
 import Loader from '../../component/loader/loader'
 export default function CategoryMovie() {
   const [api] = useApi();
+  const [pagination] = usePagination();
   const category = useParams();
   const [movies, setMovies] = useState({});
   const [categories, setCategories] = useState();
   const [recommendedTriller, setRecommendedTriller] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  async function getMovies(api, value) {
+  async function getMovies(api, value, pagination) {
     try {
       setLoading(true);
       const val =
@@ -26,16 +28,18 @@ export default function CategoryMovie() {
       const movies = await axios.get(api + "/movie-category", {
         params: {
           categoryName: val,
+		  page: pagination
         },
       });
       setMovies(movies.data.data);
+    //   console.log(movies.data.data);
       setLoading(false);
     } catch (error) {}
   }
 
   async function getCategories(api) {
     try {
-      setLoading(true);
+      setLoading(true)
       const categories = await axios.get(api + "/categories", {
 		  headers: {
 			Authorization: localStorage.getItem('Authorization')
@@ -43,7 +47,6 @@ export default function CategoryMovie() {
 	  })
       const data = categories.data.data;
       setCategories(data);
-      console.log(data)
       setLoading(false);
     } catch (error) {}
   }
@@ -57,10 +60,10 @@ export default function CategoryMovie() {
     } catch (error) {}
   }
   useEffect(() => {
-    getMovies(api, category);
+    getMovies(api, category, pagination);
     recommendedTrillers(api);
     getCategories(api);
-  }, [api, category]);
+  }, [api, category, pagination]);
 
   return (
     <>

@@ -95,7 +95,7 @@ function Footer() {
                     <Link style={{color: '#777'}} to="#">{Language[til].footer.aboutUs}</Link>
                   </li>
                   <li className={st.info_link__item}>
-                    <Link to="#">{Language[til].footer.aboutCompany}</Link>
+                    <Link to="/ru/privacy">{Language[til].footer.aboutCompany}</Link>
                   </li>
                   <li className={st.info_link__item}>
                     <Link to="#">{Language[til].footer.ads}</Link>
