@@ -28,7 +28,7 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
   const [triller,settriller] = useState(true)
   const [current, setCurrent] = useState(0);
   const [serials,setSerials] = useState([])
-  const [playerHeight, setPlayerHeight] = useState("")
+  const [, setPlayerHeight] = useState("")
   const [isVideo, setIsVideo] = useState(false)
   const [isVideoTriller, setIsVideoTriler] = useState(false)
   const [sendLink, setSendLink] = useState(false)
