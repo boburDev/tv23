@@ -50,6 +50,7 @@ export default function SignleMovie({ serial }) {
     })
 	setLoading(false)
     setSimilarMovie(res.data.data)
+    console.log(res.data.data)
   }
 
   async function MovieDetail(api, params) {
