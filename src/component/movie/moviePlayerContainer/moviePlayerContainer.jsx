@@ -28,7 +28,7 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
   const [triller,settriller] = useState(true)
   const [current, setCurrent] = useState(0);
   const [serials,setSerials] = useState([])
-  const [, setPlayerHeight] = useState("")
+  const [playerHeight, setPlayerHeight] = useState("")
   const [isVideo, setIsVideo] = useState(false)
   const [isVideoTriller, setIsVideoTriler] = useState(false)
   const [sendLink, setSendLink] = useState(false)
@@ -235,7 +235,7 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
           </div>
         </div>
       </div>
-      <div style={{ height: '90vh' }} id="playerRef" className={st.playerArea}>
+      <div style={{ height: playerHeight }} id="playerRef" className={st.playerArea}>
         {isVideo ? (
           <div className={st.cover}>
             {movie && movie.movie_id && <VideoPlayer api={api} movie={movie} />}
@@ -246,7 +246,7 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
 			}
 		</div>) : (
           <div className={st.cover}>
-            <img style={{height: '90vh'}} src={`${api}/${movie.movie_screen}`} alt="video_cover" />
+            <img style={{height: playerHeight}} src={`${api}/${movie.movie_screen}`} alt="video_cover" />
             <div className={st.controlBtn}>
               <div onClick={() => {
 				  if (isLogged) {

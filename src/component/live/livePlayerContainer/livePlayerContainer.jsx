@@ -1,40 +1,50 @@
-import { useCallback, useEffect, useState } from "react";
-import st from "../../movie/moviePlayerContainer/moviePlayerContainer.module.css";
-import stLocal from "./livePlayerContainer.module.css";
-import { useTheme } from "../../../context/theme";
-import IO from "socket.io-client";
-import cover from "../../../assets/bg/IMG_3873.JPG";
+import { useCallback, useEffect, useState } from "react"
+import st from "../../movie/moviePlayerContainer/moviePlayerContainer.module.css"
+import stLocal from "./livePlayerContainer.module.css"
+import { useTheme } from "../../../context/theme"
+import IO from "socket.io-client"
+import cover from "../../../assets/bg/IMG_3873.JPG"
 import Language from '../../../languages'
 import { useLang } from '../../../context/lanuage'
 
 export default function LivePlayerContainer({ api }) {
   const [ til ] = useLang()
-  const [dark] = useTheme();
-  const [, setPlayerHeight] = useState("");
-  const [isVideo, setIsVideo] = useState(false);
+  const [dark] = useTheme()
+  const [, setPlayerHeight] = useState("")
+  const [isVideo, setIsVideo] = useState(false)
   const settingSize = () => {
-    var playerRef = document.getElementById("playerRef");
-    setPlayerHeight((playerRef.offsetWidth * 480) / 854);
-  };
+    var playerRef = document.getElementById("playerRef")
+    setPlayerHeight((playerRef.offsetWidth * 480) / 854)
+  }
   
   useCallback(() => {
-    window.addEventListener("load", settingSize);
-    window.addEventListener("resize", settingSize);
+    window.addEventListener("load", settingSize)
+    window.addEventListener("resize", settingSize)
     return () => {
-      window.addEventListener("load", settingSize);
-      window.addEventListener("resize", settingSize);
-    };
-  }, []);
+      window.addEventListener("load", settingSize)
+      window.addEventListener("resize", settingSize)
+    }
+  }, [])
+
+
+  useEffect(()=>{
+	const socket = IO("https://tv23.herokuapp.com/live", {
+		path: "/socket.io",
+		transports: ["websocket"],
+		autoConnect: false,
+	  })
+	  socket.disconnect()
+  },[])
 
   function wrtc() {
     // getting dom elements
-    const divConsultingRoom = document.getElementById("consultingRoom");
-    const btnJoinBroadcaster = document.getElementById("joinBroadcaster");
-    const videoElement = document.getElementById("livePlayer");
+    const divConsultingRoom = document.getElementById("consultingRoom")
+    const btnJoinBroadcaster = document.getElementById("joinBroadcaster")
+    const videoElement = document.getElementById("livePlayer")
 
     // variables
-    let user;
-    let rtcPeerConnections = {};
+    let user
+    let rtcPeerConnections = {}
 
     // constants
     const iceServers = {
@@ -42,7 +52,7 @@ export default function LivePlayerContainer({ api }) {
         { urls: "stun:stun.services.mozilla.com" },
         { urls: "stun:stun.l.google.com:19302" },
       ],
-    };
+    }
     const streamConstraints = { audio: true, video: true }
 
     // Let's do this 💪
@@ -51,17 +61,17 @@ export default function LivePlayerContainer({ api }) {
       path: "/socket.io",
       transports: ["websocket"],
       autoConnect: false,
-    });
+    })
 
     btnJoinBroadcaster.onclick = function () {
-      socket.connect();
+      socket.connect()
       socket.emit('waiting', 'online')
       user = {
         room: "TV23",
         name: "boburmirzo",
-      };
+      }
 
-      divConsultingRoom.style = "display: block";
+      divConsultingRoom.style = "display: block"
 
       navigator.mediaDevices
         .getUserMedia(streamConstraints)
@@ -75,14 +85,14 @@ export default function LivePlayerContainer({ api }) {
 
     // message handlers
     socket.on("new viewer", function (viewer) {
-      rtcPeerConnections[viewer.id] = new RTCPeerConnection(iceServers);
+      rtcPeerConnections[viewer.id] = new RTCPeerConnection(iceServers)
 
-      const stream = videoElement.srcObject;
+      const stream = videoElement.srcObject
       stream
         .getTracks()
         .forEach((track) =>
           rtcPeerConnections[viewer.id].addTrack(track, stream)
-        );
+        )
 
       rtcPeerConnections[viewer.id].onicecandidate = (event) => {
         if (event.candidate) {
@@ -91,53 +101,53 @@ export default function LivePlayerContainer({ api }) {
             label: event.candidate.sdpMLineIndex,
             id: event.candidate.sdpMid,
             candidate: event.candidate.candidate,
-          });
+          })
         }
-      };
+      }
 
       rtcPeerConnections[viewer.id]
         .createOffer()
         .then((sessionDescription) => {
-          rtcPeerConnections[viewer.id].setLocalDescription(sessionDescription);
+          rtcPeerConnections[viewer.id].setLocalDescription(sessionDescription)
           socket.emit("offer", viewer.id, {
             type: "offer",
             sdp: sessionDescription,
             broadcaster: user,
-          });
+          })
         })
         .catch((error) => {
-        });
-    });
+        })
+    })
 
     socket.on("candidate", function (id, event) {
       var candidate = new RTCIceCandidate({
         sdpMLineIndex: event.label,
         candidate: event.candidate,
-      });
-      rtcPeerConnections[id].addIceCandidate(candidate);
-    });
+      })
+      rtcPeerConnections[id].addIceCandidate(candidate)
+    })
 
     socket.on("offer", function (broadcaster, sdp) {
-      rtcPeerConnections[broadcaster.id] = new RTCPeerConnection(iceServers);
+      rtcPeerConnections[broadcaster.id] = new RTCPeerConnection(iceServers)
 
-      rtcPeerConnections[broadcaster.id].setRemoteDescription(sdp);
+      rtcPeerConnections[broadcaster.id].setRemoteDescription(sdp)
 
       rtcPeerConnections[broadcaster.id]
         .createAnswer()
         .then((sessionDescription) => {
           rtcPeerConnections[broadcaster.id].setLocalDescription(
             sessionDescription
-          );
+          )
           socket.emit("answer", {
             type: "answer",
             sdp: sessionDescription,
             room: user.room,
-          });
-        });
+          })
+        })
 
       rtcPeerConnections[broadcaster.id].ontrack = (event) => {
-        videoElement.srcObject = event.streams[0];
-      };
+        videoElement.srcObject = event.streams[0]
+      }
 
       rtcPeerConnections[broadcaster.id].onicecandidate = (event) => {
         if (event.candidate) {
@@ -146,20 +156,20 @@ export default function LivePlayerContainer({ api }) {
             label: event.candidate.sdpMLineIndex,
             id: event.candidate.sdpMid,
             candidate: event.candidate.candidate,
-          });
+          })
         }
-      };
-    });
+      }
+    })
 
     socket.on("answer", function (viewerId, event) {
       rtcPeerConnections[viewerId].setRemoteDescription(
         new RTCSessionDescription(event)
-      );
-    });
+      )
+    })
   }
 
   useEffect(() => {
-    wrtc();
+    wrtc()
   })
 
   return (
@@ -193,5 +203,5 @@ export default function LivePlayerContainer({ api }) {
         </div>
       </div>
     </div>
-  );
+  )
 }

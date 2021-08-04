@@ -61,6 +61,10 @@ export default function UserLivePlayerContainer({ movie, api }) {
       autoConnect: true,
     });
 
+    socket.on("waiting", data => {
+		console.log(data);
+	});
+
     btnJoinViewer.onclick = function () {
       socket.connect();
       user = {
