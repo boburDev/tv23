@@ -87,10 +87,12 @@
 .playerArea {
   display: flex;
   width: 100%;
+  max-height: 90vh;
   position: relative;
   border-radius: 16px;
   overflow: hidden;
 }
+
 .cover {
   width: 100%;
   position: relative;
@@ -123,6 +125,14 @@
 
   .title_films > h3 {
     font-size: 24px;
+  }
+
+  .playerArea {
+    max-height: 20vh;
+  }
+
+  .cover img {
+    max-height: 20vh;
   }
 }
 

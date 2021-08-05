@@ -33,13 +33,13 @@ export default function UserLivePlayerContainer({ movie, api }) {
   }, []);
 
   useEffect(() => {
-    Live();
-  });
+    Live(api)
+  },[api])
 
-  function Live() {
+  function Live(api) {
     // getting dom elements
-    const btnJoinViewer = document.getElementById("joinViewer");
-    const videoElement = document.getElementById("liveVideo");
+    const btnJoinViewer = document.getElementById("joinViewer")
+    const videoElement = document.getElementById("liveVideo")
 
     // variables
     let user;
@@ -55,11 +55,16 @@ export default function UserLivePlayerContainer({ movie, api }) {
 
     // Let's do this 💪
     // const socket = IO('http://localhost:4000/live', { path: '/socket.io', transports: ["websocket"], autoConnect: false })
-    const socket = IO("https://tv23.herokuapp.com/live", {
+    const socket = IO(api + "/live", {
       path: "/socket.io",
       transports: ["websocket"],
       autoConnect: true,
     });
+    // const socket = IO("https://tv23.herokuapp.com/live", {
+    //   path: "/socket.io",
+    //   transports: ["websocket"],
+    //   autoConnect: true,
+    // });
 
     socket.on("waiting", data => {
 		console.log(data);

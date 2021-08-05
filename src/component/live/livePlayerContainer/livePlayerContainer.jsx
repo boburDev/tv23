@@ -28,13 +28,18 @@ export default function LivePlayerContainer({ api }) {
 
 
   useEffect(()=>{
-	const socket = IO("https://tv23.herokuapp.com/live", {
+	const socket = IO(api + "/live", {
 		path: "/socket.io",
 		transports: ["websocket"],
 		autoConnect: false,
 	  })
+	// const socket = IO("https://tv23.herokuapp.com/live", {
+	// 	path: "/socket.io",
+	// 	transports: ["websocket"],
+	// 	autoConnect: false,
+	//   })
 	  socket.disconnect()
-  },[])
+  },[api])
 
   function wrtc() {
     // getting dom elements

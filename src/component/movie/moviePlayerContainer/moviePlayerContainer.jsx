@@ -235,7 +235,7 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
           </div>
         </div>
       </div>
-      <div style={{ height: playerHeight }} id="playerRef" className={st.playerArea}>
+      <div id="playerRef" className={st.playerArea}>
         {isVideo ? (
           <div className={st.cover}>
             {movie && movie.movie_id && <VideoPlayer api={api} movie={movie} />}
