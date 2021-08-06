@@ -36,10 +36,6 @@ export default function Category({
   useEffect(()=>{
 	setMovie(movies)
   },[movies])
-  
-  useEffect(()=>{
-	  console.log(movie)
-  },[movie])
 
   return (
     <div className={st.container}>

@@ -67,7 +67,7 @@ export default function UserLivePlayerContainer({ movie, api }) {
     // });
 
     socket.on("waiting", data => {
-		console.log(data);
+		// console.log(data);
 	});
 
     btnJoinViewer.onclick = function () {

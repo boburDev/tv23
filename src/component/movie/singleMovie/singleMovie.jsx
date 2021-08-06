@@ -104,6 +104,7 @@ export default function SignleMovie({ serial }) {
   }, [params, api, serial])
 
 
+
   return (
     <>
     {
@@ -117,6 +118,8 @@ export default function SignleMovie({ serial }) {
         showAllLinkText={false}
         title="Похожие сериалы"
         movies={similarMovie}
+		loading={loadng}
+		link={similarMovie}
       />
       <Comments api={api} film_id={params && params.movieid} />
       {openModal && <ShareLink />}

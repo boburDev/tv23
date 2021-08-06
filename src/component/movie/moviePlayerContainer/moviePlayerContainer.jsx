@@ -51,6 +51,16 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
     window.location.reload()
   }
 
+  const coverBtnStyle = {
+    marginBottom: "20px",
+    width: "200px",
+  }
+
+  const ligthMode = {
+    background: dark ? "rgb(35 35 39)" : "#fff",
+    color: dark ? "#fff" : "#777",
+  }
+
   useCallback(() => {
     window.addEventListener("load", settingSize)
     window.addEventListener("resize", settingSize)
@@ -103,7 +113,6 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
 			})
 			setIsFavour(false)
 		} catch (error) {
-			
 		}
 	}
   }
@@ -168,18 +177,6 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
 		setIsLogged(true)
 	}
   },[userData])
-
-
-
-  const coverBtnStyle = {
-    marginBottom: "20px",
-    width: "200px",
-  }
-
-  const ligthMode = {
-    background: dark ? "rgb(35 35 39)" : "#fff",
-    color: dark ? "#fff" : "#777",
-  }
 
   return (
     <div className={st.container} style={{ background: dark ? "#0C0C0D" : "#F8F9FC" }}>
@@ -347,7 +344,7 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
 			((current + 1) * visibled) > key && val.movie_path &&
 			
 			<Link
-			to={`/${language.lang || 'ru'}/categories/${serials.serial_data && serials.serial_data.category_name.toLowerCase()}/${language && language.movieid}${ '1 серия' !== val.movie_seria ? `/${val.movie_serial_id}` : ''}`}
+			to={`/${language.lang || 'ru'}/categories/${serials.serial_data && serials.serial_data.category_name.toLowerCase()}/${language && language.movieid}${ language && (language.movieid !== val.movie_serial_id) ? `/${val.movie_serial_id}` : '/'}`}
 			key={key} className={stMovieItem.container}>
 				<div className={`${stMovieItem.imgBox} ${movie && imageLoaded ? "" : stMovieItem.animate}`}>
 				<img onLoad={() => setImageLoaded(true)}

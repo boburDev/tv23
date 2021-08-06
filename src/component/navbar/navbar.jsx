@@ -128,7 +128,7 @@ function Navbar({ login, path }) {
 					}
 				})
 				setMovies(res.data.data)
-				console.log(res.data.data)
+				// console.log(res.data.data)
 			} catch (err) {
 			}
 			setLoading(false)

@@ -28,7 +28,7 @@ export default function Categories(props) {
                   loading={props.loading}
                   movies={val.movies}
                   title={val.category_name}
-                  link={`/${language.lang || "ru"}/categories/${val.category_name}`}
+                  link={`/${language.lang || "ru"}/categories/${val.category_name.toLowerCase()}`}
                 />
               ))}
           </div>
