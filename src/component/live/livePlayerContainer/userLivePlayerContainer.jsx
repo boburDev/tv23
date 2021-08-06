@@ -33,7 +33,9 @@ export default function UserLivePlayerContainer({ movie, api }) {
   }, []);
 
   useEffect(() => {
-    Live(api)
+    if (api) {
+      Live(api)
+    }
   },[api])
 
   function Live(api) {
@@ -60,6 +62,7 @@ export default function UserLivePlayerContainer({ movie, api }) {
       transports: ["websocket"],
       autoConnect: true,
     });
+
     // const socket = IO("https://tv23.herokuapp.com/live", {
     //   path: "/socket.io",
     //   transports: ["websocket"],

@@ -28,20 +28,22 @@ export default function LivePlayerContainer({ api }) {
 
 
   useEffect(()=>{
-	const socket = IO(api + "/live", {
-		path: "/socket.io",
-		transports: ["websocket"],
-		autoConnect: false,
-	  })
-	// const socket = IO("https://tv23.herokuapp.com/live", {
-	// 	path: "/socket.io",
-	// 	transports: ["websocket"],
-	// 	autoConnect: false,
-	//   })
-	  socket.disconnect()
+	if (api) {
+    const socket = IO(api + "/live", {
+      path: "/socket.io",
+      transports: ["websocket"],
+      autoConnect: false,
+      },[api])
+    // const socket = IO("https://tv23.herokuapp.com/live", {
+    // 	path: "/socket.io",
+    // 	transports: ["websocket"],
+    // 	autoConnect: false,
+    //   })
+      socket.disconnect()
+  }
   },[api])
 
-  function wrtc() {
+  function wrtc(api) {
     // getting dom elements
     const divConsultingRoom = document.getElementById("consultingRoom")
     const btnJoinBroadcaster = document.getElementById("joinBroadcaster")
@@ -62,11 +64,16 @@ export default function LivePlayerContainer({ api }) {
 
     // Let's do this 💪
     // const socket = IO('http://localhost:4000/live', { path: '/socket.io', transports: ["websocket"], autoConnect: false })
-    const socket = IO("https://tv23.herokuapp.com/live", {
+    const socket = IO(api + "/live", {
       path: "/socket.io",
       transports: ["websocket"],
       autoConnect: false,
     })
+    // const socket = IO("https://tv23.herokuapp.com/live", {
+    //   path: "/socket.io",
+    //   transports: ["websocket"],
+    //   autoConnect: false,
+    // })
 
     btnJoinBroadcaster.onclick = function () {
       socket.connect()
@@ -174,8 +181,10 @@ export default function LivePlayerContainer({ api }) {
   }
 
   useEffect(() => {
-    wrtc()
-  })
+    if (api) {
+      wrtc(api)
+    }
+  },[api])
 
   return (
     <div
