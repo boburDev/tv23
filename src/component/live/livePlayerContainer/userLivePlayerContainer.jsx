@@ -57,7 +57,7 @@ export default function UserLivePlayerContainer({ movie, api }) {
 
     // Let's do this 💪
     // const socket = IO('http://localhost:4000/live', { path: '/socket.io', transports: ["websocket"], autoConnect: false })
-    const socket = IO(api + "/live", {
+    const socket = IO('https://23tv.uz/live', {
       path: "/socket.io",
       transports: ["websocket"],
       autoConnect: true,
