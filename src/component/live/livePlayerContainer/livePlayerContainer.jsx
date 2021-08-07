@@ -14,7 +14,7 @@ export default function LivePlayerContainer({ api }) {
 	const [, setPlayerHeight] = useState("")
 	const [liveTitle, setLiveTitle] = useState('')
 	const [liveBody, setLiveBody] = useState('')
-	const [liveFile, setLiveFile] = useState('')
+	// const [liveFile, setLiveFile] = useState('')
 	const [liveStart, setLiveStart] = useState(false)
 	const [modal, setModal] = useState(false)
 	const [isVideo, setIsVideo] = useState(false)
@@ -52,7 +52,7 @@ export default function LivePlayerContainer({ api }) {
 	},[api])
 
 	
-	function wrtc(api, liveStart, liveTitle, liveBody, liveFile) {
+	function wrtc(api, liveStart, liveTitle, liveBody) {
 		// getting dom elements
 		const divConsultingRoom = document.getElementById("consultingRoom")
 		const btnJoinBroadcaster = document.getElementById("joinBroadcaster")
@@ -203,8 +203,8 @@ export default function LivePlayerContainer({ api }) {
 		}
 		
 		useEffect(() => {
-			wrtc(api, liveStart, liveTitle, liveBody, liveFile)
-		},[api, liveStart, liveTitle, liveBody, liveFile])
+			wrtc(api, liveStart, liveTitle, liveBody)
+		},[api, liveStart, liveTitle, liveBody])
 		
 		return (
 			<div
