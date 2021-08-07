@@ -47,7 +47,12 @@ export default function LivePlayerContainer({ api }) {
 			// 	autoConnect: false,
 			//   })
 			socket.disconnect()
-			axios.post(api + '/live-status-update', { status: false })
+			const liveProps = {
+				liveTitle: '',
+				liveBody: '',
+				status: false
+			}
+			axios.post(api + '/live-status-update', liveProps)
 		}
 	},[api])
 
@@ -91,12 +96,12 @@ export default function LivePlayerContainer({ api }) {
 	if (liveStart) {
 		setModal(false)
 		const liveProps = {
-			liveTitle,
-			liveBody,
-			status: 'online'
+			liveTitle: liveTitle || '',
+			liveBody: liveBody || '',
+			status: true
 		}
 		socket.connect()
-		axios.post(api + '/live-status-update', { status: true })
+		axios.post(api + '/live-status-update', liveProps)
 		socket.emit('waiting', liveProps)
 		
 		user = {
