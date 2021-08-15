@@ -33,10 +33,8 @@ export default function LivePlayerContainer({ api }) {
 		}
 	}, [])
 	
-	
-	useEffect(()=>{
-		if (api) {
-			const check = (api === 'https://23tv.uz/api')
+	function stopLive(api) {
+		const check = (api === 'https://23tv.uz/api')
 			const socket = IO(check ? 'https://23tv.uz/live' : api + '/live', {
 				path: "/socket.io",
 				transports: ["websocket"],
@@ -54,6 +52,11 @@ export default function LivePlayerContainer({ api }) {
 				status: false
 			}
 			axios.post(api + '/live-status-update', liveProps)
+	}
+	
+	useEffect(()=>{
+		if (api) {
+			stopLive(api)
 		}
 	},[api])
 
@@ -226,9 +229,12 @@ export default function LivePlayerContainer({ api }) {
 			</b>
 			</h3>
 			</div>
-			<div className="live__left">
+			<div className="live__left" onClick={() => {
+				stopLive(api)
+				window.location.reload()
+			}}>
 				<button className="live__btn">
-				Эфир стоп
+				стоп Эфир 
 				</button>
 			</div>
 			</div>

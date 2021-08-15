@@ -215,7 +215,7 @@ export default function ShareLink() {
             <div className={st.link_copy}>
               <input
                 id="movie_link_read"
-                value="chsdbcks"
+                value="https://23tv.uz"
                 type="text"
                 style={{
                   background: !dark ? "#0C0C0D" : "#F8F9FC",
