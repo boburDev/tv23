@@ -7,6 +7,7 @@ import cover from "../../../assets/bg/IMG_3873.JPG"
 import Language from '../../../languages'
 import { useLang } from '../../../context/lanuage'
 import axios from "axios"
+import './live.css'
 
 export default function LivePlayerContainer({ api }) {
 	const [ til ] = useLang()
@@ -225,6 +226,11 @@ export default function LivePlayerContainer({ api }) {
 			</b>
 			</h3>
 			</div>
+			<div className="live__left">
+				<button className="live__btn">
+				Эфир стоп
+				</button>
+			</div>
 			</div>
 			<div id="playerRef" className={stLocal.playerArea}>
 			<div id="consultingRoom"
@@ -247,12 +253,12 @@ export default function LivePlayerContainer({ api }) {
 
 			<div className={stLocal.modal_content}>
 				<span onClick={()=>setModal(false)} className={stLocal.close}>&times;</span>
-				<input type="text" onKeyUp={(e)=>setLiveTitle(e.target.value)} placeholder="live title" />
+				<input className="live__input" type="text" onKeyUp={(e)=>setLiveTitle(e.target.value)} placeholder="live title" />
 				<br />
-				<textarea onKeyUp={e=>setLiveBody(e.target.value)} style={{resize: 'none'}} cols="30" rows="10"></textarea>
+				<textarea className="live__textarea" onKeyUp={e=>setLiveBody(e.target.value)} style={{resize: 'none'}} cols="30" rows="10"></textarea>
 				<br />
 				{/* <input onChange={e => setLiveFile(e.target.files)} type="file" /> */}
-				<button onClick={()=>setLiveStart(true)}>Start</button>
+				<button className='live__btn' onClick={()=>setLiveStart(true)}>Start</button>
 			</div>
 
 			</div>

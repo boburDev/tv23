@@ -8,7 +8,9 @@
 .topBar {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   padding: 20px 0;
+  align-items: center;
   padding-top: 28px;
 }
 .title_films {

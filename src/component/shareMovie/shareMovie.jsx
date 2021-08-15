@@ -3,7 +3,7 @@ import { useTheme } from "../../context/theme";
 import { useSharing } from "../../context/shareLink";
 import Language from '../../languages'
 import { useLang } from '../../context/lanuage'
-
+import './liveShare.css'
 import {
   FacebookMessengerShareButton,
   FacebookShareButton,
@@ -48,34 +48,17 @@ export default function ShareLink() {
     <>
       <div className={st.modal}>
         <div
-          className={st.modal_container}
+          className='live__container'
           style={{ background: !dark ? "#0C0C0D" : "#F8F9FC" }}
         >
-          <div className={st.modal_body}>
+          <div className='share__live-wrapper' >
             <div className={st.modal_header}>
               <p style={{ color: !dark ? "#fff" : "#000" }}>{Language[til].shareMovie.share}</p>
               <button
-                className={st.close_button}
+                className='live-close'
                 onClick={() => setSharing(false)}
               >
-                <svg
-                  viewBox="0 0 24 24"
-                  preserveAspectRatio="xMidYMid meet"
-                  focusable="false"
-                  className="style-scope yt-icon"
-                  style={{
-                    pointerEvents: "none",
-                    display: "block",
-                    color: !dark ? "#F8F9FC" : "#0C0C0D",
-                  }}
-                >
-                  <g class="style-scope yt-icon">
-                    <path
-                      d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
-                      className="style-scope yt-icon"
-                    ></path>
-                  </g>
-                </svg>
+               X
               </button>
             </div>
             <div
