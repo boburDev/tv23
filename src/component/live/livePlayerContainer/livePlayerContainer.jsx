@@ -209,7 +209,7 @@ export default function LivePlayerContainer({ api }) {
 				new RTCSessionDescription(event)
 				)
 			})
-		}
+	}
 		
 		useEffect(() => {
 			wrtc(api, liveStart, liveTitle, liveBody)
