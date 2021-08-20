@@ -1,4 +1,4 @@
-import firebase from "firebase"
+import firebase from "firebase/app"
 
 // Your web app's Firebase configuration
 const config = {
@@ -8,8 +8,9 @@ const config = {
   storageBucket: "phone-auth-1d187.appspot.com",
   messagingSenderId: "600290957817",
   appId: "1:600290957817:web:16193379d53673d68e8528",
-};
-// Initialize Firebase
-firebase.initializeApp(config);
+}
 
-export default firebase;
+// Initialize Firebase
+firebase.initializeApp(config)
+
+export default firebase
