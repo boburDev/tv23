@@ -5,44 +5,46 @@ import { useTheme } from "../../../context/theme"
 import { useEffect, useState } from "react"
 import { useLogin } from "../../../context/login"
 import firebase from "../../../context/firebase"
+// import { auth } from "../../../context/firebase"
 import Language from "../../../languages"
 import { useLang } from "../../../context/lanuage.jsx"
 import { useApi } from "../../../context/api"
 import axios from "axios"
 
 export default function VerifyPhone({ recover }) {
-  const [dark] = useTheme();
-  const [userState] = useLogin();
-  const [api] = useApi();
-  const [isSendSms] = useState(true);
-  const [verifyCode, setVerfyCode] = useState({});
-  const [til] = useLang();
+  const [dark] = useTheme()
+  const [userState] = useLogin()
+  const [api] = useApi()
+  const [isSendSms] = useState(true)
+  const [verifyCode, setVerfyCode] = useState({})
+  const [til] = useLang()
 
   const setupReCaptcha = () => {
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
       "recaptcha-container",
       {
         size: "invisible",
-        callback: (response) => {},
+        callback: response => {
+          onSignInOnSubmit()
+        },
       }
-    );
-  };
+    )
+  }
 
   const onSignInOnSubmit = async () => {
-    setupReCaptcha();
-    const appVerifier = window.recaptchaVerifier;
-    const phoneNumber = userState.user.phone;
+    setupReCaptcha()
+    const appVerifier = window.recaptchaVerifier
+    const phoneNumber = userState.user.phone
     try {
       const confirmationResult = await firebase
         .auth()
-        .signInWithPhoneNumber(phoneNumber, appVerifier);
-      window.confirmationResult = confirmationResult;
-
+        .signInWithPhoneNumber(phoneNumber, appVerifier)
+      console.log("confirmationResult", confirmationResult)
+      window.confirmationResult = confirmationResult
     } catch (err) {
       // sms sent err
-
     }
-  };
+  }
 
   // if (recover) {
   //   checkVerification()
@@ -58,20 +60,19 @@ export default function VerifyPhone({ recover }) {
         password: userState.user.password,
         age: userState.user.age - 0,
         phoneNumber: userState.user.phone,
-      });
-      const resData = res.data.accessToken;
+      })
+      console.log("res", res)
+      const resData = res.data.accessToken
       if (resData) {
-        localStorage.setItem("Authorization", resData);
-        window.location.href = "/ru";
+        localStorage.setItem("Authorization", resData)
+        window.location.href = "/ru"
       }
-    } catch (err) {
-
-    }
-  };
+    } catch (err) {}
+  }
 
   useEffect(() => {
-    onSignInOnSubmit();
-  });
+    onSignInOnSubmit()
+  })
 
   return (
     <div>
@@ -100,7 +101,6 @@ export default function VerifyPhone({ recover }) {
           <div
             onClick={() => {
               // onSignInOnSubmit
-
             }}
           >
             <Button style={{ width: "100%", marginTop: "10px" }}>
@@ -110,5 +110,5 @@ export default function VerifyPhone({ recover }) {
         </>
       )}
     </div>
-  );
+  )
 }
