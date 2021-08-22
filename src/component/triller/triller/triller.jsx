@@ -28,9 +28,12 @@ export default function Trailer(props) {
     };
   }, []);
 
+  console.log(itemWidth)
   useEffect(() => {
     settingSize();
   }, []);
+
+  console.log(props.data)
 
   return (
     <div className={st.container}>
@@ -47,10 +50,11 @@ export default function Trailer(props) {
             props.data.map((item, key) => {
               return (
                 <div
-                  key={key}
-                  style={{
+					className={st.carouselItem}
+                	key={key}
+                	style={{
                     width: itemWidth + "px",
-                    transform: current !== key ? "scale(0.94, 0.8)" : "",
+                    transform: current !== key ? "scale(0.94, 0.8)" : "scale(1)",
                     transition: "transform 1s ease",
                     opacity:
                       current - 1 === key || current + 1 === key
@@ -58,15 +62,12 @@ export default function Trailer(props) {
                         : current === key
                         ? 1
                         : 0,
-                  }}
-                  className={st.carouselItem}
-                >
+                	}}>
                   <TrailerItem
                     listenIndex={current}
                     isActive={key === current}
                     data={item}
-                    api={props.api}
-                  />
+                    api={props.api} />
                 </div>
               );
             })

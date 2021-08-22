@@ -15,7 +15,7 @@ export default function TrailerCarousel({ movies = [], api }) {
     const [ til ] = useLang()
     
     const carouselItemStyle = {
-        width:itemWidth, 
+        minWidth: itemWidth + 'vw', 
         transition:'transform 0.5s ease-in-out'
     }
     const textStyle ={
@@ -24,6 +24,7 @@ export default function TrailerCarousel({ movies = [], api }) {
     }
 
     const wayStyle = {
+        
         transition: 'transform .5s ease-in-out',
         transform: `translateX(-${current*itemWidth}px)`
     }
