@@ -15,7 +15,7 @@ export default function TrailerCarousel({ movies = [], api }) {
     const [ til ] = useLang()
     
     const carouselItemStyle = {
-        minWidth: itemWidth + 'vw', 
+        minWidth: itemWidth + 'px', 
         transition:'transform 0.5s ease-in-out'
     }
     const textStyle ={
@@ -30,7 +30,7 @@ export default function TrailerCarousel({ movies = [], api }) {
     }
     const setSize = ()=>{
         var box = document.querySelector('#box')
-        setItemWidth(window.innerWidth>761 ? box?.offsetWidth/2 :box?.offsetWidth )
+        setItemWidth(window.innerWidth>761 ? box?.offsetWidth/2 : box?.offsetWidth )
     }
 
     useEffect(()=>{
