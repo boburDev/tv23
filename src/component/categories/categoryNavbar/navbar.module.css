@@ -21,7 +21,7 @@
 
 .items::-webkit-scrollbar {
   display: block !important;
-  height: 0px;
+  height: 5px;
   visibility: hidden;
 }
 

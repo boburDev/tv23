@@ -7,11 +7,14 @@ import { useLogin } from "../../../context/login";
 import { useEffect, useRef } from "react";
 import Language from '../../../languages'
 import { useLang } from '../../../context/lanuage.jsx'
+import axios from "axios";
+import { useApi } from "../../../context/api"
 
 export default function EnterPassword() {
   const [dark] = useTheme();
   const [userState, setUserState] = useLogin();
   const [ til ] = useLang()
+  const [api] = useApi()
 
   useEffect(() => {
     if (userState.user.username === "" || userState.user.phone === "") {
@@ -22,19 +25,32 @@ export default function EnterPassword() {
   const pass1Ref = useRef();
   const pass2Ref = useRef();
 
-  const handlePassword = () => {
+  const handlePassword = async() => {
     const result = validate(pass1Ref.current.value, pass2Ref.current.value);
     if (result.isValid) {
-      setUserState(function (state) {
-        return {
-          ...state,
-          user: {
-            ...state.user,
-            password: pass1Ref.current.value,
-          },
-          signUp: "verify",
-        };
-      });
+
+      // setUserState(function (state) {
+      //   return {
+      //     ...state,
+      //     user: {
+      //       ...state.user,
+      //       password: pass1Ref.current.value,
+      //     },
+      //     signUp: "verify",
+      //   };
+      // });
+
+      const res = await axios.post(`${api}/create-user`, {
+        username: userState.user.username,
+        password: pass1Ref.current.value,
+        age: userState.user.age - 0,
+        phoneNumber: userState.user.phone,
+      })
+      const resData = res.data.accessToken
+      if (resData) {
+        localStorage.setItem("Authorization", resData)
+        window.location.href = "/ru"
+      }
     }
   };
 

@@ -2,9 +2,9 @@ import Button from "../../elements/button/button"
 import st from "./verifyphone.module.css"
 import VerifyInput from "../../elements/verifyInput/verifyInput"
 import { useTheme } from "../../../context/theme"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useLogin } from "../../../context/login"
-import firebase from "../../../context/firebase"
+// import firebase from "../../../context/firebase"
 // import { auth } from "../../../context/firebase"
 import Language from "../../../languages"
 import { useLang } from "../../../context/lanuage.jsx"
@@ -19,32 +19,32 @@ export default function VerifyPhone({ recover }) {
   const [verifyCode, setVerfyCode] = useState({})
   const [til] = useLang()
 
-  const setupReCaptcha = () => {
-    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
-      "recaptcha-container",
-      {
-        size: "invisible",
-        callback: response => {
-          onSignInOnSubmit()
-        },
-      }
-    )
-  }
+  // const setupReCaptcha = () => {
+  //   window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+  //     "recaptcha-container",
+  //     {
+  //       size: "invisible",
+  //       callback: response => {
+  //         onSignInOnSubmit()
+  //       },
+  //     }
+  //   )
+  // }
 
-  const onSignInOnSubmit = async () => {
-    setupReCaptcha()
-    const appVerifier = window.recaptchaVerifier
-    const phoneNumber = userState.user.phone
-    try {
-      const confirmationResult = await firebase
-        .auth()
-        .signInWithPhoneNumber(phoneNumber, appVerifier)
-      console.log("confirmationResult", confirmationResult)
-      window.confirmationResult = confirmationResult
-    } catch (err) {
-      // sms sent err
-    }
-  }
+  // const onSignInOnSubmit = async () => {
+  //   setupReCaptcha()
+  //   const appVerifier = window.recaptchaVerifier
+  //   const phoneNumber = userState.user.phone
+  //   try {
+  //     const confirmationResult = await firebase
+  //       .auth()
+  //       .signInWithPhoneNumber(phoneNumber, appVerifier)
+  //     console.log("confirmationResult", confirmationResult)
+  //     window.confirmationResult = confirmationResult
+  //   } catch (err) {
+  //     // sms sent err
+  //   }
+  // }
 
   // if (recover) {
   //   checkVerification()
@@ -54,14 +54,13 @@ export default function VerifyPhone({ recover }) {
 
   const checkVerification = async () => {
     try {
-      await window.confirmationResult.confirm(verifyCode)
+      // await window.confirmationResult.confirm(verifyCode)
       const res = await axios.post(`${api}/create-user`, {
         username: userState.user.username,
         password: userState.user.password,
         age: userState.user.age - 0,
         phoneNumber: userState.user.phone,
       })
-      console.log("res", res)
       const resData = res.data.accessToken
       if (resData) {
         localStorage.setItem("Authorization", resData)
@@ -70,9 +69,9 @@ export default function VerifyPhone({ recover }) {
     } catch (err) {}
   }
 
-  useEffect(() => {
-    onSignInOnSubmit()
-  })
+  // useEffect(() => {
+  //   onSignInOnSubmit()
+  // })
 
   return (
     <div>

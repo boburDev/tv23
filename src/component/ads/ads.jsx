@@ -12,7 +12,6 @@ export default function Ads() {
 	async function ADS(api) {
 		try {
       const res = await axios.get(api + '/ads/')
-	  console.log(res.data)
 		setAds(res.data.data)
     } catch (error) {
       

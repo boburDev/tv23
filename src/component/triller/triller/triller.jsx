@@ -28,12 +28,9 @@ export default function Trailer(props) {
     };
   }, []);
 
-  console.log(itemWidth)
   useEffect(() => {
     settingSize();
   }, []);
-
-  console.log(props.data)
 
   return (
     <div className={st.container}>

@@ -3,7 +3,7 @@ import st from "../auth.module.css";
 import MaskLogin from "../../../assets/image/MaskLogin.png";
 import CreateAccount from "../../../component/auth/createaccaunt/createaccaunt";
 import EnterPassword from "../../../component/auth/enterpassword/enterpassword";
-import VerifyPhone from "../../../component/auth/verifyphone/verifyphone";
+// import VerifyPhone from "../../../component/auth/verifyphone/verifyphone";
 
 import { useLogin } from "../../../context/login";
 import { useAuth } from "../../../context/user";
@@ -30,7 +30,8 @@ export default function SignUp() {
             {login && login.signUp === "password" ? (
               <EnterPassword />
             ) : login && login.signUp === "verify" ? (
-              <VerifyPhone />
+              // <VerifyPhone />
+              <></>
             ) : (
               <CreateAccount />
             )}
