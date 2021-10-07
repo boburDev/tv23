@@ -230,10 +230,10 @@ function Navbar({ login, path }) {
               <div ref={componentRef}>
                 <div style={miniMenuStyle} className={st.miniMenu}>
                   <div>
-                      <div className={`${st.languageMiniDevice} ${dark ? st.dark : ""}`}>
+                      <div style={{padding: '10px', justifyContent: 'space-around'}} className={`${st.languageMiniDevice} ${dark ? st.dark : ""}`}>
                     <Link
                       to="/ru"
-                      style={{ fontWeight: lang === "ru" ? 900 : 400 }}
+                      style={{ color: !dark ? "black" : "white", fontWeight: lang === "ru" ? 900 : 400 }}
                       onClick={() => {
                         setLang("ru");
                         setReload(true);
@@ -244,7 +244,7 @@ function Navbar({ login, path }) {
                     <span style={{ color: !dark ? "black" : "white" }}>|</span>
                     <Link
                       to="/uz"
-                      style={{ fontWeight: lang === "uz" ? 900 : 400 }}
+                      style={{ color: !dark ? "black" : "white", fontWeight: lang === "uz" ? 900 : 400 }}
                       onClick={() => {
                         setLang("uz");
                         setReload(true);
