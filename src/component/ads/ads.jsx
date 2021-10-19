@@ -11,8 +11,8 @@ export default function Ads() {
 	
 	async function ADS(api) {
 		try {
-      const res = await axios.get(api + '/ads/')
-		setAds(res.data.data)
+      const res = await axios.get(api + '/ads')
+		  setAds(res.data.data)
     } catch (error) {
       
     }
@@ -20,7 +20,7 @@ export default function Ads() {
 
 
 	useEffect(() => {
-		if (api) {
+		if (api.length) {
 			ADS(api)
 		}
 	},[api])
@@ -28,7 +28,7 @@ export default function Ads() {
   return (
     <>
     {
-      ads && <div className={st.ads} style={{ background: dark ? "#0C0C0D" : "#F8F9FC" }}>
+      ads && ads.ads_id && <div className={st.ads} style={{ background: dark ? "#0C0C0D" : "#F8F9FC" }}>
       <div className={st.container}>
         <a href={`${ads.ads_link}`}>
           <img src={`${api}/${ads.ads_path}`} alt="" height="20" />

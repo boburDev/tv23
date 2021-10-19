@@ -39,8 +39,10 @@ function Home() {
   }
 
   useEffect(() => {
-    getMovies(api)
-    recommendedTrillers(api)
+    if (api.length) {
+		getMovies(api)
+    	recommendedTrillers(api)
+	}
   }, [api])
 
   return (

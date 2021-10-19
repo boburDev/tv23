@@ -30,7 +30,7 @@ const [ til ] = useLang()
 useEffect(()=>{
     ;(async()=>{
         try {
-            if (api) {
+            if (api.length) {
                 const res = await axios.get(api + '/countries')
                 setCountries(res.data.data)
             }
@@ -43,7 +43,7 @@ useEffect(()=>{
 useEffect(()=>{
     ;(async()=>{
         try {
-            if (api) {
+            if (api.length) {
                 const res = await axios.get(api + '/genres')
                 setGenres(res.data.data)
             }
@@ -56,7 +56,7 @@ useEffect(()=>{
 useEffect(()=>{
     ;(async()=>{
         try {
-            if (api) {
+            if (api.length) {
                 const res = await axios.get(api + '/movie-year')
                 setYear(res.data.data)
             }

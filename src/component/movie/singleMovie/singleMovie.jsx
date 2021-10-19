@@ -91,7 +91,7 @@ export default function SignleMovie({ serial }) {
   }, [movie, params, api])
 
   useEffect(() => {
-    if (api) {
+    if (api.length) {
       getActors(api, params)
       getDirector(api, params)
 	  if (serial) {
