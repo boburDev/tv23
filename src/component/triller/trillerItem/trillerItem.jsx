@@ -51,7 +51,7 @@ export default function TrailerItem({ isActive, data, api }) {
               <div className={st.button} onClick={() => {
                   window.location.href = `/${
                     language.lang || "ru"
-                  }/categories/recomented/${data.movie_id}`
+                  }/categories/recomended/${data.triller_id}`
                 }}>
                 <Button>Смотреть по подписке</Button>
               </div>
