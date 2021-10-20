@@ -230,6 +230,9 @@ export default function MoviePlayerContainer({ movie = {}, visibled = 6 }) {
       <div id="playerRef" className={st.playerArea}>
         {isVideo ? (
           <div className={st.cover}>
+            {
+              console.log(movie)
+            }
             {movie && movie.movie_id && <VideoPlayer movie={movie} />}
           </div>
         ) : isVideoTriller ? (<div className={st.cover}>

@@ -54,6 +54,7 @@ export default function VideoPlayer({ movie }) {
 	
 	useEffect(()=>{
 		if (movie && movie.movie_id) {
+			console.log(movie)
 			setData({
 				path: movie.movie_path,
 				movie_thumnail_path: movie.movie_thumnail_path
@@ -75,6 +76,7 @@ export default function VideoPlayer({ movie }) {
 	
 	useEffect(() => {
 		if (videoRef.current) {
+			// console.log(videoRef.current)
 			isPlay ? videoRef.current.play() : videoRef.current.pause()
 		}
 	}, [isPlay]);

@@ -53,7 +53,6 @@ export default function SignleMovie({ serial }) {
   async function MovieDetail(params) {
     try {
 		setLoading(true)
-    console.log(params)
 		const movies = await Axios.get("/movie-one", {
 			params: {
 				movieId: params && params.movieid,

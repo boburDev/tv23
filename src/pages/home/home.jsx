@@ -4,7 +4,7 @@ import Navbar from "../../component/navbar/navbar"
 import Triller from "../../component/triller/triller/triller"
 import CategoryMovie from "../../component/categories/categories"
 import { useEffect, useState } from "react"
-import {api, Axios} from "../../services";
+import { api, Axios } from "../../services"
 import FilterComponent from '../../component/filter/filter'
 import Loader from '../../component/loader/loader'
 
@@ -23,9 +23,6 @@ function Home() {
       })
       setLoading(false)
       setCategories(categories.data.data)
-      for (const i of categories.data.data) {
-        console.log(i)
-      }
     } catch (error) {}
   }
 
