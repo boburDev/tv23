@@ -4,19 +4,17 @@ import Navbar from "../../component/navbar/navbar"
 import { useEffect, useState } from "react"
 import CategoryMovie from '../../component/categories/categories'
 import TrillerCarousel from '../../component/triller/trillerCarousel/triller'
-import axios from "axios"
-import { useApi } from "../../context/api"
+import {api, Axios} from "../../services"
 
 function MovieCategory() {
-	const [api] = useApi()
 	const [categories, setCategories] = useState([])
 	const [genres, setGenres] = useState([])
 	const [recommendedTriller, setRecommendedTriller] = useState([])
 	const [loading, setLoading] = useState(false)
-	async function getMovies (api){
+	async function getMovies (){
 		try {
 			setLoading(true)
-			const categories = await axios.get(api + '/category-with-movies', {
+			const categories = await Axios.get('/category-with-movies', {
 				headers: {
 					Authorization: localStorage.getItem('Authorization')
 				}
@@ -29,10 +27,10 @@ function MovieCategory() {
 
 	// vse kategorini kurib chiq yaxshilab
 
-	async function getGenres(api) {
+	async function getGenres() {
 		try {
 			setLoading(true)
-			const genres = await axios.get(api + '/genres')
+			const genres = await Axios.get('/genres')
 			setGenres(genres.data.data)
 			setLoading(false)
 		} catch (error) {
@@ -40,10 +38,10 @@ function MovieCategory() {
 		}
 	}
 
-	async function recommendedTrillers(api) {
+	async function recommendedTrillers() {
 		try {
 			setLoading(true)
-			const trillers = await axios.get(api + '/recommended-t')
+			const trillers = await Axios.get('/recommended-t')
 			setRecommendedTriller(trillers.data.data)
 			setLoading(false)
 		} catch (error) {
@@ -52,10 +50,10 @@ function MovieCategory() {
 	}
 	
 	useEffect(()=>{
-		getMovies(api)
-		getGenres(api)
-		recommendedTrillers(api)
-	},[api])
+		getMovies()
+		getGenres()
+		recommendedTrillers()
+	},[])
 	
 	return (
 		<>

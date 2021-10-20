@@ -16,12 +16,12 @@ import { useTheme } from "../../../context/theme"
 import { useSharing } from "../../../context/shareLink"
 import { useAuth } from '../../../context/user'
 import { Link, useParams } from 'react-router-dom'
-import axios from "axios"
+import {api, Axios} from '../../../services'
 import SliderCounterAdvanced from "../../sliderCounter/SliderCounterAdvanced";
 import Language from '../../../languages'
 import { useLang } from '../../../context/lanuage'
 
-export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) {
+export default function MoviePlayerContainer({ movie = {}, visibled = 6 }) {
   const [resolution, setResolution] = useResolution()
 //   const [playerType, setPlayerType] = useState(localStorage.getItem("player_type") || "Триллеры")
   const [dark] = useTheme()
@@ -72,7 +72,7 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
 
   async function GetSerials(api,movieId) {
 	try {
-		const res = await axios.get(api+ '/serials', {
+		const res = await Axios.get('/serials', {
 			params: {
 				movieId: movieId
 			}
@@ -85,9 +85,8 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
   }
 
   async function UpdateFavour() {
-	if (api) {
 		try {
-			await axios.post(api + '/add-favourite', {
+			await Axios.post('/add-favourite', {
 				movieId: language && language.movieid
 			}, {
 				headers: {
@@ -96,15 +95,13 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
 			})
 			setIsFavour(true)
 		} catch (error) {
-			
 		}
-	}
   }
 
   async function DeleteFavour() {
 	if (api) {
 		try {
-			await axios.post(api + '/delete-favourite', {
+			await Axios.post('/delete-favourite', {
 				movieId: language && language.movieid
 			}, {
 				headers: {
@@ -117,9 +114,9 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
 	}
   }
 
-  async function getFavour(api, movieId) {
+  async function getFavour( movieId) {
 	try {
-		const res = await axios.get(api + '/favorite-movie-one', {
+		const res = await Axios.get('/favorite-movie-one', {
 			headers: {
 				Authorization: localStorage.getItem('Authorization')
 			},
@@ -148,16 +145,14 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
   }
 
   useEffect(()=>{
-	if (api) {
-		getFavour(api, language && language.movieid)
-	}
-  },[api,language])
+		getFavour(language && language.movieid)
+  },[language])
 
   useEffect(()=>{
-	if (movie && movie.movie_serial_is) {
-		GetSerials(api,movie.movie_id)
-	}
-  }, [movie,api])
+    if (movie && movie.movie_serial_is) {
+      GetSerials(movie.movie_id)
+    }
+  }, [movie])
 
   useEffect(() => {
     if (movie && !movie.triller_id) {
@@ -235,11 +230,11 @@ export default function MoviePlayerContainer({ movie = {}, api, visibled = 6 }) 
       <div id="playerRef" className={st.playerArea}>
         {isVideo ? (
           <div className={st.cover}>
-            {movie && movie.movie_id && <VideoPlayer api={api} movie={movie} />}
+            {movie && movie.movie_id && <VideoPlayer movie={movie} />}
           </div>
         ) : isVideoTriller ? (<div className={st.cover}>
 			{
-				movie && movie.movie_id && <VideoTrillerPlayer api={api} movie={movie} />
+				movie && movie.movie_id && <VideoTrillerPlayer movie={movie} />
 			}
 		</div>) : (
           <div className={st.cover}>

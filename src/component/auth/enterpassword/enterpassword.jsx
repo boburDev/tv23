@@ -7,14 +7,12 @@ import { useLogin } from "../../../context/login";
 import { useEffect, useRef } from "react";
 import Language from '../../../languages'
 import { useLang } from '../../../context/lanuage.jsx'
-import axios from "axios";
-import { useApi } from "../../../context/api"
+import {api, Axios} from "../../../services"
 
 export default function EnterPassword() {
   const [dark] = useTheme();
   const [userState, setUserState] = useLogin();
   const [ til ] = useLang()
-  const [api] = useApi()
 
   useEffect(() => {
     if (userState.user.username === "" || userState.user.phone === "") {
@@ -40,7 +38,7 @@ export default function EnterPassword() {
       //   };
       // });
 
-      const res = await axios.post(`${api}/create-user`, {
+      const res = await Axios.post('/create-user', {
         username: userState.user.username,
         password: pass1Ref.current.value,
         age: userState.user.age - 0,

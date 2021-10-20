@@ -1,29 +1,19 @@
 import st from "./ads.module.css"
 import { useTheme } from "../../context/theme"
 import { useEffect, useState } from "react"
-import { useApi } from '../../context/api'
-import axios from "axios"
+import {api, Axios} from "../../services"
 
 export default function Ads() {
 	const [dark] = useTheme()
-	const [api] = useApi()
 	const [ads, setAds] = useState({})
-	
-	async function ADS(api) {
+	async function ADS() {
 		try {
-      const res = await axios.get(api + '/ads')
+      const res = await Axios.get('/ads')
 		  setAds(res.data.data)
     } catch (error) {
       
     }
 	}
-
-
-	useEffect(() => {
-		if (api.length) {
-			ADS(api)
-		}
-	},[api])
 
   return (
     <>

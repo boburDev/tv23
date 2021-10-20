@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import rateStars from "../../../assets/image/rates.png";
 import { useTheme } from "../../../context/theme";
-import axios from "axios";
+import {api, Axios} from '../../../services'
 import Language from '../../../languages'
 import { useLang } from '../../../context/lanuage'
 
-export default function MovieInfo({ movie, api }) {
+export default function MovieInfo({ movie}) {
   const params = useParams();
   const [dark] = useTheme();
   const [ til ] = useLang()
@@ -19,17 +19,10 @@ export default function MovieInfo({ movie, api }) {
   const setCollapse = () => setCollapseDesc(!collapseDesc);
 
 
-	async function ADS(api) {
-		const res = await axios.get(api + '/ads/')
+	async function ADS() {
+		const res = await Axios.get('/ads')
 		setAds(res.data.data)
 	}
-
-
-	useEffect(() => {
-		if (api) {
-			ADS(api)
-		}
-	},[api])
 
   return (
     <div

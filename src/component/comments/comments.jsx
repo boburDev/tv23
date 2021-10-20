@@ -6,7 +6,7 @@ import CommentItem from "./commentItem/commentItem";
 import { useTheme } from "../../context/theme";
 import Language from '../../languages'
 import { useLang } from '../../context/lanuage.jsx'
-import axios from "axios";
+import {api, Axios} from "../../services";
 import { useAuth } from '../../context/user'
 
 export default function Commenting({ film_id, api }) {
@@ -47,7 +47,7 @@ export default function Commenting({ film_id, api }) {
 	const addComment = async(e)=>{
 	e.preventDefault()
 		try {
-			const res = await axios.post(`${api}/add-comment`, {
+			const res = await Axios.post(`add-comment`, {
 				movieId: film_id,
 				commentBody:bodyRef.current.value,
 				userId:user && user.userId
@@ -59,7 +59,7 @@ export default function Commenting({ film_id, api }) {
 	}
 
 	async function GetComment(api, film_id){
-		const res = await axios.get(api + '/comments?movieId='+ film_id)
+		const res = await Axios.get('/comments?movieId='+ film_id)
 		setComments(res.data.data)
 	}
 

@@ -9,7 +9,7 @@ import exitFullScreenIcon from '../../../assets/image/exitFullscreen.png'
 import VideoVolume from '../../elements/videoVolume/videoVolume'
 import Seekbar from '../../elements/seekbar/seekbar'
 import { useResolution } from '../../../context/resolution'
-
+import {api} from '../../../services'
 const parseHMS=(value)=>{
 	const sec = parseInt(value, 10)
 	let hours = Math.floor(sec / 3600) // get hours
@@ -21,7 +21,7 @@ const parseHMS=(value)=>{
 	return hours + ':' + minutes + ':' + seconds; // Return is HH : MM : SS
 }
 
-export default function VideoPlayer({ movie, api }) {
+export default function VideoPlayer({ movie }) {
 	const [resolution] = useResolution()
 	const { movieid } = useParams()
 	const videoRef = useRef()

@@ -1,11 +1,9 @@
 import LivePlayerContainer from '../livePlayerContainer/livePlayerContainer'
 import UserLivePlayerContainer from '../livePlayerContainer/userLivePlayerContainer'
-import { useApi } from '../../../context/api'
 import { useAuth } from '../../../context/user'
 import { useEffect, useState } from 'react'
-
+import {api} from '../../../services'
 export default function SignleMovie() {
-    const [api] = useApi()
     const [auth] = useAuth()
     const [status,setStatus] = useState(1)
 

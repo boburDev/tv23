@@ -5,14 +5,12 @@ import InputProfile from "../../elements/inputProfile/inputProfile";
 import Button from "../../elements/button/button";
 import { useTheme } from "../../../context/theme";
 import { Link, useParams } from "react-router-dom";
-import axios from "axios";
-import { useApi } from "../../../context/api";
+import {api, Axios} from "../../../services";
 import Language from "../../../languages";
 import { useLang } from "../../../context/lanuage.jsx";
 
 export default function SignIn() {
   const [dark] = useTheme();
-  const [api] = useApi();
   const language = useParams();
   const phoneRef = useRef();
   const passRef = useRef();
@@ -24,7 +22,7 @@ export default function SignIn() {
 
   async function handleSignIn() {
     try {
-      const res = await axios.post(`${api}/login-user`, {
+      const res = await Axios.post('/login-user', {
         phoneNumber: phoneRef.current.value || "+998902121212",
         password: passRef.current.value || "1",
       });

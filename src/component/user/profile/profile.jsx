@@ -7,12 +7,10 @@ import { useParams } from "react-router-dom";
 import Language from '../../../languages'
 import { useLang } from '../../../context/lanuage'
 import { useAuth } from '../../../context/user'
-import { useApi } from '../../../context/api'
-import axios from "axios";
+import { api, Axios} from "../../../services";
 export default function Profile({ data }) {
   const inputRef = useRef();
   const [dark] = useTheme();
-  const [api] = useApi();
   const [isEdit, setIsEdit] = useState(false);
   const [oldPassword, setOldPassword] = useState('')
   const [username, setUsername] = useState('')
@@ -32,16 +30,16 @@ export default function Profile({ data }) {
     color: dark ? "#fff" : "#000",
   }
 
-  async function updateUserPassword(api, data) {
-	await axios.post(api + '/update-user-password', data, {
+  async function updateUserPassword(data) {
+	await Axios.post('/update-user-password', data, {
 		headers: {
 			Authorization: localStorage.getItem('Authorization')
 		}
 	})
   }
   
-  async function updateUserData(api, data) {
-	const res = await axios.post(api + '/update-user-data', data, {
+  async function updateUserData(data) {
+	const res = await Axios.post('/update-user-data', data, {
 		headers: {
 			Authorization: localStorage.getItem('Authorization')
 		}
@@ -54,7 +52,7 @@ export default function Profile({ data }) {
 		if(window.confirm('Do you want to update avatar')) {
 			let data = new FormData()
 			data.append('file', e.target.files[0])
-			const res = await axios.post(api + '/update-user-ava', data, {
+			const res = await Axios.post('/update-user-ava', data, {
 				headers: {
 				Authorization: localStorage.getItem('Authorization')
 				}
@@ -224,7 +222,7 @@ export default function Profile({ data }) {
 						username,
 						userAge: age
 					}
-					updateUserData(api,data1)
+					updateUserData(data1)
 				}
 
 			  if (update) {
@@ -232,7 +230,7 @@ export default function Profile({ data }) {
 					newPassword: newPassword,
 					oldPassword: oldPassword
 				}
-				updateUserPassword(api, data)
+				updateUserPassword(data)
 			  }
             }}
             className={st.buttonLink}

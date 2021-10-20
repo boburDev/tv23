@@ -1,11 +1,10 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { useApi } from "./api";
 import IO from "socket.io-client";
+import {api} from "../services"
 const Context = createContext();
 
 const SocketProvider = ({ children }) => {
   const [state, setState] = useState("");
-  const [api] = useApi();
   const isTester = true;
 
   useEffect(() => {
@@ -26,7 +25,7 @@ const SocketProvider = ({ children }) => {
         })
       );
     }
-  }, [isTester, api]);
+  }, [isTester]);
 
   const value = {
     state,

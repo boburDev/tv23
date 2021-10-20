@@ -6,10 +6,10 @@ import IO from "socket.io-client"
 import cover from "../../../assets/bg/IMG_3873.JPG"
 import Language from '../../../languages'
 import { useLang } from '../../../context/lanuage'
-import axios from "axios"
+import {api, Axios} from '../../../services'
 import './live.css'
 
-export default function LivePlayerContainer({ api }) {
+export default function LivePlayerContainer() {
 	const [ til ] = useLang()
 	const [dark] = useTheme()
 	const [, setPlayerHeight] = useState("")
@@ -33,7 +33,7 @@ export default function LivePlayerContainer({ api }) {
 		}
 	}, [])
 	
-	function stopLive(api) {
+	function stopLive() {
 		const check = (api === 'https://23tv.uz/api')
 			const socket = IO(check ? 'https://23tv.uz/live' : api + '/live', {
 				path: "/socket.io",
@@ -51,17 +51,10 @@ export default function LivePlayerContainer({ api }) {
 				liveBody: '',
 				status: false
 			}
-			axios.post(api + '/live-status-update', liveProps)
+			Axios.post('/live-status-update', liveProps)
 	}
-	
-	useEffect(()=>{
-		if (api) {
-			stopLive(api)
-		}
-	},[api])
 
-	
-	function wrtc(api, liveStart, liveTitle, liveBody) {
+	function wrtc(liveStart, liveTitle, liveBody) {
 		// getting dom elements
 		const divConsultingRoom = document.getElementById("consultingRoom")
 		const btnJoinBroadcaster = document.getElementById("joinBroadcaster")
@@ -105,7 +98,7 @@ export default function LivePlayerContainer({ api }) {
 			status: true
 		}
 		socket.connect()
-		axios.post(api + '/live-status-update', liveProps)
+		Axios.post('/live-status-update', liveProps)
 		socket.emit('waiting', liveProps)
 		
 		user = {
@@ -212,8 +205,8 @@ export default function LivePlayerContainer({ api }) {
 	}
 		
 		useEffect(() => {
-			wrtc(api, liveStart, liveTitle, liveBody)
-		},[api, liveStart, liveTitle, liveBody])
+			wrtc(liveStart, liveTitle, liveBody)
+		},[liveStart, liveTitle, liveBody])
 		
 		return (
 			<div
@@ -230,7 +223,7 @@ export default function LivePlayerContainer({ api }) {
 			</h3>
 			</div>
 			<div className="live__left" onClick={() => {
-				stopLive(api)
+				stopLive()
 				window.location.reload()
 			}}>
 				<button className="live__btn">

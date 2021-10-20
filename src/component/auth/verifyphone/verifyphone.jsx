@@ -8,13 +8,11 @@ import { useLogin } from "../../../context/login"
 // import { auth } from "../../../context/firebase"
 import Language from "../../../languages"
 import { useLang } from "../../../context/lanuage.jsx"
-import { useApi } from "../../../context/api"
-import axios from "axios"
+import {Axios} from "../../../services"
 
 export default function VerifyPhone({ recover }) {
   const [dark] = useTheme()
   const [userState] = useLogin()
-  const [api] = useApi()
   const [isSendSms] = useState(true)
   const [verifyCode, setVerfyCode] = useState({})
   const [til] = useLang()
@@ -55,7 +53,7 @@ export default function VerifyPhone({ recover }) {
   const checkVerification = async () => {
     try {
       // await window.confirmationResult.confirm(verifyCode)
-      const res = await axios.post(`${api}/create-user`, {
+      const res = await Axios.post(`/create-user`, {
         username: userState.user.username,
         password: userState.user.password,
         age: userState.user.age - 0,

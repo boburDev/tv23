@@ -9,13 +9,11 @@ import History from '../../component/user/history/history'
 import ProfileSideBar from '../../component/user/profileSideBar/profileSideBar'
 import { useParams } from 'react-router-dom'
 import { useAuth } from '../../context/user'
-import { useApi } from '../../context/api'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
+import {api, Axios} from '../../services'
 export default function Settings() {
     const language = useParams()
     const [auth] = useAuth()
-    const [api] = useApi()
     const [response, setResponse] = useState({})
 
     useEffect(()=>{
@@ -32,7 +30,7 @@ export default function Settings() {
           if(window.confirm('Do you want to update avatar')) {
               let data = new FormData()
               data.append('file', e.target.files[0])
-              const res = await axios.post(api + '/update-user-ava', data, {
+              const res = await Axios.post('/update-user-ava', data, {
                   headers: {
                   Authorization: localStorage.getItem('Authorization')
                   }

@@ -6,15 +6,12 @@ import Button from '../elements/button/button'
 import { useFilter } from '../../context/filter'
 import CheckInput from '../elements/checkInput/checkInput'
 import { useTheme } from '../../context/theme'
-import { useApi } from '../../context/api'
-import axios from 'axios'
 import MovieItem from '../movie/movieItem/movieItem'
 import SearchNotFound from '../notFound/SearchNotFound/notFound'
 import Language from '../../languages'
 import { useLang } from '../../context/lanuage.jsx'
-
+import {Axios} from '../../services'
 export default function FilterConfigure() {
-const [api] = useApi()
 const [countires, setCountries] = useState([])
 const [genres, setGenres] = useState([])
 const [year, setYear] = useState([])
@@ -30,41 +27,35 @@ const [ til ] = useLang()
 useEffect(()=>{
     ;(async()=>{
         try {
-            if (api.length) {
-                const res = await axios.get(api + '/countries')
+                const res = await Axios.get('/countries')
                 setCountries(res.data.data)
-            }
         } catch (error) {
             throw error
         }
     })()
-},[api])
+},[])
 
 useEffect(()=>{
     ;(async()=>{
         try {
-            if (api.length) {
-                const res = await axios.get(api + '/genres')
+                const res = await Axios.get('/genres')
                 setGenres(res.data.data)
-            }
         } catch (error) {
             throw error
         }
     })()
-},[api])
+},[])
 
 useEffect(()=>{
     ;(async()=>{
         try {
-            if (api.length) {
-                const res = await axios.get(api + '/movie-year')
-                setYear(res.data.data)
-            }
+            const res = await Axios.get('/movie-year')
+            setYear(res.data.data)
         } catch (error) {
             throw error
         }
     })()
-},[api])
+},[])
 
 
 
@@ -101,7 +92,7 @@ const sendSearchData = async() => {
         countryId: selectedCountryId,
     }
     setLoading(true)
-    const res = await axios.post(api + '/filter-movie', searchData, {
+    const res = await Axios.post('/filter-movie', searchData, {
         headers: {
             Language: localStorage.getItem('lang')
         }

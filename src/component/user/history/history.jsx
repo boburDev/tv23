@@ -1,16 +1,14 @@
 import st from "./history.module.css";
 import MovieItem from '../../movie/movieItem/movieItem'
 import { useEffect, useState } from "react"
-import axios from "axios"
-import { useApi } from '../../../context/api'
+import { Axios} from "../../../services";
 import SliderCounterBasic from "../../sliderCounter/sliderCounterBasic"
 
 export default function History({ visibled = 4 }) {
     const [state,setState] = useState()
-    const [api] = useApi()
     const [current, setCurrent] = useState(0);
-    async function GetHistory(api) {
-        const res = await axios.get(api + '/history-movie', {
+    async function GetHistory() {
+        const res = await Axios.get('/history-movie', {
             headers: {
                 Authorization: localStorage.getItem('Authorization')
             }
@@ -20,10 +18,8 @@ export default function History({ visibled = 4 }) {
 
 
     useEffect(()=>{
-        if (api) {
-            GetHistory(api)
-        }
-    },[api])
+        GetHistory()
+    },[])
 
       function pagination(val) {
         return Math.ceil(val.length / visibled > 5 ? 5 : val.length / visibled)

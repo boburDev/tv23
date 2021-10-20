@@ -3,20 +3,18 @@ import Ads from "../../component/ads/ads"
 import Navbar from "../../component/navbar/navbar"
 import FavoriteMovies from "../../component/favourites/favourites"
 import { useEffect, useState } from "react"
-import axios from "axios"
-import { useApi } from "../../context/api"
+import {Axios} from "../../services"
 import Loader from '../../component/loader/loader'
 
 
 export default function Favourites() {
-    const [api] = useApi()
     const [loading,setLoading] = useState(false)
     const [favourMovies,setFavourMovies] = useState([])
 
-    async function getFavourMovie(api) {
+    async function getFavourMovie() {
        try {
         setLoading(true)
-        const res = await axios.get(api + '/favorite-movie', {
+        const res = await Axios.get('/favorite-movie', {
             headers: {
                 Authorization: localStorage.getItem('Authorization')
             }
@@ -29,10 +27,8 @@ export default function Favourites() {
     }
 
     useEffect(()=>{
-        if (api) {
-            getFavourMovie(api)
-        }
-    },[api])
+        getFavourMovie();
+    },[])
 
 
     return (

@@ -4,13 +4,11 @@ import Navbar from "../../component/navbar/navbar"
 import TrillerCarousel from "../../component/triller/trillerCarousel/triller"
 import MovieCategory from "../../component/categories/categories"
 import { useEffect, useState } from "react"
-import axios from "axios"
-import { useApi } from "../../context/api"
+import {api, Axios} from "../../services"
 import { usePagination } from "../../context/pagination"
 import { useParams } from "react-router-dom"
 import Loader from '../../component/loader/loader'
 export default function CategoryMovie() {
-  const [api] = useApi()
   const [pagination] = usePagination()
   const category = useParams()
   const [movies, setMovies] = useState({})
@@ -18,14 +16,14 @@ export default function CategoryMovie() {
   const [recommendedTriller, setRecommendedTriller] = useState([])
   const [loading, setLoading] = useState(false)
 
-  async function getMovies(api, value, pagination) {
+  async function getMovies(value, pagination) {
     try {
       setLoading(true)
       const val =
         value.category.toLowerCase().charAt(0).toUpperCase() +
         value.category.toLowerCase().slice(1)
 
-      const movies = await axios.get(api + "/movie-category", {
+      const movies = await Axios.get("/movie-category", {
         params: {
           categoryName: val,
 		  page: pagination
@@ -37,10 +35,10 @@ export default function CategoryMovie() {
     } catch (error) {}
   }
 
-  async function getCategories(api) {
+  async function getCategories() {
     try {
       setLoading(true)
-      const categories = await axios.get(api + "/categories", {
+      const categories = await Axios.get("/categories", {
 		  headers: {
 			Authorization: localStorage.getItem('Authorization')
 		  }
@@ -51,19 +49,19 @@ export default function CategoryMovie() {
     } catch (error) {}
   }
 
-  async function recommendedTrillers(api) {
+  async function recommendedTrillers() {
     try {
       setLoading(true)
-      const trillers = await axios.get(api + "/recommended-t")
+      const trillers = await Axios.get("/recommended-t")
       setRecommendedTriller(trillers.data.data)
       setLoading(false)
     } catch (error) {}
   }
   useEffect(() => {
-    getMovies(api, category, pagination)
-    recommendedTrillers(api)
-    getCategories(api)
-  }, [api, category, pagination])
+    getMovies(category, pagination)
+    recommendedTrillers()
+    getCategories()
+  }, [category, pagination])
 
   return (
     <>

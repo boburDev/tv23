@@ -1,27 +1,23 @@
-import axios from "axios";
+import {Axios} from "../services";
 import { createContext, useContext, useEffect, useState } from "react";
-import { useApi } from "./api";
 const Context = createContext();
 
 const AuthorizetionProvider = ({ children }) => {
   const [state, setState] = useState(null);
-  const [api] = useApi();
 
-  async function Auth(api) {
+  async function Auth() {
     try {
-      if (api.length) {
-        axios.defaults.headers.common["Authorization"] = localStorage.getItem("Authorization") || ""
-      const res = await axios.get(api + "/user-data")
-      setState(res.data.data)
-      }
+        Axios.defaults.headers.common["Authorization"] = localStorage.getItem("Authorization") || ""
+        const res = await Axios.get("/user-data")
+        setState(res.data.data)
     } catch (error) {
       setState(error.response && error.response.status)
     }
   }
 
   useEffect(() => {
-    Auth(api);
-  }, [api]);
+    Auth();
+  }, []);
 
   const value = {
     state,

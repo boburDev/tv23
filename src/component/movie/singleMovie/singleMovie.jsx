@@ -6,14 +6,12 @@ import Category from "../../categories/category/category"
 import Comments from "../../comments/comments"
 import { useSharing } from "../../../context/shareLink"
 import ShareLink from "../../shareMovie/shareMovie"
-import { useApi } from "../../../context/api"
 import { useParams } from "react-router-dom"
-import axios from "axios"
+import {api, Axios} from "../../../services"
 import Loader from '../../loader/loader'
 
 import { useEffect, useState } from "react"
 export default function SignleMovie({ serial }) {
-  const [api] = useApi()
   const [openModal] = useSharing()
   const params = useParams()
   const [movie, setMovie] = useState({})
@@ -22,27 +20,27 @@ export default function SignleMovie({ serial }) {
   const [similarMovie, setSimilarMovie] = useState([])
   const [loadng, setLoading] = useState(false)
 
-  async function getActors(api, params) {
+  async function getActors(params) {
 	setLoading(true)
-    const res = await axios.get(
-      `${api}/movie-actors?movieId=${params && params.movieid}`
+    const res = await Axios.get(
+      `/movie-actors?movieId=${params && params.movieid}`
     )
     setActors(res.data.data)
 	setLoading(false)
   }
 
-  async function getDirector(api, params) {
+  async function getDirector(params) {
 	setLoading(true)
-    const res = await axios.get(
-      `${api}/movie-directors?movieId=${params && params.movieid}`
+    const res = await Axios.get(
+      `/movie-directors?movieId=${params && params.movieid}`
     )
 	setLoading(false)
     setDirectors(res.data.data)
   }
 
-  async function getMovies(api, params, movie) {
+  async function getMovies(params, movie) {
 	setLoading(true)
-    const res = await axios.get(`${api}/similar-movies/`, {
+    const res = await Axios.get(`/similar-movies/`, {
       params: {
         movieId: params && params.movieid,
         categoryName: movie && movie.category_name,
@@ -52,11 +50,11 @@ export default function SignleMovie({ serial }) {
     setSimilarMovie(res.data.data)
   }
 
-  async function MovieDetail(api, params) {
+  async function MovieDetail(params) {
     try {
 		setLoading(true)
     console.log(params)
-		const movies = await axios.get(api + "/movie-one", {
+		const movies = await Axios.get("/movie-one", {
 			params: {
 				movieId: params && params.movieid,
         type: (params && (params.category === 'recomended' ? 't' : 'm')),
@@ -72,9 +70,9 @@ export default function SignleMovie({ serial }) {
 	}
   }
   
-  async function MovieSerialDetail(api, params) {
+  async function MovieSerialDetail(params) {
     try {
-		const movies = await axios.get(api + "/serial-one", {
+		const movies = await Axios.get("/serial-one", {
 			params: {
 				movieId: params && params.serialid,
 			}
@@ -88,21 +86,19 @@ export default function SignleMovie({ serial }) {
 
   useEffect(() => {
     if (movie && movie.category_id) {
-      getMovies(api, params, movie)
+      getMovies( params, movie)
     }
-  }, [movie, params, api])
+  }, [movie, params])
 
   useEffect(() => {
-    if (api.length) {
-      getActors(api, params)
-      getDirector(api, params)
+      getActors(params)
+      getDirector(params)
 	  if (serial) {
-		MovieSerialDetail(api, params)
+		MovieSerialDetail( params)
 	  } else {
-		MovieDetail(api, params)
+		MovieDetail(params)
 	  }
-    }
-  }, [params, api, serial])
+  }, [params, serial])
 
 
 

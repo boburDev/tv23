@@ -15,13 +15,11 @@ import SearchNotFound from '../notFound/SearchNotFound/notFound'
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { useTheme } from "../../context/theme";
-import axios from "axios";
-import { useApi } from "../../context/api";
+import {Axios} from "../../services";
 import Language from '../../languages'
 import { useLang } from '../../context/lanuage'
 
 function Navbar({ login, path }) {
-	const [api] = useApi()
 	const [isOpenSearch, setIsOpenSearch] = useState(false);
 	const [isOpen, setIsOpen] = useState();
 	const componentRef = useRef();
@@ -120,7 +118,7 @@ function Navbar({ login, path }) {
 		if (e.target.value.trim() !== '') {
 			setLoading(true)
 			try {
-				const res = await axios.post(api + '/search-movie', {
+				const res = await Axios.post('/search-movie', {
 					searchValue: e.target.value.toLowerCase(),
 				}, {
 					headers: {

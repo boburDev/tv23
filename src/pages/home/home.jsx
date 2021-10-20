@@ -4,21 +4,19 @@ import Navbar from "../../component/navbar/navbar"
 import Triller from "../../component/triller/triller/triller"
 import CategoryMovie from "../../component/categories/categories"
 import { useEffect, useState } from "react"
-import axios from "axios"
-import { useApi } from "../../context/api"
+import {api, Axios} from "../../services";
 import FilterComponent from '../../component/filter/filter'
 import Loader from '../../component/loader/loader'
 
 function Home() {
-  const [api] = useApi()
   const [categories, setCategories] = useState([])
   const [recommendedTriller, setRecommendedTriller] = useState([])
   const [loading, setLoading] = useState(false)
 
-  async function getMovies(api) {
+  async function getMovies() {
     try {
       setLoading(true)
-      const categories = await axios.get(api + "/category-with-movies", {
+      const categories = await Axios.get("/category-with-movies", {
         headers: {
           Authorization: localStorage.getItem('Authorization')
         }
@@ -28,10 +26,10 @@ function Home() {
     } catch (error) {}
   }
 
-  async function recommendedTrillers(api) {
+  async function recommendedTrillers() {
     try {
       setLoading(true)
-      const trillers = await axios.get(api + "/recommended-t")
+      const trillers = await Axios.get("/recommended-t")
     //   console.log(trillers.data)
       setRecommendedTriller(trillers.data.data)
       setLoading(false)
@@ -39,11 +37,9 @@ function Home() {
   }
 
   useEffect(() => {
-    if (api.length) {
-		getMovies(api)
-    	recommendedTrillers(api)
-	}
-  }, [api])
+		  getMovies()
+    	recommendedTrillers()
+  }, [])
 
   return (
     <>

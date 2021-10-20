@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import axios from "axios";
+import {Axios} from "../services";
 
 const Context = createContext();
 
@@ -9,10 +9,10 @@ const LangProvider = ({ children }) => {
   useEffect(() => {
     if (state === 'uz' && state === 'ru') {
       localStorage.setItem("lang", state);
-      axios.defaults.headers.common["Language"] = state;
+      Axios.defaults.headers.common["Language"] = state;
     } else {
       localStorage.setItem("lang", "ru");
-      axios.defaults.headers.common["Language"] = "ru";
+      Axios.defaults.headers.common["Language"] = "ru";
     }
   }, [state]);
 
