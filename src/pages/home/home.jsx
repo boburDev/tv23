@@ -32,15 +32,17 @@ function Home() {
     try {
       setLoading(true)
       const trillers = await axios.get(api + "/recommended-t")
-      console.log(trillers.data)
+    //   console.log(trillers.data)
       setRecommendedTriller(trillers.data.data)
       setLoading(false)
     } catch (error) {}
   }
 
   useEffect(() => {
-    getMovies(api)
-    recommendedTrillers(api)
+    if (api.length) {
+		getMovies(api)
+    	recommendedTrillers(api)
+	}
   }, [api])
 
   return (

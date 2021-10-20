@@ -55,9 +55,11 @@ export default function SignleMovie({ serial }) {
   async function MovieDetail(api, params) {
     try {
 		setLoading(true)
+    console.log(params)
 		const movies = await axios.get(api + "/movie-one", {
 			params: {
 				movieId: params && params.movieid,
+        type: (params && (params.category === 'recomended' ? 't' : 'm')),
 			},
 			headers: {
 				Authorization: localStorage.getItem("Authorization") || 1,
@@ -91,7 +93,7 @@ export default function SignleMovie({ serial }) {
   }, [movie, params, api])
 
   useEffect(() => {
-    if (api) {
+    if (api.length) {
       getActors(api, params)
       getDirector(api, params)
 	  if (serial) {
