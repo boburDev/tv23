@@ -7,7 +7,7 @@ const LangProvider = ({ children }) => {
   const [state, setState] = useState(localStorage.getItem("lang") || 'ru')
 
   useEffect(() => {
-    if (state) {
+    if (state === 'uz' && state === 'ru') {
       localStorage.setItem("lang", state);
       axios.defaults.headers.common["Language"] = state;
     } else {
