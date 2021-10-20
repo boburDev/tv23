@@ -10,7 +10,7 @@ const ApiProvider = ({ children }) => {
     // HTTPS=true npm start
     const server = {
       server_dev: "http://localhost:4000",
-      // server_dep: "http://aapi.23tv.uz",
+      server_dep: "http://aapi.23tv.uz",
     }
     
     if (isTester) {
