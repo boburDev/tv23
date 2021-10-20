@@ -34,7 +34,8 @@ export default function Category({
   },[current, setPagination])
 
   useEffect(()=>{
-	setMovie(movies)
+	// setMovie(movies)
+  // console.log(movies)
   },[movies])
 
   return (

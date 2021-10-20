@@ -27,8 +27,8 @@ const [ til ] = useLang()
 useEffect(()=>{
     ;(async()=>{
         try {
-                const res = await Axios.get('/countries')
-                setCountries(res.data.data)
+            const res = await Axios.get('/countries')
+            setCountries(res.data.data)
         } catch (error) {
             throw error
         }

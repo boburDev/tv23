@@ -22,15 +22,15 @@ export default function Categories(props) {
             style={{ background: dark ? "#0C0C0D" : "#F8F9FC" }}
           >
             {props.data &&
-              props.data.map((val, key) => (
-                <Category
-                  key={key}
-                  loading={props.loading}
-                  movies={val.movies}
-                  title={val.category_name}
-                  link={`/${language.lang || "ru"}/categories/${val.category_name.toLowerCase()}`}
-                />
-              ))}
+              props.data.map((val, key) => {
+                return <Category
+                key={key}
+                loading={props.loading}
+                movies={val.movies}
+                title={val.category_name}
+                link={`/${language.lang || "ru"}/categories/${val.category_name.toLowerCase()}`}
+              />
+              })}
           </div>
         </>
       ) : (

@@ -23,6 +23,9 @@ function Home() {
       })
       setLoading(false)
       setCategories(categories.data.data)
+      for (const i of categories.data.data) {
+        console.log(i)
+      }
     } catch (error) {}
   }
 
