@@ -7,9 +7,11 @@ const AuthorizetionProvider = ({ children }) => {
 
   async function Auth() {
     try {
-        Axios.defaults.headers.common["Authorization"] = localStorage.getItem("Authorization") || ""
+        if (localStorage.getItem("Authorization")) {
+          Axios.defaults.headers.common["Authorization"] = localStorage.getItem("Authorization") || ""
         const res = await Axios.get("/user-data")
         setState(res.data.data)
+        }
     } catch (error) {
       setState(error.response && error.response.status)
     }

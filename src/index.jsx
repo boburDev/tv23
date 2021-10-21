@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import App from "./pages/app/app";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "./context/theme";
-import { ApiProvider } from "./context/api";
+
 import { LangProvider } from "./context/lanuage";
 import { ResulutionContext } from "./context/resolution";
 import { ShareLinkProvider } from "./context/shareLink";
@@ -16,7 +16,7 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider>
-        <ApiProvider>
+
           <LangProvider>
             <ResulutionContext>
               <ShareLinkProvider>
@@ -32,7 +32,6 @@ ReactDOM.render(
               </ShareLinkProvider>
             </ResulutionContext>
           </LangProvider>
-        </ApiProvider>
       </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>,
