@@ -22,13 +22,7 @@ export default function CategoryMovie() {
       const val =
         value.category.toLowerCase().charAt(0).toUpperCase() +
         value.category.toLowerCase().slice(1)
-
-      const movies = await Axios.get("/movie-category", {
-        params: {
-          categoryName: val,
-		  page: pagination
-        },
-      })
+      const movies = await Axios.get(`/movie-category?categoryName=${val}&page=${pagination}`)
       setMovies(movies.data.data)
     //   console.log(movies.data.data)
       setLoading(false)
