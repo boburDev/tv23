@@ -118,13 +118,14 @@ function Navbar({ login, path }) {
 		if (e.target.value.trim() !== '') {
 			setLoading(true)
 			try {
-				const res = await Axios.post('/search-movie', {
-					searchValue: e.target.value.toLowerCase(),
-				}, {
-					headers: {
-						Language: localStorage.getItem('lang')
-					}
-				})
+				// const res = await Axios.post('/search-movie', {
+				// 	searchValue: e.target.value.toLowerCase(),
+				// }, {
+				// 	headers: {
+				// 		Language: localStorage.getItem('lang')
+				// 	}
+				// })
+        const res = await Axios.get(`/movie-filter?search=${e.target.value}`)
 				setMovies(res.data.data)
 				// console.log(res.data.data)
 			} catch (err) {
