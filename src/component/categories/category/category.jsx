@@ -58,19 +58,23 @@ export default function Category({
             breakpoints={{
               "300": {
                 "slidesPerView": 2,
-                "spaceBetween": 30
+                "spaceBetween": 30,
+                "slidesPerGroup": 2
               },
               "645": {
                 "slidesPerView": 3,
-                "spaceBetween": 30
+                "spaceBetween": 30,
+                "slidesPerGroup": 3
               },
               "768": {
                 "slidesPerView": 4,
-                "spaceBetween": 30
+                "spaceBetween": 30,
+                "slidesPerGroup": 4
               },
               "1023": {
                 "slidesPerView": 6,
-                "spaceBetween": 30
+                "spaceBetween": 30,
+                "slidesPerGroup": 6
               }
             }} className="mySwiper"
           >

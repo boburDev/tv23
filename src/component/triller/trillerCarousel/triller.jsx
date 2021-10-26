@@ -5,8 +5,13 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Language from '../../../languages'
 import { useLang } from '../../../context/lanuage'
-
+import { Swiper, SwiperSlide } from "swiper/react";
+import 'swiper/swiper-bundle.min.css'
+import 'swiper/swiper.min.css'
+import "swiper/components/pagination/pagination.min.css"
+import SwiperCore, { Pagination } from 'swiper/core';
 import { useTheme } from '../../../context/theme'
+SwiperCore.use([Pagination])
 
 export default function TrailerCarousel({ movies = [], api }) {
     const [current, setCurrent] = useState(0)
@@ -23,7 +28,6 @@ export default function TrailerCarousel({ movies = [], api }) {
         color: dark ? 'white': 'black'
     }
 
-   
     const wayStyle = {
         
         transition: 'transform .5s ease-in-out',
@@ -44,41 +48,45 @@ export default function TrailerCarousel({ movies = [], api }) {
           }
     } , [])
 
-  
-
-
     return (
         <div className={st.container} style={{background: dark ? '#0C0C0D' : '#F8F9FC', paddingTop:'30px'}}>
             {/* Carousel */}
-            <div className={st.carousel}>
-                <div id="box" className={st.slideBox}>
-                    <div style={wayStyle} id="wayRef" className={st.carouselWay}>
-                        {
-                            movies.map((x, key)=>{
-                                return <div key={key} style={{...carouselItemStyle, ...{
-                                    opacity: key === current ? 1 : 0.3,
-                                    padding: '10px',
-                                    transform: key === current ? 'scale(1)' : 'scale(0.9)'
-                                    }}}
-                                    className={st.carouslItem}>
-                                    <div style={{
-                                        height:'100%',
-                                        display:'flex',
-                                        alignItems:'center',
-                                        margin:'auto',
-                                        justifyContent:'center',
-                                        borderRadius:'21px',
-                                        overflow:'hidden',
-                                        pointerEvents: key === current ? '' : "none"
-                                        }}>
-                                        <TrailerPlayer api={api} isActive={current === key }  src={x && x.triller_path}/>
-                                    </div>
-                                </div>
-                            })
-                        }
-                    </div>
-                </div>
-            </div>
+            <Swiper
+                slidesPerView={2} spaceBetween={10}
+                modules={Pagination}
+                centeredSlides={false}
+                pagination={true}
+                breakpoints={{
+                    "300": {
+                        "slidesPerView": 1,
+                        "spaceBetween": 10
+                    },
+                    "645": {
+                        "slidesPerView": 1,
+                        "spaceBetween": 10
+                    },
+                    "768": {
+                        "slidesPerView": 2,
+                        "spaceBetween": 10
+                    },
+                    "1023": {
+                        "slidesPerView": 2,
+                        "spaceBetween": 10
+                    }
+                }} className="mySwiper"
+                onSwiper={(e) => console.log(e)}
+            >
+                {
+                    movies.map((x, key) => (
+                        <SwiperSlide key={key} width="auto" >
+                            <TrailerPlayer api={api} isActive={current === key} src={x && x.triller_path} />
+                        </SwiperSlide>
+                    ))
+                }
+                <SwiperSlide  width="auto" >
+                </SwiperSlide>
+            </Swiper>
+            
 
             {/* Navigation */}
             <div className={st.control}>

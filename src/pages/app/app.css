@@ -94,6 +94,19 @@ body {
   margin: 0 !important;
 }
 
+.triller_container__F7_m- .swiper-container.swiper-container.swiper-container-initialized.swiper-container-horizontal.swiper-container-pointer-events.mySwiper {
+  overflow: visible;
+  padding: 0 120px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.triller_container__F7_m- .swiper-container.swiper-container.swiper-container-initialized.swiper-container-horizontal.swiper-container-pointer-events.mySwiper .swiper-slide {
+  opacity: 0.4;
+}
+.triller_container__F7_m- .swiper-container.swiper-container.swiper-container-initialized.swiper-container-horizontal.swiper-container-pointer-events.mySwiper .swiper-slide.swiper-slide-active {
+  opacity: 1;
+}
+
 .swiper-wrapper {
   width: 100%;
   display: flex;
