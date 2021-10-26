@@ -162,17 +162,32 @@ function Navbar({ login, path }) {
                 </li>
                 <li className={st.navbar_link_item}>
                   <Link to={`/${language.lang || "ru"}/categories`}>
-                  {Language[til].navbar.allCategories}
+                    {Language[til].navbar.carton}
                   </Link>
                 </li>
+                
                 <li className={st.navbar_link_item}>
-                  <Link to={`/${language.lang || "ru"}/live`}>
-                    LIVE <span style={{color: 'red', fontWeight: 'bold'}}>&#183;</span>
+                  <Link to={`/${language.lang || "ru"}/favourites`}>
+                    {Language[til].navbar.consert}
                   </Link>
                 </li>
                 <li className={st.navbar_link_item}>
                   <Link to={`/${language.lang || "ru"}/favourites`}>
-                  {Language[til].navbar.forwards}
+                    {Language[til].navbar.prod}
+                  </Link>
+                </li>
+                <li className={st.navbar_link_item}>
+                  <Link to={`/${language.lang || "ru"}/live`}>
+                    LIVE <span style={{ color: 'red', fontWeight: 'bold' }}>&#183;</span>
+                  </Link>
+                </li>
+                <li className={st.navbar_link_item}>
+                  <Link to={`/${language.lang || "ru"}/favourites`}>
+                    {Language[til].navbar.allCategories}
+                  </Link>
+                </li><li className={st.navbar_link_item}>
+                  <Link to={`/${language.lang || "ru"}/favourites`}>
+                    {Language[til].navbar.forwards}
                   </Link>
                 </li>
               </ul>

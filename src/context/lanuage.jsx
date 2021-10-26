@@ -8,7 +8,6 @@ const LangProvider = ({ children }) => {
   const [state, setState] = useState(localStorage.getItem("lang") || 'ru')
 
   useEffect(() => {
-    console.log(state)
     if (state) {
       localStorage.setItem("lang", state);
       Axios.defaults.headers.common["Language"] = state;

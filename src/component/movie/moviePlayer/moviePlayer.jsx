@@ -175,6 +175,8 @@ export default function VideoPlayer({ movie }) {
 		}
 	}
 	
+
+	
 	return (
 		<div id="videoContainer"  onKeyDown={keyHandler} tabIndex={0} className={st.container}>
 		<div className={st.controlBtns}>

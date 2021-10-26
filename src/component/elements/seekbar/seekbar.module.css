@@ -1,7 +1,7 @@
 .seekbar{
     display: flex;
     position: relative;
-    width: 100%;
+    width: calc(100% - 250px);
     margin: 0 15px;
 }
 .seekbar input[type='range']{

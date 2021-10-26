@@ -130,11 +130,11 @@
   }
 
   .playerArea {
-    max-height: 20vh;
+    /* max-height: 20vh; */
   }
 
   .cover img {
-    max-height: 20vh;
+    /* max-height: 20vh; */
   }
 }
 

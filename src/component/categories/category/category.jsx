@@ -1,42 +1,34 @@
 import st from "./category.module.css"
-import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import MovieItem from "../../movie/movieItem/movieItem"
-import SliderCounterAdvanced from "../../sliderCounter/SliderCounterAdvanced"
-import SliderCounterBasic from "../../sliderCounter/sliderCounterBasic"
 import NoFoundVideos from "../../notFound/videoNotFound/notFount"
 import { useTheme } from "../../../context/theme"
 import Language from '../../../languages'
 import { useLang } from '../../../context/lanuage.jsx'
-import { usePagination } from '../../../context/pagination'
+import { Swiper, SwiperSlide } from "swiper/react";
+import 'swiper/swiper-bundle.min.css'
+import 'swiper/swiper.min.css'
+import "swiper/components/pagination/pagination.min.css"
+import SwiperCore, { Pagination, Navigation } from 'swiper/core';
+SwiperCore.use([Pagination])
+SwiperCore.use([Navigation]);
+
 
 export default function Category({
   title,
-  pagination,
   link,
   loading,
   movies = [],
-  count = 0,
-  visibled = 6,
   showAllLink = true,
   showAllLinkText = true,
 }) {
   const [dark] = useTheme()
-  const [setPagination] = usePagination(true)
-  const counts = (Math.ceil(movies.length / visibled > 5 ? 5 : movies.length / visibled))
-  const [current, setCurrent] = useState(0)
-  const [movie, setMovie] = useState([])
-  const [ til ] = useLang()
+  const [til] = useLang()
   const categoryId = link && link.category_name
 
-  useEffect(()=>{
-	setPagination(current+1)
-  },[current, setPagination])
 
-  useEffect(()=>{
-	// setMovie(movies)
-  // console.log(movies)
-  },[movies])
+
+
 
   return (
     <div className={st.container}>
@@ -56,62 +48,63 @@ export default function Category({
             )}
           </div>
         )}
-        {
-			(count > 0) ? <div className={st.items}>
-			{movie && movie.length === 0 ? (
-			  loading ? ( //if Loaded finished and no found videos
-				<>
-				  <MovieItem />
-				  <MovieItem />
-				  <MovieItem />
-				  <MovieItem />
-				  <MovieItem />
-				  <MovieItem />
-				</> 
-			  ) : (
-				<NoFoundVideos />
-			  )
-			) : (
-			  movie.map(
-				(item, key) =>
-				<MovieItem
-				caregoryId={categoryId}
-				key={Math.random() * Math.random()}
-				movie={item}
-			  />
-			  )
-			)}
-		  </div> : 
-		  <div className={st.items}>
-			{movies && movies.length === 0 ? (
-			  loading ? ( //if Loaded finished and no found videos
-				<>
-				  <MovieItem />
-				  <MovieItem />
-				  <MovieItem />
-				  <MovieItem />
-				  <MovieItem />
-				  <MovieItem />
-				</> 
-			  ) : (
-				<NoFoundVideos />
-			  )
-			) : (
-			  movies.map(
-				(item, key) =>
-				  current * visibled <= key &&
-				  (current + 1) * visibled > key && (
-					<MovieItem
-					  caregoryId={categoryId}
-					  key={Math.random() * Math.random()}
-					  movie={item}
-					/>
-				  )
-			  )
-			)}
-		  </div>
-		}
-        {
+
+        <div className={st.items}>
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={30}
+            slidesPerGroup={6}
+            modules={Pagination}
+            pagination={true}
+            navigation={true}
+            breakpoints={{
+              "300": {
+                "slidesPerView": 2,
+                "spaceBetween": 30
+              },
+              "645": {
+                "slidesPerView": 3,
+                "spaceBetween": 30
+              },
+              "768": {
+                "slidesPerView": 4,
+                "spaceBetween": 30
+              },
+              "1023": {
+                "slidesPerView": 6,
+                "spaceBetween": 30
+              }
+            }} className="mySwiper"
+          >
+            {movies && movies.length === 0 ? (
+              loading ? ( //if Loaded finished and no found videos
+                <>
+                  <MovieItem />
+                  <MovieItem />
+                  <MovieItem />
+                  <MovieItem />
+                  <MovieItem />
+                  <MovieItem />
+                </>
+              ) : (
+                <NoFoundVideos />
+              )
+            ) : (
+              movies.map(
+                (item, key) => (
+                  <SwiperSlide key={key} width="auto" >
+                    <MovieItem
+                      caregoryId={categoryId}
+                      key={Math.random() * Math.random()}
+                      movie={item}
+                    />
+                  </SwiperSlide>
+                )
+              )
+            )}
+          </Swiper>
+        </div>
+        {/* {
 			(count > 0) ? <div className={st.bottom}>
 			{
 				<div className={st.pagination}
@@ -152,7 +145,7 @@ export default function Category({
             ""
           )}
         </div>
-		}
+		} */}
       </div>
     </div>
   )

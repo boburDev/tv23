@@ -130,7 +130,10 @@ const uz = {
         mediumShrift: 'O`rtacha',
         bigShrift: 'Yirik',
         lightMode: 'Yoru`g',
-        darkMode: 'Qorong`u'
+        darkMode: 'Qorong`u',
+        carton: 'Multfilmlar',
+        prod: 'Ko`rsatuvlar',
+        consert: 'Konsertlar'
     },
     notfound: {
         notFound: {

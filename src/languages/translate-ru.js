@@ -131,7 +131,10 @@ const ru = {
         mediumShrift: 'Средние',
         bigShrift: 'Крупные',
         lightMode: 'Светлый режим',
-        darkMode: 'Темный режим'
+        darkMode: 'Темный режим',
+        carton: 'Мультфильмы',
+        prod: 'Передачи',
+        consert: 'Концерты'
     },
     notfound: {
         notFound: {

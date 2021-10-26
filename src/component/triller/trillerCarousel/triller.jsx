@@ -23,6 +23,7 @@ export default function TrailerCarousel({ movies = [], api }) {
         color: dark ? 'white': 'black'
     }
 
+   
     const wayStyle = {
         
         transition: 'transform .5s ease-in-out',
@@ -42,6 +43,9 @@ export default function TrailerCarousel({ movies = [], api }) {
             window.removeEventListener("load",setSize)
           }
     } , [])
+
+  
+
 
     return (
         <div className={st.container} style={{background: dark ? '#0C0C0D' : '#F8F9FC', paddingTop:'30px'}}>

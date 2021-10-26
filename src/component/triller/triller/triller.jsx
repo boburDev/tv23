@@ -3,6 +3,13 @@ import { useEffect, useState } from "react";
 import TrailerItem from "../trillerItem/trillerItem";
 import SliderCounterBasic from "../../sliderCounter/sliderCounterBasic";
 import SearchNotFound from "../../notFound/SearchNotFound/notFound";
+import { Swiper, SwiperSlide } from "swiper/react";
+import 'swiper/swiper-bundle.min.css'
+import 'swiper/swiper.min.css'
+import "swiper/components/pagination/pagination.min.css"
+import SwiperCore, { Pagination } from 'swiper/core';
+SwiperCore.use([Pagination])
+
 
 export default function Trailer(props) {
   const [current, setCurrent] = useState(0);
@@ -32,9 +39,36 @@ export default function Trailer(props) {
     settingSize();
   }, []);
 
+  console.log(props)
+
   return (
     <div className={st.container}>
       <div id="playerRef" style={{ height: "95vh" }} className={st.player}>
+        <Swiper
+          slidesPerView={1} spaceBetween={10}
+          modules={Pagination}
+          pagination={true}
+          className="mySwiper"
+        >
+
+          {props.data && props.data.length > 0 ? (
+            props.data.map((item, key) => {
+              return (
+                <SwiperSlide key={key} width="auto" >
+                    <TrailerItem
+                      listenIndex={current}
+                      isActive={key === current}
+                      data={item}
+                      api={props.api} />
+                </SwiperSlide>
+              );
+            })
+          ) : (
+            <div style={{ display: "flex", height: "100vh", width: "100%" }}>
+              <SearchNotFound />
+            </div>
+          )}
+        </Swiper>
         <div className={st.controls}>
           <SliderCounterBasic
             current={current}
@@ -43,36 +77,7 @@ export default function Trailer(props) {
           />
         </div>
         <div style={carouselWayStyle} id="carouselWay" className={st.carouselWay}>
-          {props.data && props.data.length > 0 ? (
-            props.data.map((item, key) => {
-              return (
-                <div
-					className={st.carouselItem}
-                	key={key}
-                	style={{
-                    width: itemWidth + "px",
-                    transform: current !== key ? "scale(0.94, 0.8)" : "scale(1)",
-                    transition: "transform 1s ease",
-                    opacity:
-                      current - 1 === key || current + 1 === key
-                        ? 0.3
-                        : current === key
-                        ? 1
-                        : 0,
-                	}}>
-                  <TrailerItem
-                    listenIndex={current}
-                    isActive={key === current}
-                    data={item}
-                    api={props.api} />
-                </div>
-              );
-            })
-          ) : (
-            <div style={{ display: "flex", height: "100vh", width: "100%" }}>
-              <SearchNotFound />
-            </div>
-          )}
+          
         </div>
       </div>
     </div>
