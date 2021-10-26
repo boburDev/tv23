@@ -9,9 +9,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/swiper-bundle.min.css'
 import 'swiper/swiper.min.css'
 import "swiper/components/pagination/pagination.min.css"
-import SwiperCore, { Pagination, Navigation } from 'swiper/core';
+import SwiperCore, { Pagination } from 'swiper/core';
 SwiperCore.use([Pagination])
-SwiperCore.use([Navigation]);
 
 
 export default function Category({
@@ -56,7 +55,6 @@ export default function Category({
             slidesPerGroup={6}
             modules={Pagination}
             pagination={true}
-            navigation={true}
             breakpoints={{
               "300": {
                 "slidesPerView": 2,

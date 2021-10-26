@@ -7,8 +7,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/swiper-bundle.min.css'
 import 'swiper/swiper.min.css'
 import "swiper/components/pagination/pagination.min.css"
-import SwiperCore, { Pagination } from 'swiper/core';
+import SwiperCore, { Pagination, Navigation } from 'swiper/core';
 SwiperCore.use([Pagination])
+SwiperCore.use([Navigation]);
 
 
 export default function Trailer(props) {
@@ -39,15 +40,15 @@ export default function Trailer(props) {
     settingSize();
   }, []);
 
-  console.log(props)
 
   return (
     <div className={st.container}>
-      <div id="playerRef" style={{ height: "95vh" }} className={st.player}>
+      <div id="playerRef" className={st.player}>
         <Swiper
-          slidesPerView={1} spaceBetween={10}
+          slidesPerView={1} spaceBetween={0}
           modules={Pagination}
           pagination={true}
+          navigation={true}
           className="mySwiper"
         >
 
@@ -69,16 +70,7 @@ export default function Trailer(props) {
             </div>
           )}
         </Swiper>
-        <div className={st.controls}>
-          <SliderCounterBasic
-            current={current}
-            setCurrent={setCurrent}
-            max={props.data && props.data.length}
-          />
-        </div>
-        <div style={carouselWayStyle} id="carouselWay" className={st.carouselWay}>
-          
-        </div>
+        
       </div>
     </div>
   );
