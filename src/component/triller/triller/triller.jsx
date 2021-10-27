@@ -7,9 +7,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/swiper-bundle.min.css'
 import 'swiper/swiper.min.css'
 import "swiper/components/pagination/pagination.min.css"
-import SwiperCore, { Pagination, Navigation } from 'swiper/core';
+import SwiperCore, { Pagination, Navigation, Autoplay } from 'swiper/core';
 SwiperCore.use([Pagination])
 SwiperCore.use([Navigation]);
+SwiperCore.use([Autoplay]);
 
 
 export default function Trailer(props) {
@@ -52,8 +53,13 @@ export default function Trailer(props) {
       <div id="playerRef" className={st.player}>
         
         <Swiper
+          autoplay={{
+            "delay": 2500,
+            "disableOnInteraction": false
+          }}
           slidesPerView={1} spaceBetween={0}
           modules={Pagination}
+          // loop={true}
           className="mySwiper"
           navigation={{
             prevEl: navigationPrevRef.current,
