@@ -163,7 +163,7 @@ function Navbar({ login, path }) {
                 className={st.navbar}
               >
                 <li className={st.navbar_link_item}>
-                  <Link to={`/${language.lang || "ru"}/categories/фильмы`}>
+                  <Link to={`/${language.lang || "ru"}/categories/узбекские фильмы`}>
                   {Language[til].navbar.movies}
                   </Link>
                 </li>
@@ -173,18 +173,18 @@ function Navbar({ login, path }) {
                   </Link>
                 </li>
                 <li className={st.navbar_link_item}>
-                  <Link to={`/${language.lang || "ru"}/categories`}>
+                  <Link to={`/${language.lang || "ru"}/categories/мультфилмы`}>
                     {Language[til].navbar.carton}
                   </Link>
                 </li>
                 
                 <li className={st.navbar_link_item}>
-                  <Link to={`/${language.lang || "ru"}/favourites`}>
+                  <Link to={`/${language.lang || "ru"}/categories/концерты`}>
                     {Language[til].navbar.consert}
                   </Link>
                 </li>
                 <li className={st.navbar_link_item}>
-                  <Link to={`/${language.lang || "ru"}/favourites`}>
+                  <Link to={`/${language.lang || "ru"}/categories/передачи`}>
                     {Language[til].navbar.prod}
                   </Link>
                 </li>
@@ -194,7 +194,7 @@ function Navbar({ login, path }) {
                   </Link>
                 </li>
                 <li className={st.navbar_link_item}>
-                  <Link to={`/${language.lang || "ru"}/favourites`}>
+                  <Link to={`/${language.lang || "ru"}/categories`}>
                     {Language[til].navbar.allCategories}
                   </Link>
                 </li><li className={st.navbar_link_item}>
