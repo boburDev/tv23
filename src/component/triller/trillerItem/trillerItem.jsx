@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import rateStars from "../../../assets/image/rates.png";
 
-export default function TrailerItem({ isActive, data, api }) {
+export default function TrailerItem({ isActive, data, api, play }) {
   const [showAllGenre, setShowAllGenre] = useState(true)
   const language = useParams()
   useEffect(() => {
@@ -61,6 +61,7 @@ export default function TrailerItem({ isActive, data, api }) {
                 isActive={isActive}
                 src={data && data.triller_path}
                 api={api}
+                play={play}
               />
             </div>
           </div>

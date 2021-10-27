@@ -29,9 +29,6 @@ export default function Trailer(props) {
     setItemWidth(playerRefId.clientWidth || playerRefId.offsetWidth);
   };
 
-  useEffect(() => {
-    console.log(current)
-  }, [current])
 
   useEffect(() => {
     settingSize();
@@ -48,14 +45,16 @@ export default function Trailer(props) {
   }, []);
 
 
+
+
   return (
     <div className={st.container}>
       <div id="playerRef" className={st.player}>
         
         <Swiper
-          autoplay={{
-            "delay": 2500,
-            "disableOnInteraction": false
+          autoplay={ {
+            delay: 10000,
+            disableOnInteraction: false
           }}
           slidesPerView={1} spaceBetween={0}
           modules={Pagination}
@@ -85,7 +84,9 @@ export default function Trailer(props) {
                       listenIndex={current}
                       isActive={key === current}
                       data={item}
-                      api={props.api} />
+                      api={props.api} 
+                      play={true}
+                      />
                 </SwiperSlide>
               );
             })

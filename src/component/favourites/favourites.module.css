@@ -22,4 +22,5 @@
     display: flex;
     flex-wrap: wrap;
     font-family: "Lato", sans-serif;
+    justify-content: space-between;
 }

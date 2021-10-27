@@ -6,10 +6,13 @@ const ThemeProvider = ({ children }) => {
   const [state, setState] = useState(
     parseInt(window.localStorage.getItem("dark_mode")) === 0 ? false : true
   );
+  const [play, setPlay] = useState(true)
 
   const value = {
     state,
     setState,
+    play,
+    setPlay
   };
   return (
     <Context.Provider value={value}>
@@ -23,4 +26,11 @@ const useTheme = (setterOnly) => {
   return setterOnly ? [setState] : [state, setState];
 };
 
-export { ThemeProvider, useTheme };
+
+const usePlay = (setterOnly) => {
+  const { play, setPlay } = useContext(Context);
+  return setterOnly ? [setPlay] : [play, setPlay];
+};
+
+
+export { ThemeProvider, useTheme, usePlay };

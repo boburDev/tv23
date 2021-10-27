@@ -30,6 +30,7 @@ function Navbar({ login, path }) {
 	const language = useParams();
 	const [loading, setLoading] = useState(false)
 	const [movies, setMovies] = useState([])
+  const [burger, setBurger] = useState(false)
     const [ til ] = useLang()
 	//toggle dark or light mode  and write localstorage
 
@@ -146,8 +147,19 @@ function Navbar({ login, path }) {
           </Link>
           {path !== "auth" && (
             <>
+              <div className={burger ? st.burger_active : st.burger}
+                onClick={() => {
+                  setBurger(!burger)
+                }}
+              >
+              <span></span>
+            </div>
               <ul
-                style={{ display: isOpenSearch ? "none" : "" }}
+                style={{ 
+                  transition: 'all ease 0.5s',
+                  width: isOpenSearch ? "0" : "",
+                  maxHeight: burger ? '100vh' : ''
+               }}
                 className={st.navbar}
               >
                 <li className={st.navbar_link_item}>
@@ -191,10 +203,13 @@ function Navbar({ login, path }) {
                   </Link>
                 </li>
               </ul>
-              <div className={st.user_tools} style={{ width: isOpenSearch && "100%" }}>
+              <div className={st.user_tools} style={{ width: isOpenSearch ? "100%" : '' }}>
                 <div className={st.search_tool} htmlFor="search_tool"
                   style={{ width: isOpenSearch ? " 100%" : "", marginLeft: "auto", backgroundColor: dark ? "" : "#F6F6F6"}}>
-                  <input style={{ color: dark ? "" : "#888888" }} onFocus={() => setIsOpenSearch(true)}
+                  <input style={{ 
+                    color: dark ? "" : "#888888",
+                    display: isOpenSearch ? "" : 'none'
+                   }} onFocus={() => setIsOpenSearch(true)}
 					onKeyUp={searchIngineOnKeyUpHandler} id="search_tool" type="text" placeholder=""
                   />
 
@@ -267,35 +282,7 @@ function Navbar({ login, path }) {
                       UZ
                     </Link>
                   </div>
-                    <ul
-                      className={st.navbar}
-                      style={{ display: login ? "none" : "" }}
-                    >
-                      <li className={st.navbar_link_item}>
-                        <Link to={`/${language.lang || "ru"}/categories/фильмы`}>
-                          {Language[til].navbar.movies}                 
-                        </Link>
-                      </li>
-                      <li className={st.navbar_link_item}>
-                        <Link to={`/${language.lang || "ru"}/categories/сериалы`}>
-                          {Language[til].navbar.serials}                   
-                        </Link>
-                      </li>
-                      <li className={st.navbar_link_item}>
-                        <Link to={`/${language.lang || "ru"}/categories`}>
-                          {Language[til].navbar.allCategories}
-                        </Link>
-                      </li>
-                      <li className={st.navbar_link_item}>
-                        <Link style={{ color: "red" }} to={`/${language.lang || "ru"}/live`}>
-                          LIVE
-                        </Link>
-                      </li>
-                      <li className={st.navbar_link_item}>
-                        <Link to={`/${language.lang || "ru"}/favourites`}>
-                         {Language[til].navbar.forwards}                      </Link>
-                      </li>
-                    </ul>
+                   
 
                     <Link
                       to={`/${language.lang || "ru"}/settings/profile`}

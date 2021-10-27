@@ -1,19 +1,18 @@
 import PlayPause from "../../elements/playPause/playPause"
 import { useEffect, useRef, useState } from "react"
 import st from "./player.module.css"
-export default function TrailerPlayer({ src, api , isActive}) {
-  
-  const [isPlay, SetIsPlay] = useState(false)
+export default function TrailerPlayer({ src, api , isActive, play}) {
+  const [isPlay, SetIsPlay] = useState(play ? play : false)
   const videoRef = useRef()
 
   const [isLoadedVideo, setIsLoadedVideo] = useState(false)
 
   useEffect(() => {
-    (isPlay && isActive) ? videoRef.current.play() : videoRef.current.pause()
+    (isPlay && isActive) ? videoRef.current.play() : play ? videoRef.current.play()  : videoRef.current.pause()
   }, [isPlay,isActive])
 
   useEffect(()=>{
-    if(!isActive)SetIsPlay(false)
+    if (!isActive) SetIsPlay(play ? play : false)
     videoRef.current.currentTime=0
   }, [isActive])
 
@@ -37,6 +36,7 @@ export default function TrailerPlayer({ src, api , isActive}) {
       src && <video
         style={{width:'100%', height:"100%"}}
         controls={false}
+          muted={play ? play : false}
         onLoadStart={()=>{setIsLoadedVideo(false)}}
         onPlay={()=>{SetIsPlay(true)}}
         onPause={()=>{SetIsPlay(false)}}
