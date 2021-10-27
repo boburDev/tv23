@@ -163,7 +163,7 @@ function Navbar({ login, path }) {
                 className={st.navbar}
               >
                 <li className={st.navbar_link_item}>
-                  <Link to={`/${language.lang || "ru"}/categories/узбекские фильмы`}>
+                  <Link to={`/${language.lang || "ru"}/categories/фильмы`}>
                   {Language[til].navbar.movies}
                   </Link>
                 </li>
