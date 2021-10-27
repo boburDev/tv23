@@ -91,9 +91,12 @@ export default function Trailer(props) {
               );
             })
           ) : (
-            <div style={{ display: "flex", height: "100vh", width: "100%" }}>
-              <SearchNotFound />
-            </div>
+            <SwiperSlide width="auto" >
+                <div style={{ display: "flex", height: "100vh", width: "100%" }}>
+                  <SearchNotFound />
+                </div>
+                </SwiperSlide>
+            
           )}
         </Swiper>
         <div className={st.controls}>

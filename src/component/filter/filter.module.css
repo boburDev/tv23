@@ -20,6 +20,10 @@
     display: flex;
     flex-wrap: wrap;
 }
+.result a {
+    margin-right: 10px;
+}
+
 .containerTitle{
     width: 100%;
     display: flex;

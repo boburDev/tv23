@@ -58,12 +58,12 @@ export default function Category({
             breakpoints={{
               "300": {
                 "slidesPerView": 2,
-                "spaceBetween": 30,
+                "spaceBetween": 10,
                 "slidesPerGroup": 2
               },
               "645": {
                 "slidesPerView": 3,
-                "spaceBetween": 30,
+                "spaceBetween": 20,
                 "slidesPerGroup": 3
               },
               "768": {
@@ -94,12 +94,13 @@ export default function Category({
             ) : (
               movies.map(
                 (item, key) => (
-                  <SwiperSlide key={key} width="auto" >
+                  <SwiperSlide key={key} width={`auto`}>
                     <MovieItem
                       caregoryId={categoryId}
                       key={Math.random() * Math.random()}
                       movie={item}
                     />
+                    
                   </SwiperSlide>
                 )
               )

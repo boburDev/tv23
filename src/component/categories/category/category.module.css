@@ -2,8 +2,12 @@
   composes: container from "../../../pages/app/app.css";
 }
 
+
 .category_wrapper * {
   font-family: "Lato", sans-serif;
+}
+.category_wrapper .swiper-slide {
+  min-width: 200px;
 }
 
 .titleBox {
