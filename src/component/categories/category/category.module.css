@@ -77,6 +77,8 @@
   background-color: #9494952f;
 }
 
+
+
 @media only screen and (max-width: 1110px) {
   .container {
     composes: container from "../../../pages/app/app.css";

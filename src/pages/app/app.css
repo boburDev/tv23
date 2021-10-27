@@ -102,9 +102,11 @@ body {
 }
 .triller_container__F7_m- .swiper-container.swiper-container.swiper-container-initialized.swiper-container-horizontal.swiper-container-pointer-events.mySwiper .swiper-slide {
   opacity: 0.4;
+  transform: scale(0.9);
 }
 .triller_container__F7_m- .swiper-container.swiper-container.swiper-container-initialized.swiper-container-horizontal.swiper-container-pointer-events.mySwiper .swiper-slide.swiper-slide-active {
   opacity: 1;
+  transform: scale(1);
 }
 
 .swiper-wrapper {
@@ -113,6 +115,8 @@ body {
   align-items: center;
   justify-content: space-between;
 }
+
+
 
 .swiper-button-prev {
   background-image: url(.././../assets/image/arrow.svg) !important;

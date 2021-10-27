@@ -1,5 +1,5 @@
 import st from "./triller.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import TrailerItem from "../trillerItem/trillerItem";
 import SliderCounterBasic from "../../sliderCounter/sliderCounterBasic";
 import SearchNotFound from "../../notFound/SearchNotFound/notFound";
@@ -15,6 +15,8 @@ SwiperCore.use([Navigation]);
 export default function Trailer(props) {
   const [current, setCurrent] = useState(0);
   const [itemWidth, setItemWidth] = useState();
+  const navigationNextRef = useRef()
+  const navigationPrevRef = useRef()
   const carouselWayStyle = {
     transform: `translateX(-${current * itemWidth}px)`,
     transition: "transform 1s ease",
@@ -25,6 +27,10 @@ export default function Trailer(props) {
     var playerRefId = document.getElementById("playerRef");
     setItemWidth(playerRefId.clientWidth || playerRefId.offsetWidth);
   };
+
+  useEffect(() => {
+    console.log(current)
+  }, [current])
 
   useEffect(() => {
     settingSize();
@@ -44,12 +50,25 @@ export default function Trailer(props) {
   return (
     <div className={st.container}>
       <div id="playerRef" className={st.player}>
+        
         <Swiper
           slidesPerView={1} spaceBetween={0}
           modules={Pagination}
-          pagination={true}
-          navigation={true}
           className="mySwiper"
+          navigation={{
+            prevEl: navigationPrevRef.current,
+            nextEl: navigationNextRef.current,
+          }}
+          onInit={(swiper) => {
+            swiper.params.navigation.prevEl = navigationPrevRef.current;
+            swiper.params.navigation.nextEl = navigationNextRef.current;
+            swiper.navigation.init();
+            swiper.navigation.update();
+          }}
+          onSlideChange={(e) => {
+            setCurrent(e.activeIndex)
+          }}
+          
         >
 
           {props.data && props.data.length > 0 ? (
@@ -70,7 +89,13 @@ export default function Trailer(props) {
             </div>
           )}
         </Swiper>
-        
+        <div className={st.controls}>
+          <SliderCounterBasic
+            current={current}
+            max={props.data && props.data.length}
+            navigationPrevRef={navigationPrevRef} navigationNextRef={navigationNextRef}
+          />
+        </div>
       </div>
     </div>
   );

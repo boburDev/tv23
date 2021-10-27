@@ -1,7 +1,7 @@
 import st from './triller.module.css'
 import SliderCounterBasic from '../../sliderCounter/sliderCounterBasic'
 import TrailerPlayer from '../trillerPlayer/player'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import Language from '../../../languages'
 import { useLang } from '../../../context/lanuage'
@@ -18,7 +18,8 @@ export default function TrailerCarousel({ movies = [], api }) {
     const [itemWidth, setItemWidth] = useState()
     const [dark] = useTheme()
     const [ til ] = useLang()
-    
+    const navigationNextRef = useRef()
+    const navigationPrevRef = useRef()
     const carouselItemStyle = {
         minWidth: itemWidth + 'px', 
         transition:'transform 0.5s ease-in-out'
@@ -55,7 +56,6 @@ export default function TrailerCarousel({ movies = [], api }) {
                 slidesPerView={2} spaceBetween={10}
                 modules={Pagination}
                 centeredSlides={false}
-                pagination={true}
                 breakpoints={{
                     "300": {
                         "slidesPerView": 1,
@@ -74,7 +74,19 @@ export default function TrailerCarousel({ movies = [], api }) {
                         "spaceBetween": 10
                     }
                 }} className="mySwiper"
-                onSwiper={(e) => console.log(e)}
+                navigation={{
+                    prevEl: navigationPrevRef.current,
+                    nextEl: navigationNextRef.current,
+                }}
+                onInit={(swiper) => {
+                    swiper.params.navigation.prevEl = navigationPrevRef.current;
+                    swiper.params.navigation.nextEl = navigationNextRef.current;
+                    swiper.navigation.init();
+                    swiper.navigation.update();
+                }}
+                onSlideChange={(e) => {
+                    setCurrent(e.activeIndex)
+                }}
             >
                 {
                     movies.map((x, key) => (
@@ -103,7 +115,9 @@ export default function TrailerCarousel({ movies = [], api }) {
                         </div>
                     </div>
                 </div>
-                <div className={st.counter}> <SliderCounterBasic infinite={true} max={movies.length} current={current} setCurrent={setCurrent}/></div>
+                <div className={st.counter}> <SliderCounterBasic 
+                    navigationPrevRef={navigationPrevRef} navigationNextRef={navigationNextRef}
+                infinite={false} max={movies.length} current={current} setCurrent={setCurrent}/></div>
             </div>
         </div>
     )

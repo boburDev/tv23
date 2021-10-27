@@ -11,10 +11,8 @@
 
 .player {
   display: flex;
-  height: 645px;
   width: 100%;
   margin: auto;
-  position: relative;
 }
 .player .carouselItem {
   display: flex;
@@ -131,7 +129,7 @@
   display: flex;
   position: absolute;
   left: 50%;
-  bottom: -30px !important;
+  bottom: 30px !important;
   transform: translate(-50%);
   z-index: 99;
 }
@@ -155,6 +153,6 @@
   }
 
   .controls > div:nth-child(2) {
-    margin: 0 50px;
+    margin: auto 50px;
   }
 }
