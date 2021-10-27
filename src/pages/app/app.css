@@ -113,12 +113,12 @@ body::-webkit-scrollbar-thumb {
   margin-right: auto !important;
 }
 .triller_container__F7_m- .swiper-container.swiper-container.swiper-container-initialized.swiper-container-horizontal.swiper-container-pointer-events.mySwiper .swiper-slide {
-  opacity: 0.4;
-  transform: scale(0.9);
+  opacity: 0.4 !important;
+  transform: scale(0.9) !important;
 }
 .triller_container__F7_m- .swiper-container.swiper-container.swiper-container-initialized.swiper-container-horizontal.swiper-container-pointer-events.mySwiper .swiper-slide.swiper-slide-active {
-  opacity: 1;
-  transform: scale(1);
+  opacity: 1 !important;
+  transform: scale(1) !important;
 }
 
 .swiper-wrapper {
